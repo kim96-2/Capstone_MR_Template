@@ -1,3 +1,6 @@
+#빌드 파일은 깃에 넣지 않기 위해 따로 이그노어 적어줌
+Assets/00.Build/
+
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
