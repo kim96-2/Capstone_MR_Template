@@ -4,19 +4,22 @@ using UnityEngine.Networking;
 
 public class APIManager : MonoBehaviour
 {
-    public string url;
+    public string kakaoUrl;
     public string auth;
 
     private void Awake()
     {
-        StartCoroutine(WebRequestGet());
+        string headerName = "Authorization";
+        string headerValue = $"KakaoAK {auth}";
+        
+        StartCoroutine(WebRequestGet(headerName, headerValue, kakaoUrl));
     }
 
-    private IEnumerator WebRequestGet()
+    private IEnumerator WebRequestGet(string headerName, string headerValue, string url)
     {
         using (var req = UnityWebRequest.Get(url))
         {
-            req.SetRequestHeader("Authorization", $"KakaoAK {auth}");
+            req.SetRequestHeader( headerName, headerValue);
 
             yield return req.SendWebRequest();
 
