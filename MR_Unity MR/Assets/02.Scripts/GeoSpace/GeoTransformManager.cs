@@ -62,11 +62,15 @@ public class GeoTransformManager : MonoBehaviour
     void Awake()
     {
         //싱글톤 세팅
-        if ( _instance == null ) CreateSingleton();
-        else
+        if ( _instance != null )
         {
             Destroy(this.gameObject);
             return;
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(_instance.gameObject);
         }
     }
 
@@ -76,8 +80,7 @@ public class GeoTransformManager : MonoBehaviour
         GeoTransformManager instance = Instantiate(Resources.Load<GeoTransformManager>("GeoTransformManager"));
 
         _instance = instance;
-
-        DontDestroyOnLoad(_instance.gameObject);
+        Debug.Log("매니져 생성");
     }
 
     #endregion Singleton Setting
