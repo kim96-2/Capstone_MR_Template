@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.31281272, g: 0.5501512, b: 0.8217935, a: 1}
+  m_IndirectSpecularColor: {r: 0.3146913, g: 0.5520039, b: 0.82215047, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -254,8 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128c6630638dc9841a137b51d5f128c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: "https://dapi.kakao.com/v2/local/search/keyword.JSON?query=\uC138\uC885\uB300\uD559\uAD50"
-  auth: af5df20a8c68976c0cb4b23f38fe29b1
+  kakaoUrl: 
+  auth: 
 --- !u!4 &51711692
 Transform:
   m_ObjectHideFlags: 0
