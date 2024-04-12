@@ -2,6 +2,9 @@
 00.Build/
 Assets/00.Build/
 
+#vsconfig 파일 이그노어 시켜줌
+.vsconfig
+
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
