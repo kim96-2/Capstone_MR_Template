@@ -58,9 +58,16 @@ public class GeoTransformManager : MonoBehaviour
     [SerializeField] Double2Position pivotTMPosition;//기준점 TM 좌표
     [SerializeField] Double2Position pivotUnityPosition;//기준점 유니티 좌표
 
+    public Double2Position PivotGeoPosition {  get => pivotGeoPosition;}
+    public Double2Position PivotTMPosition { get => pivotTMPosition;}
+    public Double2Position PivotUnityPosition {get => pivotUnityPosition;}
+
     [Space(5f)]
     [SerializeField] double pivotGeoRotation;//기준 방위각
     [SerializeField] double pivotUnityRotation;//기준 유니티 회전각
+
+    public double PivotGeoRotation { get => pivotGeoRotation;}
+    public double PivotUnityRotation { get => pivotUnityRotation;}
 
     [Header("Transform Setting")]
     [SerializeField]
@@ -113,12 +120,15 @@ public class GeoTransformManager : MonoBehaviour
 
         this.pivotGeoRotation = pivotGeoRotation;
 
-        Vector2 rot = pivotTransform.right;
+        Vector3 rot = pivotTransform.right;
+        rot.y = 0f;
 
-        pivotUnityRotation =  Quaternion.FromToRotation(Vector2.right, rot).eulerAngles.z;
+        pivotUnityRotation =  Quaternion.FromToRotation(Vector3.right, rot).eulerAngles.y;
     }
     #endregion Initialize Setting
 
+
+    #region Transform Setting
     /// <summary>
     /// 경위도 좌표계에서 TM 좌표계로 변환해주는 함수
     /// </summary>
@@ -174,10 +184,11 @@ public class GeoTransformManager : MonoBehaviour
             tm.K0 * N *
             (A + Pow(A,3) / 6d * (1d - T + C)
             + Pow(A,5) / 120d * (5d - 18d * T + Pow(T,2) + 72d * C - 58d * ellipsoid.E2_2)
-            );
+        );
 
+        Debug.Log("X : " + finalX + "\nY : " + finalY);
 
-        return new Double2Position(finalY,finalX);
+        return new Double2Position(finalX,finalY);
     }
 
     /// <summary>
@@ -220,12 +231,19 @@ public class GeoTransformManager : MonoBehaviour
         }
 
         //TM 좌표계에서 기준점으로 부터 위치 변화량 계산
-        Vector2 dir = new Vector2((float)(x - pivotGeoPosition.x), (float)(y  - pivotGeoPosition.y));
+        Vector3 dir = new Vector3((float)(x - pivotTMPosition.x), 0 , (float)(y  - pivotTMPosition.y));
+
+        
 
         //위치 변화량을 TM 좌표계와 Unity 좌표계 회전각 변화량 만큼 회전(회전 시키는 방향 중요!!)
-        dir = Quaternion.Euler(0, 0, (90f - (float)pivotGeoRotation) - (float)pivotUnityRotation) * dir;
+        //dir = Quaternion.Euler(0, 0, (90f - (float)pivotGeoRotation) - (float)pivotUnityRotation) * dir;
+        dir = Quaternion.Euler(0, (float)pivotUnityRotation - (float)pivotGeoRotation, 0) * dir;
+
+        Debug.Log(dir);
 
         //마지막  Unity 좌표계 기준점에 최종 위치 변화량을 더해주어 위치 변환 마무리
-        return new Double2Position(pivotUnityPosition.x + dir.x, pivotUnityPosition.y + dir.y);
+        return new Double2Position(pivotUnityPosition.x + dir.x, pivotUnityPosition.y + dir.z);
     }
+
+    #endregion Transform Setting
 }

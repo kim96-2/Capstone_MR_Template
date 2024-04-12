@@ -46,9 +46,13 @@ public class GeoTransform : MonoBehaviour
     /// <param name="lat">위도</param>
     public void Init(double lon,double lat)
     {
-        position_Geo = new Double2Position();
+        position_Geo = new Double2Position(lon,lat);
 
-        position_Geo.x = lon;
-        position_Geo.y = lat;
+        position_TM = GeoTransformManager.Instance.TransformGeoToTM(lon, lat);
+
+        position_Unity = GeoTransformManager.Instance.TransformTMToUnitySpace(position_TM.x, position_TM.y);
+
+        //자동으로 계산된 위치로 Transform 포지션 변경
+        this.transform.position = new Vector3((float)position_Unity.x, this.transform.position.y, (float)position_Unity.y);
     }
 }

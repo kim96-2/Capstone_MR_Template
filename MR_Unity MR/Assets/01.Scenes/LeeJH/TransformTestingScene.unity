@@ -427,8 +427,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -487,7 +487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.4, y: 0}
+  m_AnchoredPosition: {x: -120, y: 369}
   m_SizeDelta: {x: 773.7, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &202342024 stripped
@@ -945,7 +945,7 @@ Transform:
   m_GameObject: {fileID: 367203489}
   m_LocalRotation: {x: 0.41193447, y: 0.19208822, z: 0.19208825, w: 0.8697782}
   m_LocalPosition: {x: 0.678, y: 1.308, z: 0.775}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -954,11 +954,6 @@ Transform:
 --- !u!4 &373050138 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7370869476678940946, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-  m_PrefabInstance: {fileID: 7492724527158809507}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &419301773 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 657184243640684908, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
   m_PrefabInstance: {fileID: 7492724527158809507}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &419301774 stripped
@@ -1460,11 +1455,6 @@ Transform:
 --- !u!4 &895769932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2275526217487247716, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
-  m_PrefabInstance: {fileID: 7492724527158809507}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &918485426 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 657184242222895507, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
   m_PrefabInstance: {fileID: 7492724527158809507}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &918485427 stripped
@@ -2986,12 +2976,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5b13f44f3f7f14db2203d5e9cbf557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerInputReference: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  leftController: {fileID: 419301773}
-  rightController: {fileID: 918485426}
+  triggerInputReference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   text: {fileID: 182939094}
-  testLon: 126.98204481968342
-  testLat: 37.477502990873354
+  tempObj: {fileID: 367203489}
+  testLon: 126.995602
+  testLat: 37.429574
+  testLon1: 126.995568
+  testLat1: 37.429518
 --- !u!4 &1912454740
 Transform:
   m_ObjectHideFlags: 0
@@ -3043,8 +3034,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12.8, y: -8.5}
-  m_SizeDelta: {x: 490.4, y: 117}
+  m_AnchoredPosition: {x: 11.4, y: 177.3}
+  m_SizeDelta: {x: 773.7, y: 488.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915462635
 MonoBehaviour:
