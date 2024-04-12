@@ -13,10 +13,16 @@ public class GeoTesting : MonoBehaviour
 
     [SerializeField] TMP_Text text;
 
+    [Space(10f)]
+    [SerializeField] double testLon;
+    [SerializeField] double testLat;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Double2Position tmPos = GeoTransformManager.Instance.TransformGeoToTM(testLon, testLat);
+
+        Debug.Log("X : " + tmPos.x + "\nY : "+ tmPos.y);
     }
 
     // Update is called once per frame
