@@ -6,36 +6,49 @@ using TMPro;
 
 public class GeoTesting : MonoBehaviour
 {
-    [SerializeField] InputActionReference triggerInputReference;
+    [SerializeField] InputActionReference initInputReference;
+    [SerializeField] InputActionReference createInputReference;
     [SerializeField] TMP_Text text;
-    float dTrigger = 0f;
+    //float dTrigger = 0f;
 
     [Space(10f)]
     [SerializeField] GameObject tempObj;
+    GameObject posCheckObj = null;
 
     [Space(10f)]
-    [SerializeField] double testLon;
-    [SerializeField] double testLat;
+    [SerializeField] double pivotLon;
+    [SerializeField] double pivotLat;
+    [SerializeField] double pivotGeoDir = 0d;
 
     [Space(10f)]
-    [SerializeField] double testLon1;
-    [SerializeField] double testLat1;
+    //[SerializeField] double testLon1;
+    //[SerializeField] double testLat1;
+    [SerializeField] List<Double2Position> testGeoPositions = new List<Double2Position>();
+
+    int index = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        index = 0;
         //Double2Position tmPos = GeoTransformManager.Instance.TransformGeoToTM(testLon, testLat);
 
         //Debug.Log("X : " + tmPos.x + "\nY : "+ tmPos.y);
+        posCheckObj = null;
+
+        initInputReference.action.started += InitPivot;
+
+        createInputReference.action.started += CreateObj;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if(triggerInputReference.action.ReadValue<float>() > 0 && dTrigger == 0)
         {
             //기준점 임시 세팅(바라보는 방향 북쪽으로 고정)
-            GeoTransformManager.Instance.InitPivot(testLon,testLat,0,Camera.main.transform);
+            GeoTransformManager.Instance.InitPivot(pivotLon,pivotLat,0,Camera.main.transform);
 
             GeoTransform obj = Instantiate(tempObj).AddComponent<GeoTransform>();
             obj.Init(testLon1, testLat1);
@@ -49,5 +62,50 @@ public class GeoTesting : MonoBehaviour
         }
 
         dTrigger = triggerInputReference.action.ReadValue<float>();
+        */
+    }
+
+    private void OnDisable()
+    {
+        initInputReference.action.started -= InitPivot;
+
+        createInputReference.action.started -= CreateObj;
+    }
+
+    public void InitPivot(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        GeoTransformManager.Instance.InitPivot(pivotLon, pivotLat, pivotGeoDir, Camera.main.transform);
+
+        string debug = "";
+        debug += "Geo Rot : " + GeoTransformManager.Instance.PivotGeoRotation.ToString("F2") + "\n";
+        debug += "Unity Rot : " + GeoTransformManager.Instance.PivotUnityRotation.ToString("F2") + "\n";
+        debug += "Geo Piv : " + GeoTransformManager.Instance.PivotGeoPosition.x.ToString("F4") + " " + GeoTransformManager.Instance.PivotGeoPosition.y.ToString("F4") + "\n";
+        debug += "Unity Piv : " + GeoTransformManager.Instance.PivotUnityPosition.x.ToString("F4") + " " + GeoTransformManager.Instance.PivotUnityPosition.y.ToString("F4") + "\n";
+
+        text.text = debug;
+    }
+
+    public void CreateObj(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+
+        if (posCheckObj == null)
+        {
+            posCheckObj = Instantiate(tempObj);
+            posCheckObj.AddComponent<GeoTransform>();
+        }
+        GeoTransform geoTransform = posCheckObj.GetComponent<GeoTransform>();
+
+        geoTransform.Init(testGeoPositions[index].x, testGeoPositions[index].y);
+
+        index = (index + 1) % testGeoPositions.Count;
+
+        string debug = "";
+        //debug += "Unity Pos : " + geoTransform.Position_TM.x.ToString("F4") + " " + geoTransform.Position_TM.y.ToString("F4") + "\n";
+        debug += "Unity Dir : " + (geoTransform.Position_Unity.x - GeoTransformManager.Instance.PivotUnityPosition.x).ToString("F2") + " " + (geoTransform.Position_Unity.y - GeoTransformManager.Instance.PivotUnityPosition.y).ToString("F2") + "\n";
+        debug += "TM Dir : " + (geoTransform.Position_TM.x - GeoTransformManager.Instance.PivotTMPosition.x).ToString("F2") + " " + (geoTransform.Position_TM.y - GeoTransformManager.Instance.PivotTMPosition.y).ToString("F2") + "\n";
+
+        text.text = debug;
     }
 }

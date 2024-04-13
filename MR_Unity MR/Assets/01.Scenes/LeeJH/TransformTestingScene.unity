@@ -487,8 +487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: 369}
-  m_SizeDelta: {x: 773.7, y: 50}
+  m_AnchoredPosition: {x: 276.2, y: 369}
+  m_SizeDelta: {x: 1216.1, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &202342024 stripped
 GameObject:
@@ -2957,6 +2957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912454740}
   - component: {fileID: 1912454739}
+  - component: {fileID: 1912454741}
   m_Layer: 0
   m_Name: TestingUI
   m_TagString: Untagged
@@ -2976,13 +2977,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5b13f44f3f7f14db2203d5e9cbf557, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerInputReference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  initInputReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  createInputReference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   text: {fileID: 182939094}
   tempObj: {fileID: 367203489}
-  testLon: 126.995602
-  testLat: 37.429574
-  testLon1: 126.995568
-  testLat1: 37.429518
+  pivotLon: 126.996119
+  pivotLat: 37.430334
+  pivotGeoDir: 0
+  testGeoPositions:
+  - x: 126.996053
+    y: 37.430251
+  - x: 126.995996
+    y: 37.430474
+  - x: 126.996363
+    y: 37.430258
+  - x: 126.996571
+    y: 37.43014
 --- !u!4 &1912454740
 Transform:
   m_ObjectHideFlags: 0
@@ -2999,6 +3009,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1912454741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912454738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_TargetOffset: {x: 0, y: -0.0375, z: 0.6}
+  m_FollowInLocalSpace: 0
+  m_ApplyTargetInLocalSpace: 0
+  m_MovementSpeed: 3
+  m_MovementSpeedVariancePercentage: 0.25
+  m_SnapOnEnable: 1
+  m_PositionFollowMode: 1
+  m_MinDistanceAllowed: 0.01
+  m_MaxDistanceAllowed: 0.5
+  m_TimeUntilThresholdReachesMaxDistance: 3
+  m_RotationFollowMode: 2
+  m_MinAngleAllowed: 0.1
+  m_MaxAngleAllowed: 2
+  m_TimeUntilThresholdReachesMaxAngle: 3
 --- !u!1 &1915462633
 GameObject:
   m_ObjectHideFlags: 0
@@ -3034,8 +3071,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11.4, y: 177.3}
-  m_SizeDelta: {x: 773.7, y: 488.5}
+  m_AnchoredPosition: {x: 99.4, y: 177.3}
+  m_SizeDelta: {x: 949.7, y: 488.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1915462635
 MonoBehaviour:
@@ -6384,6 +6421,10 @@ PrefabInstance:
     - target: {fileID: 1691571359758317101, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1820897918385990095, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
+      propertyPath: m_CameraYOffset
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2123925076275643907, guid: d6878e1999eb4b44a9f5a263af86c185, type: 3}
       propertyPath: m_IsActive

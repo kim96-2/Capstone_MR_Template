@@ -169,7 +169,8 @@ public class GeoTransformManager : MonoBehaviour
         double M0 = CalculateM(ellipsoid.E2_1, tm.Lat0, ellipsoid.longRadius);
         //Debug.Log("M0 : " + M0);
 
-        double finalX =
+        //N 방향
+        double finalY =
             tm.X0 +
             tm.K0 *
             (M - M0
@@ -179,14 +180,15 @@ public class GeoTransformManager : MonoBehaviour
             + Pow(A,6) / 720d * (61d - 58d * T + Pow(T,2) + 600d * C - 330d * ellipsoid.E2_2)
             ));
 
-        double finalY =
+        //E 방향
+        double finalX =
             tm.Y0 +
             tm.K0 * N *
             (A + Pow(A,3) / 6d * (1d - T + C)
             + Pow(A,5) / 120d * (5d - 18d * T + Pow(T,2) + 72d * C - 58d * ellipsoid.E2_2)
         );
 
-        Debug.Log("X : " + finalX + "\nY : " + finalY);
+        Debug.Log("Y : " + finalY + "\nX : " + finalX);
 
         return new Double2Position(finalX,finalY);
     }

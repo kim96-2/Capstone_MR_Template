@@ -1604,6 +1604,17 @@
                 },
                 {
                     "name": "",
+                    "id": "bf8b8fe8-c692-40c6-a5a4-86d46b68ffef",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "dd433817-216c-46b9-8dd3-f3a4ea1767b9",
                     "path": "<XRController>{RightHand}/{Grip}",
                     "interactions": "",
@@ -1617,6 +1628,17 @@
                     "name": "",
                     "id": "770a07b5-a199-4342-b4a5-b3baafbe2bcb",
                     "path": "<MetaAimHand>{RightHand}/pinchStrengthIndex",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Select Value",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "18ebbafe-424a-4bde-8b00-e46c2556d45e",
+                    "path": "<XRController>{RightHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",

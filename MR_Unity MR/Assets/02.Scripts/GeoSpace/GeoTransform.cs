@@ -38,6 +38,7 @@ public class GeoTransform : MonoBehaviour
     public Double2Position Position_TM { get => position_TM;}
 
     Double2Position position_Unity;//유니티 좌표계
+    public Double2Position Position_Unity { get => position_Unity;}
 
     /// <summary>
     /// 지리 Trasform 초기화 함수 (Transform의 경도 위도 입력)
