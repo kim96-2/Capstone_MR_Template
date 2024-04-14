@@ -122,6 +122,8 @@ public class GeoTransformManager : MonoBehaviour
 
         Vector3 rot = pivotTransform.right;
         rot.y = 0f;
+        rot.Normalize();
+        Debug.Log(rot);
 
         pivotUnityRotation =  Quaternion.FromToRotation(Vector3.right, rot).eulerAngles.y;
     }
