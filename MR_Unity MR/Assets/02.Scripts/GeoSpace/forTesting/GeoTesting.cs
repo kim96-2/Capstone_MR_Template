@@ -6,6 +6,8 @@ using TMPro;
 
 public class GeoTesting : MonoBehaviour
 {
+    [SerializeField] GameObject InitPivotObj;
+
     [SerializeField] InputActionReference initInputReference;
     [SerializeField] InputActionReference createInputReference;
     [SerializeField] TMP_Text text;
@@ -75,7 +77,7 @@ public class GeoTesting : MonoBehaviour
     public void InitPivot(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        GeoTransformManager.Instance.InitPivot(pivotLon, pivotLat, pivotGeoDir, Camera.main.transform);
+        GeoTransformManager.Instance.InitPivot(pivotLon, pivotLat, pivotGeoDir, InitPivotObj.transform);
 
         string debug = "";
         debug += "Geo Rot : " + GeoTransformManager.Instance.PivotGeoRotation.ToString("F2") + "\n";
