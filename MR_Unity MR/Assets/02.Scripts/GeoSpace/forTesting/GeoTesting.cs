@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+using UnityEngine.XR;
+
 public class GeoTesting : MonoBehaviour
 {
     [SerializeField] GameObject InitPivotObj;
@@ -32,11 +34,14 @@ public class GeoTesting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         index = 0;
         //Double2Position tmPos = GeoTransformManager.Instance.TransformGeoToTM(testLon, testLat);
 
         //Debug.Log("X : " + tmPos.x + "\nY : "+ tmPos.y);
         posCheckObj = null;
+
+        //Input.gyro.enabled = true;
 
         initInputReference.action.started += InitPivot;
 
@@ -65,6 +70,12 @@ public class GeoTesting : MonoBehaviour
 
         dTrigger = triggerInputReference.action.ReadValue<float>();
         */
+
+        Quaternion rot;
+        
+
+        if(TryGetCenterEyeFeature(out rot))
+            text.text = rot.eulerAngles.ToString();
     }
 
     private void OnDisable()
@@ -72,6 +83,19 @@ public class GeoTesting : MonoBehaviour
         initInputReference.action.started -= InitPivot;
 
         createInputReference.action.started -= CreateObj;
+    }
+
+    bool TryGetCenterEyeFeature(out Quaternion rotation)
+    {
+        UnityEngine.XR.InputDevice device = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
+        if (device.isValid)
+        {
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.centerEyeRotation, out rotation))
+                return true;
+        }
+        // This is the fail case, where there was no center eye was available.
+        rotation = Quaternion.identity;
+        return false;
     }
 
     public void InitPivot(InputAction.CallbackContext context)
