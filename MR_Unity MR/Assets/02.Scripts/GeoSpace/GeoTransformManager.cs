@@ -249,5 +249,84 @@ public class GeoTransformManager : MonoBehaviour
         return new Double2Position(pivotUnityPosition.x + dir.x, pivotUnityPosition.y + dir.z);
     }
 
+    /// <summary>
+    /// 유니티 좌표를 위경도 좌표로 변환해주는 함수
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    /// <returns></returns>
+    public Double2Position TransformUnitySpaceToGeo(float x, float z)
+    {
+        //유니티 좌표계에서 기준점으로 부터 위치 변화량 계산
+        Vector3 dir = new Vector3((float)(x - pivotUnityPosition.x), 0, (float)(z - pivotUnityPosition.y));
+
+        //위치 변화량을 회전각 변화량 만큼 회전(위 TMToUnitySpace 변환 때 사용한 회전간 변환을 역으로 사용)
+        dir = Quaternion.Euler(0, - (float)pivotUnityRotation + (float)pivotGeoRotation, 0) * dir;
+
+        //TM 좌표 계산(아직 정확하지 않아서 정확한지 확인 필요)
+        double x_TM = pivotTMPosition.x + dir.x;
+        double y_TM = pivotTMPosition.y + dir.y;
+
+        return TransformGeoToTM(x_TM, y_TM);
+    }
+
+    /// <summary>
+    /// 유니티 좌표를 위경도 좌표로 변환해주는 함수
+    /// </summary>
+    /// <param name="target">변환을 원하는 오브젝트 위치(Transform)</param>
+    /// <returns></returns>
+    public Double2Position TransformUnitySpaceToGeo(Transform target)
+    {
+        return TransformUnitySpaceToGeo(target.position.x, target.position.z);
+    }
+
+    /// <summary>
+    /// TM 좌표계를 위경도 좌표계로 변환하는 함수
+    /// </summary>
+    /// <param name="x">TM 좌표계에서 동쪽 변화량</param>
+    /// <param name="y">TM 좌표계에서 북쪽 변화량</param>
+    /// <returns></returns>
+    public Double2Position TransformTMToGeo(double x,double y)
+    {
+        //사용하는 좌표계 세팅
+        EllipsoidSetting ellipsoid = WGS84_Setting;
+        TMSpaceSetting tm = EPSG5186_Setting;
+
+        //기준 지오선장 계산
+        double M0 = CalculateM(ellipsoid.E2_1, tm.Lat0, ellipsoid.longRadius);
+
+        //지오선장 계산
+        double M = M0 + (x - tm.X0) / tm.K0;
+
+        double u1 = M / (ellipsoid.longRadius * (1 - ellipsoid.E2_1 / 4 - Pow(ellipsoid.E2_1, 2) * 3d / 64d - Pow(ellipsoid.E2_1, 3) * 5d / 256d));
+
+        double e1 = (1d - Math.Sqrt(1 - ellipsoid.E2_1)) / (1d + Math.Sqrt(1 - ellipsoid.E2_1));
+
+        double lat1 = u1 + (e1 * 3d / 2d - Pow(e1, 3) * 27d / 32d) * Math.Sin(2d * u1) +
+            (Pow(e1, 2) * 21d / 16d - Pow(e1, 4) * 55d / 32d) * Math.Sin(4d * u1) +
+            Pow(e1, 3) * 151d / 96d * Math.Sin(6d * u1) + Pow(e1, 4) * 1097d / 512d * Math.Sin(8d * u1);
+
+        double R1 = ellipsoid.longRadius * (1d - ellipsoid.E2_1) / Math.Pow(1d - ellipsoid.E2_1 * Pow(Math.Sin(lat1), 2), 1.5d);
+
+        double C1 = ellipsoid.E2_2 * Pow(Math.Cos(lat1), 2);
+
+        double T1 = Pow(Math.Tan(lat1),2);
+
+        double N1 = ellipsoid.longRadius / Math.Sqrt(1d - ellipsoid.E2_1 * Pow(Math.Sin(lat1), 2));
+
+        double D = (y - tm.Y0) / (N1 * tm.K0);
+
+        double lat_Final = lat1 - N1 * Math.Tan(lat1) / R1 * 
+            (D * D / 2d
+            - Pow(D, 4) / 24d * (5d + 3 * T1 + 10d * C1 - 4d * Pow(C1, 2) - 9d * ellipsoid.E2_2)
+            + Pow(D, 6) / 720d * (61d + 90d * T1 + 298 * C1 + 45d * Pow(T1, 2) - 252d * ellipsoid.E2_2 - 3d * Pow(C1, 2)));
+
+        double lon_Final = tm.Lon0 + 1d / Math.Cos(lat1) *
+            (D - Pow(D, 3) / 6d * (1d + 2d * T1 + C1)
+            + Pow(D, 5) / 120d * (5d - 2d * C1 + 28 * T1 - 3d * Pow(C1, 2) + 8d * ellipsoid.E2_2 + 24d * Pow(T1, 2)));
+
+        return new Double2Position(lat_Final, lon_Final);
+    }
+
     #endregion Transform Setting
 }
