@@ -106,15 +106,15 @@ public class GeoTransformManager : MonoBehaviour
     /// <summary>
     /// 기준점 초기화를 위한 함수
     /// </summary>
-    /// <param name="pivot_lon">기준 경도</param>
     /// <param name="pivot_lat">기준 위도</param>
+    /// <param name="pivot_lon">기준 경도</param>
     /// <param name="pivotGeoRotation">기준 방위각</param>
     /// <param name="pivotTransform">기준 오브젝트 Transform(카메라 Transform 넣어주면 될 거임)</param>
-    public void InitPivot(double pivot_lon,double pivot_lat,double pivotGeoRotation, Transform pivotTransform)
+    public void InitPivot(double pivot_lat,double pivot_lon,double pivotGeoRotation, Transform pivotTransform)
     {
-        pivotGeoPosition.SetPosition(pivot_lon, pivot_lat);
+        pivotGeoPosition.SetPosition(pivot_lat, pivot_lon);
 
-        pivotTMPosition = TransformGeoToTM(pivot_lon, pivot_lat);
+        pivotTMPosition = TransformGeoToTM(pivot_lat, pivot_lon);
 
         pivotUnityPosition.SetPosition(pivotTransform.position.x, pivotTransform.position.y);
 
@@ -136,7 +136,7 @@ public class GeoTransformManager : MonoBehaviour
     /// </summary>
     /// <param name="lon">경도</param>
     /// <param name="lat">위도</param>
-    public Double2Position TransformGeoToTM(double lon, double lat)
+    public Double2Position TransformGeoToTM(double lat, double lon)
     {
         //경위도 라이안 값으로 변경
         lon = lon * Mathf.Deg2Rad;

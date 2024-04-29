@@ -101,7 +101,7 @@ public class GeoTesting : MonoBehaviour
     public void InitPivot(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        GeoTransformManager.Instance.InitPivot(pivotLon, pivotLat, pivotGeoDir, InitPivotObj.transform);
+        GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, InitPivotObj.transform);
 
         string debug = "";
         debug += "Geo Rot : " + GeoTransformManager.Instance.PivotGeoRotation.ToString("F2") + "\n";
@@ -123,7 +123,7 @@ public class GeoTesting : MonoBehaviour
         }
         GeoTransform geoTransform = posCheckObj.GetComponent<GeoTransform>();
 
-        geoTransform.Init(testGeoPositions[index].x, testGeoPositions[index].y);
+        geoTransform.Init(testGeoPositions[index].y, testGeoPositions[index].x);
 
         index = (index + 1) % testGeoPositions.Count;
 
