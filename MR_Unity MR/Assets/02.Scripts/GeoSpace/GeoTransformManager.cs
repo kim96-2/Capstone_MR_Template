@@ -123,7 +123,7 @@ public class GeoTransformManager : MonoBehaviour
         Vector3 rot = pivotTransform.right;
         rot.y = 0f;
         rot.Normalize();
-        Debug.Log(rot);
+        //Debug.Log(rot);
 
         pivotUnityRotation =  Quaternion.FromToRotation(Vector3.right, rot).eulerAngles.y;
     }
@@ -173,7 +173,7 @@ public class GeoTransformManager : MonoBehaviour
 
         //N 방향
         double finalY =
-            tm.X0 +
+            tm.Y0 +
             tm.K0 *
             (M - M0
             + N * Math.Tan(lat) *
@@ -184,13 +184,13 @@ public class GeoTransformManager : MonoBehaviour
 
         //E 방향
         double finalX =
-            tm.Y0 +
+            tm.X0 +
             tm.K0 * N *
             (A + Pow(A,3) / 6d * (1d - T + C)
             + Pow(A,5) / 120d * (5d - 18d * T + Pow(T,2) + 72d * C - 58d * ellipsoid.E2_2)
         );
 
-        Debug.Log("Y : " + finalY + "\nX : " + finalX);
+        //Debug.Log("Y : " + finalY + "\nX : " + finalX);
 
         return new Double2Position(finalX,finalY);
     }
@@ -288,6 +288,7 @@ public class GeoTransformManager : MonoBehaviour
     /// <returns></returns>
     public Double2Position TransformTMToGeo(double x,double y)
     {
+
         //사용하는 좌표계 세팅
         EllipsoidSetting ellipsoid = WGS84_Setting;
         TMSpaceSetting tm = EPSG5186_Setting;
@@ -295,8 +296,10 @@ public class GeoTransformManager : MonoBehaviour
         //기준 지오선장 계산
         double M0 = CalculateM(ellipsoid.E2_1, tm.Lat0, ellipsoid.longRadius);
 
-        //지오선장 계산
-        double M = M0 + (x - tm.X0) / tm.K0;
+        //지오선장 계산 (x - tm.X0) (y - tm.Y0)
+        double M = M0 + (y - tm.Y0) / tm.K0;
+
+        //Debug.Log(y - tm.Y0);
 
         double u1 = M / (ellipsoid.longRadius * (1 - ellipsoid.E2_1 / 4 - Pow(ellipsoid.E2_1, 2) * 3d / 64d - Pow(ellipsoid.E2_1, 3) * 5d / 256d));
 
@@ -306,6 +309,8 @@ public class GeoTransformManager : MonoBehaviour
             (Pow(e1, 2) * 21d / 16d - Pow(e1, 4) * 55d / 32d) * Math.Sin(4d * u1) +
             Pow(e1, 3) * 151d / 96d * Math.Sin(6d * u1) + Pow(e1, 4) * 1097d / 512d * Math.Sin(8d * u1);
 
+        //Debug.Log(lat1);
+
         double R1 = ellipsoid.longRadius * (1d - ellipsoid.E2_1) / Math.Pow(1d - ellipsoid.E2_1 * Pow(Math.Sin(lat1), 2), 1.5d);
 
         double C1 = ellipsoid.E2_2 * Pow(Math.Cos(lat1), 2);
@@ -314,7 +319,7 @@ public class GeoTransformManager : MonoBehaviour
 
         double N1 = ellipsoid.longRadius / Math.Sqrt(1d - ellipsoid.E2_1 * Pow(Math.Sin(lat1), 2));
 
-        double D = (y - tm.Y0) / (N1 * tm.K0);
+        double D = (x - tm.X0) / (N1 * tm.K0);
 
         double lat_Final = lat1 - N1 * Math.Tan(lat1) / R1 * 
             (D * D / 2d
@@ -325,7 +330,7 @@ public class GeoTransformManager : MonoBehaviour
             (D - Pow(D, 3) / 6d * (1d + 2d * T1 + C1)
             + Pow(D, 5) / 120d * (5d - 2d * C1 + 28 * T1 - 3d * Pow(C1, 2) + 8d * ellipsoid.E2_2 + 24d * Pow(T1, 2)));
 
-        return new Double2Position(lat_Final, lon_Final);
+        return new Double2Position(lat_Final * 180d / Math.PI, lon_Final * 180d / Math.PI);
     }
 
     #endregion Transform Setting

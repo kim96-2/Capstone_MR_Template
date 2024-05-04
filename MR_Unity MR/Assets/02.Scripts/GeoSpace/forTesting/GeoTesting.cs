@@ -46,6 +46,22 @@ public class GeoTesting : MonoBehaviour
         initInputReference.action.started += InitPivot;
 
         createInputReference.action.started += CreateObj;
+
+        GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, InitPivotObj.transform);
+
+        Debug.Log(testGeoPositions[0].y + "\n" + testGeoPositions[0].x);
+
+        Double2Position pos = GeoTransformManager.Instance.TransformGeoToTM(testGeoPositions[0].y, testGeoPositions[0].x);
+
+        Debug.Log(pos.x + "\n" + pos.y);
+
+        pos = GeoTransformManager.Instance.TransformTMToGeo(pos.x, pos.y);
+
+        Debug.Log(pos.x + "\n" + pos.y);
+
+        pos = GeoTransformManager.Instance.TransformGeoToTM(pos.x, pos.y);
+
+        Debug.Log(pos.x + "\n" + pos.y);
     }
 
     // Update is called once per frame
