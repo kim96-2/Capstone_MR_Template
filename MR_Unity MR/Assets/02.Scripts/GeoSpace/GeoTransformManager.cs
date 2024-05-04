@@ -116,7 +116,7 @@ public class GeoTransformManager : MonoBehaviour
 
         pivotTMPosition = TransformGeoToTM(pivot_lat, pivot_lon);
 
-        pivotUnityPosition.SetPosition(pivotTransform.position.x, pivotTransform.position.y);
+        pivotUnityPosition.SetPosition(pivotTransform.position.x, pivotTransform.position.z);
 
         this.pivotGeoRotation = pivotGeoRotation;
 
@@ -237,16 +237,14 @@ public class GeoTransformManager : MonoBehaviour
         //TM 좌표계에서 기준점으로 부터 위치 변화량 계산
         Vector3 dir = new Vector3((float)(x - pivotTMPosition.x), 0 , (float)(y  - pivotTMPosition.y));
 
-        
-
         //위치 변화량을 TM 좌표계와 Unity 좌표계 회전각 변화량 만큼 회전(회전 시키는 방향 중요!!)
         //dir = Quaternion.Euler(0, 0, (90f - (float)pivotGeoRotation) - (float)pivotUnityRotation) * dir;
         dir = Quaternion.Euler(0, (float)pivotUnityRotation - (float)pivotGeoRotation, 0) * dir;
 
-        Debug.Log(dir);
+        Double2Position final = new Double2Position(pivotUnityPosition.x + dir.x, pivotUnityPosition.y + dir.z);
 
         //마지막  Unity 좌표계 기준점에 최종 위치 변화량을 더해주어 위치 변환 마무리
-        return new Double2Position(pivotUnityPosition.x + dir.x, pivotUnityPosition.y + dir.z);
+        return final;
     }
 
     /// <summary>
@@ -265,9 +263,12 @@ public class GeoTransformManager : MonoBehaviour
 
         //TM 좌표 계산(아직 정확하지 않아서 정확한지 확인 필요)
         double x_TM = pivotTMPosition.x + dir.x;
-        double y_TM = pivotTMPosition.y + dir.y;
+        double y_TM = pivotTMPosition.y + dir.z;
 
-        return TransformGeoToTM(x_TM, y_TM);
+        //Debug.Log(x + "\n" + z);
+        //Debug.Log(x_TM + "\n" + y_TM);
+
+        return TransformTMToGeo(x_TM, y_TM);
     }
 
     /// <summary>

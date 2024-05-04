@@ -632,7 +632,7 @@ MonoBehaviour:
   m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 0
 --- !u!1001 &357356506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1344,6 +1344,10 @@ PrefabInstance:
     - target: {fileID: 3094233994200401614, guid: cc1eefebc6800544da621a6024561279, type: 3}
       propertyPath: m_Name
       value: GeoTransformManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3094233994200401614, guid: cc1eefebc6800544da621a6024561279, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6011142752814313005, guid: cc1eefebc6800544da621a6024561279, type: 3}
       propertyPath: m_RootOrder

@@ -46,7 +46,7 @@ public class GeoTesting : MonoBehaviour
         initInputReference.action.started += InitPivot;
 
         createInputReference.action.started += CreateObj;
-
+        /*
         GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, InitPivotObj.transform);
 
         Debug.Log(testGeoPositions[0].y + "\n" + testGeoPositions[0].x);
@@ -62,6 +62,7 @@ public class GeoTesting : MonoBehaviour
         pos = GeoTransformManager.Instance.TransformGeoToTM(pos.x, pos.y);
 
         Debug.Log(pos.x + "\n" + pos.y);
+        */
     }
 
     // Update is called once per frame
@@ -141,13 +142,23 @@ public class GeoTesting : MonoBehaviour
 
         geoTransform.Init(testGeoPositions[index].y, testGeoPositions[index].x);
 
+        /*
+        Debug.Log(geoTransform.Position_Geo.x + "\n" + geoTransform.Position_Geo.y);
+
+        Double2Position pos = GeoTransformManager.Instance.TransformGeoToTM(testGeoPositions[index].y, testGeoPositions[index].x);
+        Debug.Log(pos.x + "\n" + pos.y);
+
+        pos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(posCheckObj.transform);
+        Debug.Log(pos.y + "\n" + pos.x);
+        */
+
         index = (index + 1) % testGeoPositions.Count;
 
         string debug = "";
         //debug += "Unity Pos : " + geoTransform.Position_TM.x.ToString("F4") + " " + geoTransform.Position_TM.y.ToString("F4") + "\n";
         debug += "Unity Dir : " + (geoTransform.Position_Unity.x - GeoTransformManager.Instance.PivotUnityPosition.x).ToString("F2") + " " + (geoTransform.Position_Unity.y - GeoTransformManager.Instance.PivotUnityPosition.y).ToString("F2") + "\n";
         debug += "TM Dir : " + (geoTransform.Position_TM.x - GeoTransformManager.Instance.PivotTMPosition.x).ToString("F2") + " " + (geoTransform.Position_TM.y - GeoTransformManager.Instance.PivotTMPosition.y).ToString("F2") + "\n";
-
+        
         text.text = debug;
     }
 }
