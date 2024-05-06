@@ -4,8 +4,8 @@ using UnityEngine.Networking;
 
 public class APIManager : MonoBehaviour
 {
-    public string kakaoUrl;
     public string auth;
+    public string kakaoUrl;
 
     private void Awake()
     {

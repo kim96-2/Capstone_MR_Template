@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using TMPro;
 
 public class WifiScanData
 {
@@ -28,14 +29,16 @@ public class WifiScanner : MonoBehaviour
         _wifiManager = context.Call<AndroidJavaObject>("getSystemService", "wifi");
 
         // Wi-Fi 스캔 시작
-        StartWifiScan();
+        Debug.Log("PRV : Start Scanning");
+        GetComponent<TMP_Text>().text = StartWifiScan();
     }
 
-    void StartWifiScan()
+    string StartWifiScan()
     {
+        Debug.Log("PRV : Get into Scanner");
         // Wi-Fi 스캔 시작
-        _wifiManager.Call<bool>("startScan");
-        
+        bool scanTry = _wifiManager.Call<bool>("startScan");
+        Debug.Log($"PRV : After Scanning, Result = {scanTry}");        
         // 스캔 결과 가져오기
         AndroidJavaObject scanResults = _wifiManager.Call<AndroidJavaObject>("getScanResults");
 
@@ -58,8 +61,10 @@ public class WifiScanner : MonoBehaviour
         }
 
         // 결과를 JSON 형식으로 변환
-        string jsonData = CreateJsonData();
-        Debug.Log(jsonData);
+        string jsonData = CreateJsonData(); 
+        Debug.Log($"PRV : {jsonData}");
+
+        return jsonData;
     }
     
     
