@@ -43,15 +43,17 @@ public class GeoTransform : MonoBehaviour
     /// <summary>
     /// 지리 Trasform 초기화 함수 (Transform의 경도 위도 입력)
     /// </summary>
-    /// <param name="lon">경도</param>
     /// <param name="lat">위도</param>
-    public void Init(double lon,double lat)
+    /// <param name="lon">경도</param>
+    public void Init(double lat,double lon)
     {
-        position_Geo = new Double2Position(lon,lat);
+        position_Geo = new Double2Position(lat,lon);
 
-        position_TM = GeoTransformManager.Instance.TransformGeoToTM(lon, lat);
+        position_TM = GeoTransformManager.Instance.TransformGeoToTM(lat, lon);
 
         position_Unity = GeoTransformManager.Instance.TransformTMToUnitySpace(position_TM.x, position_TM.y);
+
+       // Debug.Log(position_Unity.x + "\n" + position_Unity.y);
 
         //자동으로 계산된 위치로 Transform 포지션 변경
         this.transform.position = new Vector3((float)position_Unity.x, this.transform.position.y, (float)position_Unity.y);

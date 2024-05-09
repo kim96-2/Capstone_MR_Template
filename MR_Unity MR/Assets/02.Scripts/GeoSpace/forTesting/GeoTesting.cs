@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
+using UnityEngine.XR;
+
 public class GeoTesting : MonoBehaviour
 {
+    [SerializeField] GameObject InitPivotObj;
+
     [SerializeField] InputActionReference initInputReference;
     [SerializeField] InputActionReference createInputReference;
     [SerializeField] TMP_Text text;
@@ -30,15 +34,35 @@ public class GeoTesting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         index = 0;
         //Double2Position tmPos = GeoTransformManager.Instance.TransformGeoToTM(testLon, testLat);
 
         //Debug.Log("X : " + tmPos.x + "\nY : "+ tmPos.y);
         posCheckObj = null;
 
+        //Input.gyro.enabled = true;
+
         initInputReference.action.started += InitPivot;
 
         createInputReference.action.started += CreateObj;
+        /*
+        GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, InitPivotObj.transform);
+
+        Debug.Log(testGeoPositions[0].y + "\n" + testGeoPositions[0].x);
+
+        Double2Position pos = GeoTransformManager.Instance.TransformGeoToTM(testGeoPositions[0].y, testGeoPositions[0].x);
+
+        Debug.Log(pos.x + "\n" + pos.y);
+
+        pos = GeoTransformManager.Instance.TransformTMToGeo(pos.x, pos.y);
+
+        Debug.Log(pos.x + "\n" + pos.y);
+
+        pos = GeoTransformManager.Instance.TransformGeoToTM(pos.x, pos.y);
+
+        Debug.Log(pos.x + "\n" + pos.y);
+        */
     }
 
     // Update is called once per frame
@@ -63,6 +87,12 @@ public class GeoTesting : MonoBehaviour
 
         dTrigger = triggerInputReference.action.ReadValue<float>();
         */
+
+        Quaternion rot;
+        
+
+        if(TryGetCenterEyeFeature(out rot))
+            text.text = rot.eulerAngles.ToString();
     }
 
     private void OnDisable()
@@ -72,10 +102,23 @@ public class GeoTesting : MonoBehaviour
         createInputReference.action.started -= CreateObj;
     }
 
+    bool TryGetCenterEyeFeature(out Quaternion rotation)
+    {
+        UnityEngine.XR.InputDevice device = InputDevices.GetDeviceAtXRNode(XRNode.CenterEye);
+        if (device.isValid)
+        {
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.centerEyeRotation, out rotation))
+                return true;
+        }
+        // This is the fail case, where there was no center eye was available.
+        rotation = Quaternion.identity;
+        return false;
+    }
+
     public void InitPivot(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        GeoTransformManager.Instance.InitPivot(pivotLon, pivotLat, pivotGeoDir, Camera.main.transform);
+        GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, InitPivotObj.transform);
 
         string debug = "";
         debug += "Geo Rot : " + GeoTransformManager.Instance.PivotGeoRotation.ToString("F2") + "\n";
@@ -97,7 +140,17 @@ public class GeoTesting : MonoBehaviour
         }
         GeoTransform geoTransform = posCheckObj.GetComponent<GeoTransform>();
 
-        geoTransform.Init(testGeoPositions[index].x, testGeoPositions[index].y);
+        geoTransform.Init(testGeoPositions[index].y, testGeoPositions[index].x);
+
+        /*
+        Debug.Log(geoTransform.Position_Geo.x + "\n" + geoTransform.Position_Geo.y);
+
+        Double2Position pos = GeoTransformManager.Instance.TransformGeoToTM(testGeoPositions[index].y, testGeoPositions[index].x);
+        Debug.Log(pos.x + "\n" + pos.y);
+
+        pos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(posCheckObj.transform);
+        Debug.Log(pos.y + "\n" + pos.x);
+        */
 
         index = (index + 1) % testGeoPositions.Count;
 
@@ -105,7 +158,7 @@ public class GeoTesting : MonoBehaviour
         //debug += "Unity Pos : " + geoTransform.Position_TM.x.ToString("F4") + " " + geoTransform.Position_TM.y.ToString("F4") + "\n";
         debug += "Unity Dir : " + (geoTransform.Position_Unity.x - GeoTransformManager.Instance.PivotUnityPosition.x).ToString("F2") + " " + (geoTransform.Position_Unity.y - GeoTransformManager.Instance.PivotUnityPosition.y).ToString("F2") + "\n";
         debug += "TM Dir : " + (geoTransform.Position_TM.x - GeoTransformManager.Instance.PivotTMPosition.x).ToString("F2") + " " + (geoTransform.Position_TM.y - GeoTransformManager.Instance.PivotTMPosition.y).ToString("F2") + "\n";
-
+        
         text.text = debug;
     }
 }

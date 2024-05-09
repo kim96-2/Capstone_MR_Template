@@ -62,6 +62,6 @@ MonoBehaviour:
   EPSG5186_Setting:
     _lon0: 127
     _lat0: 38
-    X0: 600000
-    Y0: 200000
+    X0: 200000
+    Y0: 600000
     K0: 1
