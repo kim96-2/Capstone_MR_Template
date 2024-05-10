@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3626265247041503515
 MonoBehaviour:
@@ -47,6 +47,9 @@ MonoBehaviour:
   pivotGeoPosition:
     x: 0
     y: 0
+  pivotTMPosition:
+    x: 0
+    y: 0
   pivotUnityPosition:
     x: 0
     y: 0
@@ -57,8 +60,8 @@ MonoBehaviour:
     shortRadius: 6356752.31425
     floatness: 298.257222101
   EPSG5186_Setting:
-    lon0: 127
-    lat0: 38
-    x0: 200000
-    y0: 600000
-    k0: 1
+    _lon0: 127
+    _lat0: 38
+    X0: 200000
+    Y0: 600000
+    K0: 1
