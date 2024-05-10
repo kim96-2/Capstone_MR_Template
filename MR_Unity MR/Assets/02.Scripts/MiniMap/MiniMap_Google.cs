@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MiniMap_Google : MonoBehaviour
 {
-    public RawImage mapRawImage;
+    public Image mapRawImage;
 
     //37.5518018, 127.0736345
     [Header("Map Information")]
@@ -28,7 +28,7 @@ public class MiniMap_Google : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mapRawImage = GetComponent<RawImage>();
+        mapRawImage = GetComponent<Image>();
         StartCoroutine(MapLoader());
     }
 
@@ -37,7 +37,7 @@ public class MiniMap_Google : MonoBehaviour
     {
         if(updateMap &&(Minimap_latLast != Minimap_lat || Minimap_lonLast != Minimap_lon || zoomLast != zoom))
         {
-            mapRawImage = GetComponent<RawImage>();
+            mapRawImage = GetComponent<Image>();
             StartCoroutine (MapLoader());
             updateMap = false;
         }
@@ -68,7 +68,8 @@ public class MiniMap_Google : MonoBehaviour
         }
         else
         {
-            mapRawImage.texture = DownloadHandlerTexture.GetContent(request);
+            //mapRawImage.texture = DownloadHandlerTexture.GetContent(request);
+            mapRawImage.material.SetTexture("_MainTex1", DownloadHandlerTexture.GetContent(request));
 
             Minimap_latLast = Minimap_lat;
             Minimap_lonLast = Minimap_lon;
