@@ -8,14 +8,38 @@ public class KakaoAPI : APIManager
     {
         base.Awake();
         // URL 설정
-        urls[ReqType.Address] = "https://dapi.kakao.com/v2/local/search/address.json";
-        urls[ReqType.Category] = "https://dapi.kakao.com/v2/local/search/category.json";
-        urls[ReqType.Keyword] = "https://dapi.kakao.com/v2/local/search/keyword.json";
+        URLs[ReqType.Address] = "https://dapi.kakao.com/v2/local/search/address.json";
+        URLs[ReqType.Category] = "https://dapi.kakao.com/v2/local/search/category.json";
+        URLs[ReqType.Keyword] = "https://dapi.kakao.com/v2/local/search/keyword.json";
         
         // 인증용 헤더 설정
-        headers.Add("Authorization", $"KakaoAK {auth}");
+        Headers.Add("Authorization", $"KakaoAK {auth}");
+        
+        
+    }
 
-        Request<Place>();
+    
+    /// <summary>
+    /// 키워드 검색 기능
+    /// </summary>
+    /// <remarks>쿼리 설정 후 실행 필요</remarks>
+    /// <returns>키워드 검색 결과값 반환</returns>
+    public List<Place> SearchByKeyword()
+    {
+        URLType = ReqType.Keyword;
 
+        Response<Place> res = GetRequest<Place>();
+
+        return res.documents;
+    }
+
+    public List<Place> SearchByCategory()
+    {
+        
+    }
+
+    public List<Address> SearchAddress()
+    {
+        
     }
 }
