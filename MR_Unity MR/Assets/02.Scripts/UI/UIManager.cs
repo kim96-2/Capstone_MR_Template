@@ -1,15 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UIManger : MonoBehaviour
+// 전체적인 UI 관리하는 Manager
+public class UIManager : MonoBehaviour
 {
-
-    [SerializeField] private Sprite map;
-    [SerializeField] private Image leftUI;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +17,4 @@ public class UIManger : MonoBehaviour
         
     }
 
-    public void TestAction()
-    {
-        leftUI.sprite = map;
-    }
 }
