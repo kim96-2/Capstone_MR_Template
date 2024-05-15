@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Purchasing.MiniJSON;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public enum ReqType
@@ -14,70 +17,20 @@ public enum ReqType
 
 public class APIManager : Singleton<APIManager>
 {
-    // API를 위한 키
-    public string auth;
+    // API url들
     protected Dictionary<ReqType, string> URLs = new();
     
     // 리퀘스트를 위한 정보
     protected ReqType URLType;
-    [SerializeField] protected List<string> querys = new();
+    private List<string> _querys = new();
     protected Dictionary<string, string> Headers = new();
-    private string _result;
 
-
-    /// <summary>
-    /// 쿼리 데이터 추가
-    /// </summary>
-    /// <param name="queryHeader">쿼리 키</param>
-    /// <param name="queryValue">쿼리 값</param>
-    public void AddQuery(string queryHeader, string queryValue)
-    {
-        querys.Add($"{queryHeader}={queryValue}");
-    }
-
-
-    /// <summary>
-    /// 쿼리 초기화
-    /// </summary>
-    public void ClearQuery()
-    {
-        querys.Clear();
-    }
+    // 요청 반환 타입
+    public delegate void ResponseCallback<T>(string result);
     
-    
-    /// <summary>
-    /// Get 리퀘스트 요청
-    /// </summary>
-    /// <typeparam name="T">리스폰스 타입</typeparam>
-    /// <returns>리스폰스 반환</returns>
-    protected Response<T> GetRequest<T>()
-    {
-        Response<T> res = new();
-        
-        StartCoroutine(WebRequestGet<T>());
-        
-        res = JsonUtility.FromJson<Response<T>>(_result);
-        return res;
-    }
-    
-    
-    /// <summary>
-    /// Post 리퀘스트 요청
-    /// </summary>
-    /// <typeparam name="T">리스폰스 타입</typeparam>
-    /// <returns>리스폰스 반환</returns>
-    protected Response<T> PostRequest<T>()
-    {
-        Response<T> res = new();
-        
-        StartCoroutine(WebRequestPost<T>(res));
-
-        return res;
-    }
-
     
     // GET 요청 처리 코루틴
-    private IEnumerator WebRequestGet<T>()
+    protected IEnumerator WebRequestGet<T>(ResponseCallback<T> callback)
     {
         // 요청에 해당하는 url
         if (!URLs.TryGetValue(URLType, out string url))
@@ -87,7 +40,7 @@ public class APIManager : Singleton<APIManager>
         
         // 쿼리 설정
         url += "?";
-        foreach (var query in querys)
+        foreach (var query in _querys)
         {
             url += $"{query}&";
         }
@@ -102,9 +55,10 @@ public class APIManager : Singleton<APIManager>
             
             yield return req.SendWebRequest();
 
+            // 요청 결과 콜백
             if (req.error == null)
             {
-                _result = req.downloadHandler.text;
+                callback(req.downloadHandler.text);
             }
             else
                 Debug.LogWarning("ERROR: API Request Failed");
@@ -113,7 +67,7 @@ public class APIManager : Singleton<APIManager>
     
     
     // TODO:POST 요청 처리 코루틴
-    private IEnumerator WebRequestPost<T>(Response<T> response)
+    private IEnumerator WebRequestPost<T>(string data, ResponseCallback<T> response)
     {
         // 요청에 해당하는 url
         if (!URLs.TryGetValue(URLType, out string url))
@@ -124,7 +78,7 @@ public class APIManager : Singleton<APIManager>
         // TODO: Query Dictionary로 수정
         // 쿼리 설정
         url += "?";
-        foreach (var query in querys)
+        foreach (var query in _querys)
         {
             url += $"{query}&";
         }
@@ -144,5 +98,25 @@ public class APIManager : Singleton<APIManager>
             else
                 Debug.LogWarning("ERROR");
         }
+    }
+    
+    
+    /// <summary>
+    /// 쿼리 데이터 추가
+    /// </summary>
+    /// <param name="queryHeader">쿼리 키</param>
+    /// <param name="queryValue">쿼리 값</param>
+    public void AddQuery(string queryHeader, string queryValue)
+    {
+        _querys.Add($"{queryHeader}={queryValue}");
+    }
+
+
+    /// <summary>
+    /// 쿼리 초기화
+    /// </summary>
+    public void ClearQuery()
+    {
+        _querys.Clear();
     }
 }
