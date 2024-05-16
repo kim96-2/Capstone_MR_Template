@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.Purchasing.MiniJSON;
 using UnityEngine.Serialization;
 
+
 [System.Serializable]
 public enum ReqType
 {
@@ -14,6 +15,7 @@ public enum ReqType
     Keyword,
     Category,
 }
+
 
 public class APIManager : Singleton<APIManager>
 {
