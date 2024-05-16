@@ -1,0 +1,43 @@
+{
+  "documents": [
+    {
+      "address": {
+        "address_name": "서울 광진구 군자동 98",
+        "b_code": "1121510900",
+        "h_code": "1121573000",
+        "main_address_no": "98",
+        "mountain_yn": "N",
+        "region_1depth_name": "서울",
+        "region_2depth_name": "광진구",
+        "region_3depth_h_name": "군자동",
+        "region_3depth_name": "군자동",
+        "sub_address_no": "",
+        "x": "127.07318364213",
+        "y": "37.5516093089619"
+      },
+      "address_name": "서울 광진구 능동로 209",
+      "address_type": "ROAD_ADDR",
+      "road_address": {
+        "address_name": "서울 광진구 능동로 209",
+        "building_name": "세종대학교",
+        "main_building_no": "209",
+        "region_1depth_name": "서울",
+        "region_2depth_name": "광진구",
+        "region_3depth_name": "군자동",
+        "road_name": "능동로",
+        "sub_building_no": "",
+        "underground_yn": "N",
+        "x": "127.07318364213",
+        "y": "37.5516093089619",
+        "zone_no": "05006"
+      },
+      "x": "127.07318364213",
+      "y": "37.5516093089619"
+    }
+  ],
+  "meta": {
+    "is_end": true,
+    "pageable_count": 1,
+    "total_count": 1
+  }
+}

@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 527302455720342345}
-  - component: {fileID: 6921015738023590511}
+  - component: {fileID: 6600155781124994580}
   m_Layer: 0
-  m_Name: APIConnector
+  m_Name: KakaoAPIConnector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,9 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6921015738023590511
+--- !u!114 &6600155781124994580
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7295243869203952349}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 128c6630638dc9841a137b51d5f128c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9817a48579c23db4d9f52d447c8b38a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kakaoUrl: 
   auth: 
+  urlType: 0
