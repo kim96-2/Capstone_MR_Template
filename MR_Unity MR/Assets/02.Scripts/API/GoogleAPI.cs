@@ -4,15 +4,15 @@ using UnityEngine;
 using RestAPI.KakaoObject;
 
 
-public class KakaoAPI : Singleton<KakaoAPI>
+public class GoogleAPI : Singleton<GoogleAPI>
 {
     [Serializable]
     public enum ReqType
     {
         // 검색 요청 타입
-        Address,
+        Nearby,
+        Place,
         Keyword,
-        Category,
     }
     
     // API url들
@@ -24,16 +24,18 @@ public class KakaoAPI : Singleton<KakaoAPI>
     {
         base.Awake();
         // URL 설정
-        urls[ReqType.Address] = "https://dapi.kakao.com/v2/local/search/address.json";
-        urls[ReqType.Category] = "https://dapi.kakao.com/v2/local/search/category.json";
+        urls[ReqType.Nearby] = "https://places.googleapis.com/v1/places:searchNearby";
+        urls[ReqType.Place] = "https://dapi.kakao.com/v2/local/search/category.json";
         urls[ReqType.Keyword] = "https://dapi.kakao.com/v2/local/search/keyword.json";
         
         // 인증용 헤더 설정
-        if (APIKey.Kakao == null)
+        if (APIKey.Google == null)
         {
-            throw new Exception("KAKAO API KEY not found");
+            throw new Exception("Google API KEY not found");
         }
-        _req.AddHeader("Authorization", $"KakaoAK {APIKey.Kakao}");
+        _req.AddHeader("Content-Type", "application/json");
+        _req.AddHeader("X-Goog-Api-Key", APIKey.Google);
+        _req.AddHeader("X-Goog-FieldMask", "*");
     }
     
     
@@ -41,7 +43,7 @@ public class KakaoAPI : Singleton<KakaoAPI>
     /// 키워드 검색
     /// </summary>
     /// <param name="callback">요청 후 실행할 콜백 함수 : Place</param>
-    public void SearchByKeyword(WebRequest.ResponseCallback callback)
+    public void SearchNearby(WebRequest.ResponseCallback callback)
     {
         _req.URL = urls[ReqType.Keyword];
         StartCoroutine(_req.WebRequestGet(callback));
@@ -52,9 +54,9 @@ public class KakaoAPI : Singleton<KakaoAPI>
     /// 카테고리 검색
     /// </summary>
     /// <param name="callback">요청 후 실행할 콜백 함수 : Place</param>
-    public void SearchByCategory(WebRequest.ResponseCallback callback)
+    public void PlaceDetail(WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Category];
+        _req.URL = urls[ReqType.Place];
         StartCoroutine(_req.WebRequestGet(callback));
     }
 
@@ -63,9 +65,9 @@ public class KakaoAPI : Singleton<KakaoAPI>
     /// 주소 검색
     /// </summary>
     /// <param name="callback">요청 후 실행할 콜백 함수 : Address</param>
-    public void SearchAddress(WebRequest.ResponseCallback callback)
+    public void SearchByKeyword(WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Address];
+        _req.URL = urls[ReqType.Keyword];
         StartCoroutine(_req.WebRequestGet(callback));
     }
 

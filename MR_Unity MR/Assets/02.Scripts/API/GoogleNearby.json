@@ -1,0 +1,17 @@
+{
+  "includedTypes": ["restaurant"],
+  "excludedTypes": ["restaurant"],
+  "includedPrimaryTypes": ["restaurant"],
+  "excludedPrimaryTypes": ["restaurant"],
+  "languageCode": "ko",
+  "maxResultCount": 10,
+  "rankPreference": "POPULARITY",
+  "locationRestriction": {
+    "circle": {
+      "center": {
+        "latitude": 37.7937,
+        "longitude": -122.3965},
+      "radius": 500.0
+    }
+  }
+}
