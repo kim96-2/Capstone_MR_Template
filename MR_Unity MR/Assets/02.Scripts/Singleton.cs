@@ -17,7 +17,7 @@ public class Singleton<T>: MonoBehaviour
         }
     }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         // 인스턴스 존재 확인
         if (_instance != null)
