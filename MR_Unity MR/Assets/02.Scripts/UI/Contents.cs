@@ -37,5 +37,5 @@ public class Contents : MonoBehaviour
     }
 
     public void clickThis() { InformationUI.Instance.MoreInfo(info); }
-
+ 
 }
