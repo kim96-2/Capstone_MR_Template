@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
 public class WebRequest
 {
     // 리퀘스트를 위한 정보
@@ -10,8 +11,9 @@ public class WebRequest
     private Dictionary<string, string> _headers = new();
     private Dictionary<string, string> _querys = new();
     
-    
+    // 콜백 함수 형식
     public delegate void ResponseCallback(string result);
+    public delegate void ResponseImageCallback(Texture2D result);
     
     
     /// <summary>
@@ -33,6 +35,7 @@ public class WebRequest
         _headers.Clear();
     }
     
+    
     /// <summary>
     /// 쿼리 데이터 추가
     /// </summary>
@@ -53,6 +56,10 @@ public class WebRequest
     }
     
     
+    /// <summary>
+    /// URL 설정
+    /// </summary>
+    /// <returns>쿼리를 추가하여 최종 URL 반환</returns>
     private string SetURL()
     {
         string result = URL;
@@ -74,6 +81,10 @@ public class WebRequest
     }
     
     
+    /// <summary>
+    /// GET 요청 (Text 형식 반환)
+    /// </summary>
+    /// <param name="callback"> string 매개변수 void 콜백함수</param>
     public IEnumerator WebRequestGet(ResponseCallback callback)
     {
         //웹 리퀘스트 설정
@@ -95,7 +106,41 @@ public class WebRequest
                 Debug.LogWarning("ERROR: API Request Failed");
         }
     }
+    
+    
+    /// <summary>
+    /// GET 요청 (이미지 형식 반환)
+    /// </summary>
+    /// <param name="callback"> Texture2D 매개변수 void 콜백함수</param>
+    public IEnumerator WebRequestImageGet(ResponseImageCallback callback)
+    {
+        //웹 리퀘스트 설정
+        using (var req = UnityWebRequestTexture.GetTexture(SetURL()))
+        {
+            foreach (var header in _headers)
+            {
+                req.SetRequestHeader(header.Key, header.Value);
+            }
+            
+            yield return req.SendWebRequest();
 
+            // 요청 결과 콜백
+            if (req.error == null)
+            {
+                callback(DownloadHandlerTexture.GetContent(req));
+            }
+            else
+                Debug.LogWarning("ERROR: API Request Failed");
+        }
+    }
+
+    
+    /// <summary>
+    /// POST 요청 (Text 형식 반환)
+    /// </summary>
+    /// <param name="postData">요청 데이터</param>
+    /// <param name="callback">string 매개변수 void 콜백함수</param>
+    /// <returns></returns>
     public IEnumerator WebRequestPost(string postData,
         ResponseCallback callback)
     {
@@ -115,7 +160,7 @@ public class WebRequest
                 callback(req.downloadHandler.text);
             }
             else
-                Debug.LogWarning("ERROR: API Request Failed");
+                Debug.LogWarning($"ERROR: API Request Failed  {req.error}");
         }
     }
 }

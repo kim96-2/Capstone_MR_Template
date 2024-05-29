@@ -6,18 +6,19 @@ using RestAPI.KakaoObject;
 
 public class KakaoAPI : Singleton<KakaoAPI>
 {
+    // 검색 요청 타입
     [Serializable]
     public enum ReqType
     {
-        // 검색 요청 타입
         Address,
         Keyword,
         Category,
     }
     
     // API url들
-    private Dictionary<ReqType, string> urls = new();
-    private readonly WebRequest _req = new();
+    private readonly Dictionary<ReqType, string> urls = new();
+    // API 요청 인스턴스
+    public readonly WebRequest Req = new();
     
 
     private new void Awake()
@@ -33,47 +34,62 @@ public class KakaoAPI : Singleton<KakaoAPI>
         {
             throw new Exception("KAKAO API KEY not found");
         }
-        _req.AddHeader("Authorization", $"KakaoAK {APIKey.Kakao}");
+        Req.AddHeader("Authorization", $"KakaoAK {APIKey.Kakao}");
     }
-    
-    
+
+
     /// <summary>
     /// 키워드 검색
     /// </summary>
+    /// <param name="keyword">검색할 키워드 : string</param>
     /// <param name="callback">요청 후 실행할 콜백 함수 : Place</param>
-    public void SearchByKeyword(WebRequest.ResponseCallback callback)
+    public void SearchByKeyword(string keyword, WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Keyword];
-        StartCoroutine(_req.WebRequestGet(callback));
+        Req.URL = urls[ReqType.Keyword];
+        Req.AddQuery("query", keyword);
+        
+        StartCoroutine(Req.WebRequestGet(callback));
     }
-    
+
 
     /// <summary>
     /// 카테고리 검색
     /// </summary>
+    /// <param name="categoryCode">카테고리 코드</param>
+    /// <param name="latitude">위도 Y</param>
+    /// <param name="longitude">경도 X</param>
+    /// <param name="radius">반경 : 미터</param>
     /// <param name="callback">요청 후 실행할 콜백 함수 : Place</param>
-    public void SearchByCategory(WebRequest.ResponseCallback callback)
+    public void SearchByCategory(string categoryCode, double latitude, double longitude, int radius, WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Category];
-        StartCoroutine(_req.WebRequestGet(callback));
+        Req.URL = urls[ReqType.Category];
+        Req.AddQuery("category_group_code", categoryCode);
+        Req.AddQuery("x", longitude.ToString());
+        Req.AddQuery("y", latitude.ToString());
+        Req.AddQuery("radius", radius.ToString());
+        
+        StartCoroutine(Req.WebRequestGet(callback));
     }
 
-    
+
     /// <summary>
     /// 주소 검색
     /// </summary>
+    /// <param name="query">검색할 키워드</param>
     /// <param name="callback">요청 후 실행할 콜백 함수 : Address</param>
-    public void SearchAddress(WebRequest.ResponseCallback callback)
+    public void SearchAddress(string query, WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Address];
-        StartCoroutine(_req.WebRequestGet(callback));
+        Req.URL = urls[ReqType.Address];
+        Req.AddQuery("query", query);
+        
+        StartCoroutine(Req.WebRequestGet(callback));
     }
 
     /// <summary>
     /// Place 파싱
     /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
+    /// <param name="data">변환할 string</param>
+    /// <returns>장소 검색 요청 결과 : Response{Place}</returns>
     public Response<Place> ParsePlace(string data)
     {
         Response<Place> obj = JsonUtility.FromJson<Response<Place>>(data);
@@ -89,8 +105,8 @@ public class KakaoAPI : Singleton<KakaoAPI>
     /// <summary>
     /// Address 파싱
     /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
+    /// <param name="data">변환할 string</param>
+    /// <returns>주소 검색 요청 결과 : Response{Address}</returns>
     public Response<Address> ParseAddress(string data)
     {
         Response<Address> obj = JsonUtility.FromJson<Response<Address>>(data);
@@ -103,10 +119,11 @@ public class KakaoAPI : Singleton<KakaoAPI>
     }
     
     
-    /// 결과 출력용 테스트 콜백함수
-    private void DebugResult(string data)
+    /// <summary>
+    /// 디버그 출력용 함수
+    /// </summary>
+    public void DebugResult(string data)
     {
         Debug.Log(data);
     }
-
 }

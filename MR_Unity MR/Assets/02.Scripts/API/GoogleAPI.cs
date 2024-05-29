@@ -1,87 +1,108 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using RestAPI.KakaoObject;
+using RestAPI.GoogleObject;
 
 
 public class GoogleAPI : Singleton<GoogleAPI>
 {
+    // 검색 요청 타입
     [Serializable]
     public enum ReqType
     {
-        // 검색 요청 타입
+        
         Nearby,
         Place,
-        Keyword,
+        Image,
     }
     
     // API url들
-    private Dictionary<ReqType, string> urls = new();
-    private readonly WebRequest _req = new();
+    private readonly Dictionary<ReqType, string> _urls = new();
+    // API 요청 인스턴스
+    public readonly WebRequest Req = new();
     
 
     private new void Awake()
     {
         base.Awake();
         // URL 설정
-        urls[ReqType.Nearby] = "https://places.googleapis.com/v1/places:searchNearby";
-        urls[ReqType.Place] = "https://dapi.kakao.com/v2/local/search/category.json";
-        urls[ReqType.Keyword] = "https://dapi.kakao.com/v2/local/search/keyword.json";
+        _urls[ReqType.Nearby] = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
+        _urls[ReqType.Place] = "https://maps.googleapis.com/maps/api/place/details/json";
+        _urls[ReqType.Image] = "https://maps.googleapis.com/maps/api/place/photo";
         
         // 인증용 헤더 설정
         if (APIKey.Google == null)
         {
             throw new Exception("Google API KEY not found");
         }
-        _req.AddHeader("Content-Type", "application/json");
-        _req.AddHeader("X-Goog-Api-Key", APIKey.Google);
-        _req.AddHeader("X-Goog-FieldMask", "*");
+        Req.AddQuery("key", APIKey.Google);
     }
     
     
     /// <summary>
-    /// 키워드 검색
+    /// 주변 검색
     /// </summary>
-    /// <param name="callback">요청 후 실행할 콜백 함수 : Place</param>
-    public void SearchNearby(WebRequest.ResponseCallback callback)
+    /// <param name="latitude"> 위도 Y</param>
+    /// <param name="longitude">경도 X</param>
+    /// <param name="radius">반경 : 미터</param>
+    /// <param name="callback">콜백 함수 : string</param>
+    public void SearchNearby(double latitude, double longitude, int radius, WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Keyword];
-        StartCoroutine(_req.WebRequestGet(callback));
+        Req.URL = _urls[ReqType.Nearby];
+        
+        // 헤더 설정
+        Req.AddQuery("location", $"{latitude}%2C{longitude}");
+        Req.AddQuery("radius", $"{radius}");
+        StartCoroutine(Req.WebRequestGet(callback));
     }
     
 
     /// <summary>
     /// 카테고리 검색
     /// </summary>
-    /// <param name="callback">요청 후 실행할 콜백 함수 : Place</param>
-    public void PlaceDetail(WebRequest.ResponseCallback callback)
+    /// <param name="placeId">상세 정보 검색할 장소의 ID</param>
+    /// <param name="callback">요청 후 실행할 콜백 함수 : string</param>
+    public void PlaceDetail(string placeId, WebRequest.ResponseCallback callback)
     {
-        _req.URL = urls[ReqType.Place];
-        StartCoroutine(_req.WebRequestGet(callback));
+        Req.URL = _urls[ReqType.Place];
+        
+        // 쿼리 설정
+        Req.AddQuery("place_id", placeId);
+        StartCoroutine(Req.WebRequestGet(callback));
     }
 
-    
-    /// <summary>
-    /// 주소 검색
-    /// </summary>
-    /// <param name="callback">요청 후 실행할 콜백 함수 : Address</param>
-    public void SearchByKeyword(WebRequest.ResponseCallback callback)
-    {
-        _req.URL = urls[ReqType.Keyword];
-        StartCoroutine(_req.WebRequestGet(callback));
-    }
 
     /// <summary>
-    /// Place 파싱
+    /// 장소 사진 호출
     /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    public Response<Place> ParsePlace(string data)
+    /// <param name="reference">사진 레퍼런스 코드</param>
+    /// <param name="height">사진 최대 높이 : pixel</param>
+    /// <param name="width">사진 최대 폭 : pixel</param>
+    /// <param name="callback">요청 후 실행할 콜백 함수 : Texture2D</param>
+    public void PlacePhoto(string reference, int height, int width, WebRequest.ResponseImageCallback callback)
     {
-        Response<Place> obj = JsonUtility.FromJson<Response<Place>>(data);
+        Req.URL = _urls[ReqType.Image];
+        
+        // 헤더 설정
+        Req.AddQuery("photo_reference", reference);
+        Req.AddQuery("maxheight", height.ToString());
+        Req.AddQuery("maxwidth", width.ToString());
+
+        StartCoroutine(Req.WebRequestImageGet(callback));
+    }
+
+
+    /// <summary>
+    /// 주변 정보 파싱
+    /// </summary>
+    /// <param name="data">변환할 string</param>
+    /// <returns>주변 정보 요청 결과 : NearbyResponse</returns>
+    public NearbyResponse ParseNearbyRes(string data)
+    {
+        NearbyResponse obj = JsonUtility.FromJson<NearbyResponse>(data);
         if (obj == null)
         {
-            Debug.LogWarning($"ERROR: JSON Parsing to Place Failed \n{data}");
+            Debug.LogWarning($"ERROR: JSON Parsing to NearbyResponse Failed \n{data}");
         }
 
         return obj;
@@ -89,26 +110,27 @@ public class GoogleAPI : Singleton<GoogleAPI>
     
     
     /// <summary>
-    /// Address 파싱
+    /// 장소 세부 정보 파싱
     /// </summary>
-    /// <param name="data"></param>
-    /// <returns></returns>
-    public Response<Address> ParseAddress(string data)
+    /// <param name="data">변환할 string </param>
+    /// <returns>장소 세부 정보 요청 결과 : PlacesDetailsResponse</returns>
+    public PlacesDetailsResponse ParseDetailRes(string data)
     {
-        Response<Address> obj = JsonUtility.FromJson<Response<Address>>(data);
+        PlacesDetailsResponse obj = JsonUtility.FromJson<PlacesDetailsResponse>(data);
         if (obj == null)
         {
-            Debug.LogWarning($"ERROR: JSON Parsing to Address Failed \n{data}");
+            Debug.LogWarning($"ERROR: JSON Parsing to PlaceDetails Failed \n{data}");
         }
 
         return obj;
     }
-    
-    
-    /// 결과 출력용 테스트 콜백함수
-    private void DebugResult(string data)
-    {
-        Debug.Log(data);
-    }
 
+
+    /// <summary>
+    /// 디버그 출력용 함수
+    /// </summary>
+    public void DebugFunc(string res)
+    {
+        Debug.Log(res);
+    }
 }
