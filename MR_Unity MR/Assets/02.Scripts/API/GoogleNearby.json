@@ -1,0 +1,1026 @@
+{
+  "html_attributions" : [],
+  "next_page_token" : "AUGGfZm7PGEPducVFeNk7dPlKUMf5v5EYfpgUBcSNmh956EiHX31CbHuoykK7tg9ntCjEeJP6aDteAeOb89QvsRzfvgtNL2if60RHYwyX_bbDm2e2F_cJPB0s3PPHVrm2hhIvXykLLz-L-DsdsBVicmz_-Elpya3InphvQoandBrtGByS_HaaOkZBFy_0fLTmnIPpokBgfXmKGXvEpIbn1uXF27qRmlDCo1GmKac91EAEwX5F58pp_tbwjM6hFGr63Q82tZAjnDJhMEKh0M5jWJKRLS3kD-Zlc8NivTXRF8T5FURxpH_7zZ-9hEgfkT1kydgoWK_S-vepzaqrihJ0F-h4fhFB4E6w3h8u4gnaZgKUQqjhRVllCZGnku7WU9H3Dg5pUPKP20hvT5FgDWY-zoKsC91A_8lQx2yQGR-hbI9h0NT",
+  "results" :
+  [
+    {
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5518911,
+          "lng" : 126.9917937
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.7014549458459,
+            "lng" : 127.18379492437
+          },
+          "southwest" :
+          {
+            "lat" : 37.42829725537645,
+            "lng" : 126.7644837308701
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+      "icon_background_color" : "#7B9EB0",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name" : "Seoul",
+      "photos" :
+      [
+        {
+          "height" : 1350,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/113822669839196364739\"\u003eKashif Abbasi\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZlIxfUWUZlcmcUqVg9rAp0449iyaIJcT5_rAAoJlJau67sq7Vvj7ntiv7BB7mWp568RuvQ0nygaYbI-fIGXTcTsYfFsOunCCNzamD7u7JFvexCwRQRz-1Sd1VeYVZl66sGpz-8wW6XVjvQ4peavGcs7SRxUVB-EkCHcRtr-jgPmfdCn",
+          "width" : 1080
+        }
+      ],
+      "place_id" : "ChIJzWXFYYuifDUR64Pq5LTtioU",
+      "reference" : "ChIJzWXFYYuifDUR64Pq5LTtioU",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "locality",
+        "political"
+      ],
+      "vicinity" : "Seoul"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5498996,
+          "lng" : 127.0706276
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.55124858029151,
+            "lng" : 127.0719765802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.54855061970851,
+            "lng" : 127.0692786197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name" : "대성축산 도.소매센타",
+      "place_id" : "ChIJCf-UFMWkfDURVE3Yh7DfgJA",
+      "plus_code" :
+      {
+        "compound_code" : "G3XC+X7 Seoul, South Korea",
+        "global_code" : "8Q99G3XC+X7"
+      },
+      "reference" : "ChIJCf-UFMWkfDURVE3Yh7DfgJA",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "346-23 군자동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.55445460000001,
+          "lng" : 127.0717663
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5558035802915,
+            "lng" : 127.0731152802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5531056197085,
+            "lng" : 127.0704173197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name" : "형제축산",
+      "place_id" : "ChIJP8V8Gc6kfDURAkY7spb1JAo",
+      "plus_code" :
+      {
+        "compound_code" : "H33C+QP Seoul, South Korea",
+        "global_code" : "8Q99H33C+QP"
+      },
+      "reference" : "ChIJP8V8Gc6kfDURAkY7spb1JAo",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "117-40 군자동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5444003,
+          "lng" : 127.0724332
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5457492802915,
+            "lng" : 127.0737821802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5430513197085,
+            "lng" : 127.0710842197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name" : "Hekeo",
+      "place_id" : "ChIJjzt6zNykfDURQ3-URtxg81Y",
+      "plus_code" :
+      {
+        "compound_code" : "G3VC+QX Seoul, South Korea",
+        "global_code" : "8Q99G3VC+QX"
+      },
+      "rating" : 3.7,
+      "reference" : "ChIJjzt6zNykfDURQ3-URtxg81Y",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "shopping_mall",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 6,
+      "vicinity" : "2-23 Hwayang-dong, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5561211,
+          "lng" : 127.0726828
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5574700802915,
+            "lng" : 127.0740317802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5547721197085,
+            "lng" : 127.0713338197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name" : "백제유통",
+      "place_id" : "ChIJga7PDNKkfDURl-N_N6VQcgo",
+      "plus_code" :
+      {
+        "compound_code" : "H34F+C3 Seoul, South Korea",
+        "global_code" : "8Q99H34F+C3"
+      },
+      "rating" : 5,
+      "reference" : "ChIJga7PDNKkfDURl-N_N6VQcgo",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 2,
+      "vicinity" : "195-18 군자동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5444003,
+          "lng" : 127.0691002
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5457492802915,
+            "lng" : 127.0704491802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5430513197085,
+            "lng" : 127.0677512197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name" : "하나씽크",
+      "place_id" : "ChIJIboTUcKkfDUR_1KUi7TN3NI",
+      "plus_code" :
+      {
+        "compound_code" : "G3V9+QJ Seoul, South Korea",
+        "global_code" : "8Q99G3V9+QJ"
+      },
+      "reference" : "ChIJIboTUcKkfDUR_1KUi7TN3NI",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "34-43 화양동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5429282,
+          "lng" : 127.0683503
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5442771802915,
+            "lng" : 127.0696992802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5415792197085,
+            "lng" : 127.0670013197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+      "name" : "Ipsae",
+      "photos" :
+      [
+        {
+          "height" : 2988,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/117672667876853940397\"\u003esangmin han\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZnIZGXJza1FGDzn60slP_1AhAAZs_NDPmQjMfpuBC7oCyUvrc4QUji-agcDuurUQvRRk_mY-EtOzvtYtcdl1edRuuLerW-jbhCmSgDVeFbSf0uBITHajEQOX_foegJ_vgWrEGNvuHoHosDZSRVORa4Uc249nheIfd_ncCfvajB40Bzx",
+          "width" : 5312
+        }
+      ],
+      "place_id" : "ChIJPdrwdMKkfDURhhkC_1W21nk",
+      "plus_code" :
+      {
+        "compound_code" : "G3V9+58 Seoul, South Korea",
+        "global_code" : "8Q99G3V9+58"
+      },
+      "rating" : 3,
+      "reference" : "ChIJPdrwdMKkfDURhhkC_1W21nk",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "shopping_mall",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 4,
+      "vicinity" : "47-41 Hwayang-dong, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5538992,
+          "lng" : 127.0748493
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5552481802915,
+            "lng" : 127.0761982802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5525502197085,
+            "lng" : 127.0735003197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet",
+      "name" : "세븐일레븐 광진군자점",
+      "place_id" : "ChIJ26oegtGkfDURvxM7uXogCeQ",
+      "plus_code" :
+      {
+        "compound_code" : "H33F+HW Seoul, South Korea",
+        "global_code" : "8Q99H33F+HW"
+      },
+      "reference" : "ChIJ26oegtGkfDURvxM7uXogCeQ",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "supermarket",
+        "grocery_or_supermarket",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "64-3 군자동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5546213,
+          "lng" : 127.0713219
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5559702802915,
+            "lng" : 127.0726708802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5532723197085,
+            "lng" : 127.0699729197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet",
+      "name" : "베스트올 군자점",
+      "place_id" : "ChIJtQ_LFs6kfDUREw-W2awHNrE",
+      "plus_code" :
+      {
+        "compound_code" : "H33C+RG Seoul, South Korea",
+        "global_code" : "8Q99H33C+RG"
+      },
+      "reference" : "ChIJtQ_LFs6kfDUREw-W2awHNrE",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "supermarket",
+        "grocery_or_supermarket",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "130-8 군자동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.55723220000001,
+          "lng" : 127.0767657
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.55858118029151,
+            "lng" : 127.0781146802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.55588321970852,
+            "lng" : 127.0754167197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/convenience_pinlet",
+      "name" : "GS25 군자중앙점",
+      "opening_hours" :
+      {
+        "open_now" : false
+      },
+      "photos" :
+      [
+        {
+          "height" : 3024,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/100859354936817718836\"\u003e권혜경\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZnSFDuMHsd8xkEIIUZxBUriqN4nXBQU0lstmMdoefRBzJd8CUkzyGRZpxdURLuzM-s-7VqeAR3lYdnozzAtlupVn_OCtmhjHE8jsZXHsCqMjSb-aUyRz9FkY-kep_vkutwGJvcsV3KKRYE3TRk2fY5OT-_4BK_ZFf3l8d1_8fY1DXCq",
+          "width" : 4032
+        }
+      ],
+      "place_id" : "ChIJFdp4Q9OkfDURDMLkUZW7PBI",
+      "plus_code" :
+      {
+        "compound_code" : "H34G+VP Seoul, South Korea",
+        "global_code" : "8Q99H34G+VP"
+      },
+      "rating" : 3.8,
+      "reference" : "ChIJFdp4Q9OkfDURDMLkUZW7PBI",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "convenience_store",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 24,
+      "vicinity" : "471-1 군자동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.54259499999999,
+          "lng" : 127.07135
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.54394398029149,
+            "lng" : 127.0726989802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5412460197085,
+            "lng" : 127.0700010197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shoppingcart_pinlet",
+      "name" : "세븐일레븐",
+      "photos" :
+      [
+        {
+          "height" : 4032,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/105510364332009820116\"\u003eroadpicture\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZn4Ch6MD3cFY3FRBMjXCSOmVI7hbr1oVpiV40oHE5CF-6Mx_e5hrIem80HbXl6-apgr2oYwMOi6uq5r01mMleDxTmuhw8M2lMzKdl_XbbN1Xhk1VV6TfCfE-WGH5Xo5LLjoE7Vib-FyHPnPF3hxHEzuotfrp5_nN5PXlrKFp_uQdsgb",
+          "width" : 3024
+        }
+      ],
+      "place_id" : "ChIJMfL1zsKkfDURROI8rsq3eCc",
+      "plus_code" :
+      {
+        "compound_code" : "G3VC+2G Seoul, South Korea",
+        "global_code" : "8Q99G3VC+2G"
+      },
+      "reference" : "ChIJMfL1zsKkfDURROI8rsq3eCc",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "supermarket",
+        "grocery_or_supermarket",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "Hwayang-dong, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5565379,
+          "lng" : 127.0818208
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.55788688029149,
+            "lng" : 127.0831697802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.55518891970849,
+            "lng" : 127.0804718197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "icon_background_color" : "#4B96F3",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/convenience_pinlet",
+      "name" : "GS 25 군자행복점",
+      "opening_hours" :
+      {
+        "open_now" : true
+      },
+      "place_id" : "ChIJaTwvtCq7fDURxWSidKQtt2g",
+      "plus_code" :
+      {
+        "compound_code" : "H34J+JP Seoul, South Korea",
+        "global_code" : "8Q99H34J+JP"
+      },
+      "rating" : 5,
+      "reference" : "ChIJaTwvtCq7fDURxWSidKQtt2g",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "convenience_store",
+        "food",
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 1,
+      "vicinity" : "341-7 Junggok-dong, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5500177,
+          "lng" : 127.0676746
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5513666802915,
+            "lng" : 127.0690235802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5486687197085,
+            "lng" : 127.0663256197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+      "icon_background_color" : "#909CE1",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hotel_pinlet",
+      "name" : "Hotel Cullinan Kondae",
+      "photos" :
+      [
+        {
+          "height" : 3120,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/114600581232781423634\"\u003eYS P\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZmMGGB4PTAM0sKiJa5ArQtDWxptkr3xf3C-9rKYcuCFUNzVdkkcNdY19j4sQtcqHi1fZV7JZW8_-SkifDqOnGEBnKTjSjJPRrK9w_yvxnh5jY5KVSRAQxnFy1dQ67TMdSQm3G0ZU7slCbcR_tOuC8Fvv8H6qxcUL1wAPI0ILWtXsoe5",
+          "width" : 4160
+        }
+      ],
+      "place_id" : "ChIJ_3iGosWkfDUR_qAWabQU8w4",
+      "plus_code" :
+      {
+        "compound_code" : "H329+23 Seoul, South Korea",
+        "global_code" : "8Q99H329+23"
+      },
+      "rating" : 3.3,
+      "reference" : "ChIJ_3iGosWkfDUR_qAWabQU8w4",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 108,
+      "vicinity" : "212 Dongil-ro, 송정동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5474777,
+          "lng" : 127.0706024
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5488266802915,
+            "lng" : 127.0719513802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.54612871970851,
+            "lng" : 127.0692534197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color" : "#FF9E67",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name" : "Ihang-A",
+      "opening_hours" :
+      {
+        "open_now" : true
+      },
+      "photos" :
+      [
+        {
+          "height" : 3024,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/116837340461218774818\"\u003eHyoshin “최효신” Choi\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZkUw90SPHBUpLzYRiU1kclF54BGjvnqeIAH0Gq4yTjRI4nVDVae1_l0ALz3xY2LyE5tdsH3DujKuJkcXo8cVwsW4HRKXbvphdInvAQRsW0GLUMIDaQ6aOuzvD7jMEsfsG9n5af7cxfPxQW-uNWlcGN0YVtte51ec0Mpzc3VGg7gwtol",
+          "width" : 4032
+        }
+      ],
+      "place_id" : "ChIJs6dplMSkfDURW-XD4eAMnMs",
+      "plus_code" :
+      {
+        "compound_code" : "G3WC+X6 Seoul, South Korea",
+        "global_code" : "8Q99G3WC+X6"
+      },
+      "price_level" : 1,
+      "rating" : 4,
+      "reference" : "ChIJs6dplMSkfDURW-XD4eAMnMs",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 141,
+      "vicinity" : "119-5 화양동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5452891,
+          "lng" : 127.0735164
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5466380802915,
+            "lng" : 127.0748653802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5439401197085,
+            "lng" : 127.0721674197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+      "icon_background_color" : "#FF9E67",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/restaurant_pinlet",
+      "name" : "팍스그릴",
+      "opening_hours" :
+      {
+        "open_now" : false
+      },
+      "photos" :
+      [
+        {
+          "height" : 2268,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/115965449104036693143\"\u003eYasmina Hisham\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZlERgACEBC4WHzFy_DM22jRybByZOY5TC_CLGmQymXGcHjtTna0SkT-tbZ1Bx3fIPvTvNKL8g-mq7BYXUmmIS7yHUpujz-kYDhKch4q7WfR4JHWuGsLQxB4hDuBEM6n_Scq00Zo3dX7rNmoyhIrPs1hhfFN4Y_MvePtI91pX7Sql1mE",
+          "width" : 4032
+        }
+      ],
+      "place_id" : "ChIJN2XPodykfDURSAkZSv0759Q",
+      "plus_code" :
+      {
+        "compound_code" : "G3WF+4C Seoul, South Korea",
+        "global_code" : "8Q99G3WF+4C"
+      },
+      "rating" : 4.4,
+      "reference" : "ChIJN2XPodykfDURSAkZSv0759Q",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "restaurant",
+        "food",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 8,
+      "vicinity" : "94-25 Hwayang-dong, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.547511,
+          "lng" : 127.0672947
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5488599802915,
+            "lng" : 127.0686436802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5461620197085,
+            "lng" : 127.0659457197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color" : "#7B9EB0",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name" : "투다리 화양점",
+      "place_id" : "ChIJp1Jq-cOkfDURWeRBGFmDKX0",
+      "plus_code" :
+      {
+        "compound_code" : "G3X8+2W Seoul, South Korea",
+        "global_code" : "8Q99G3X8+2W"
+      },
+      "price_level" : 2,
+      "reference" : "ChIJp1Jq-cOkfDURWeRBGFmDKX0",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "23-7 화양동, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5514605,
+          "lng" : 127.0689112
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.55280948029149,
+            "lng" : 127.0702601802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5501115197085,
+            "lng" : 127.0675622197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+      "icon_background_color" : "#909CE1",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hotel_pinlet",
+      "name" : "Kondae Plein",
+      "photos" :
+      [
+        {
+          "height" : 2268,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/107394702658283933626\"\u003e소정\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZkwvNV6jWtmOP7cT2vK3ut0qeznFXlortZhdaFpMbJEFV_a_O1zVP8nEJkYof797pkFsU7QS1YdObjYT9eg9l8Qh2yjEvrPUSPyYbm9EkiDT3ix9vJ9jruoB1AKsfGDPqMUFA4iHcfxfR72_iZgqPapkD5Y0M2g06FYU0JbEjet3Ot_",
+          "width" : 4032
+        }
+      ],
+      "place_id" : "ChIJ4fH8hcWkfDURVuyCJlH3AgY",
+      "plus_code" :
+      {
+        "compound_code" : "H329+HH Seoul, South Korea",
+        "global_code" : "8Q99H329+HH"
+      },
+      "rating" : 3.3,
+      "reference" : "ChIJ4fH8hcWkfDURVuyCJlH3AgY",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "lodging",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 108,
+      "vicinity" : "219 Dongil-ro, Seongdong-gu"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5423265,
+          "lng" : 127.0759204
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5436754802915,
+            "lng" : 127.0772693802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5409775197085,
+            "lng" : 127.0745714197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+      "icon_background_color" : "#7B9EB0",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+      "name" : "Konkuk University",
+      "opening_hours" :
+      {
+        "open_now" : false
+      },
+      "photos" :
+      [
+        {
+          "height" : 4000,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/117546247197233960967\"\u003e서동주\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZlEgLnV2xhmWAfrRLOUlGQxq1O6O-oYPIiNQ-02OPyEKunTOxawYo_ZRc2rVqR2c7SFZlMjyligEcxumc2PSAV18h7_mWUdLpFl3LGoxE3Vrvuz1CYy11-lrmDdOebRTj8NgaItBJ-rVLzg9YCUKnYM1kgI1SXTg5zdfxEidGmD4M1e",
+          "width" : 3000
+        }
+      ],
+      "place_id" : "ChIJhTv7M9ykfDURbQkKXGOzDIk",
+      "plus_code" :
+      {
+        "compound_code" : "G3RG+W9 Seoul, South Korea",
+        "global_code" : "8Q99G3RG+W9"
+      },
+      "rating" : 4.5,
+      "reference" : "ChIJhTv7M9ykfDURbQkKXGOzDIk",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "university",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total" : 658,
+      "vicinity" : "120 Neungdong-ro, Gwangjin District"
+    },
+    {
+      "business_status" : "OPERATIONAL",
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5543159,
+          "lng" : 127.0816264
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.5556648802915,
+            "lng" : 127.0829753802915
+          },
+          "southwest" :
+          {
+            "lat" : 37.5529669197085,
+            "lng" : 127.0802774197085
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "icon_background_color" : "#7B9EB0",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name" : "엘리트뮤지션",
+      "place_id" : "ChIJQ_2qdNWkfDUR6jhhu961kwc",
+      "plus_code" :
+      {
+        "compound_code" : "H33J+PM Seoul, South Korea",
+        "global_code" : "8Q99H33J+PM"
+      },
+      "reference" : "ChIJQ_2qdNWkfDUR6jhhu961kwc",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity" : "능동, 광진구"
+    },
+    {
+      "geometry" :
+      {
+        "location" :
+        {
+          "lat" : 37.5451021,
+          "lng" : 127.0854269
+        },
+        "viewport" :
+        {
+          "northeast" :
+          {
+            "lat" : 37.57373328979156,
+            "lng" : 127.1152257734561
+          },
+          "southwest" :
+          {
+            "lat" : 37.5225138258409,
+            "lng" : 127.0562147003126
+          }
+        }
+      },
+      "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+      "icon_background_color" : "#7B9EB0",
+      "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+      "name" : "Gwangjin District",
+      "photos" :
+      [
+        {
+          "height" : 4032,
+          "html_attributions" :
+          [
+            "\u003ca href=\"https://maps.google.com/maps/contrib/100911462576154484707\"\u003eArchitects iSM\u003c/a\u003e"
+          ],
+          "photo_reference" : "AUGGfZnHPoz16bQTTTukJvtm30elWOE3PYjWiq_GSt420b-32hJzoydaOYZzjrQH3sJY3oK89kMJJFrbQ4_bm3LbESrqIFHpRh_qn4Z9UYvfXYb4qcCRS9UkqfJc7SXSQikP_nwMJa61tazMTo8jK9LWlZ0isIbqc3nBwsVHwb4JSyUIUty7",
+          "width" : 3024
+        }
+      ],
+      "place_id" : "ChIJCRkc-CilfDURMf90Sfel8ag",
+      "reference" : "ChIJCRkc-CilfDURMf90Sfel8ag",
+      "scope" : "GOOGLE",
+      "types" :
+      [
+        "sublocality_level_1",
+        "sublocality",
+        "political"
+      ],
+      "vicinity" : "Gwangjin District"
+    }
+  ],
+  "status" : "OK"
+}
