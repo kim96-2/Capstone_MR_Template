@@ -54,11 +54,11 @@ public class InfoManager : Singleton<InfoManager>
         InformationUI.Instance.setPage(1f);
         InformationUI.Instance.changePlace(true);
 
-        Debug.Log(geoPos.x + " " + geoPos.y);
+        //Debug.Log(geoPos.x + " " + geoPos.y);
 
         //geoPos.y가 경도 geoPos.x 가 위도 인것을 꼭 확인하기(나중에 코드에서 확인가능하게 변경할 것)
-        KakaoAPI.Instance.Req.AddQuery("x", geoPos.y.ToString());
-        KakaoAPI.Instance.Req.AddQuery("y", geoPos.x.ToString());
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
+        KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
 
 
         KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
@@ -72,8 +72,8 @@ public class InfoManager : Singleton<InfoManager>
     {
 
         KakaoAPI.Instance.Req.ClearQuery();
-        KakaoAPI.Instance.Req.AddQuery("x", geoPos.x.ToString());
-        KakaoAPI.Instance.Req.AddQuery("y", geoPos.y.ToString());
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
+        KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
         KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
         KakaoAPI.Instance.Req.AddQuery("page", pageNum);
 
@@ -86,6 +86,13 @@ public class InfoManager : Singleton<InfoManager>
 
         // 주변 정보를 가져옴
         Response<Place> response = JsonUtility.FromJson<Response<Place>>(result);
+
+        //주변 정보를 토대로 미니맵에 배치
+        //탐색 시 실제 플레이어 위치로 할 수 있지만 조금 더 정확한 위치를 위해 Request 받았을 때의 플레이어 위치를 기준으로 미니맵 배치
+        MiniMapManager.Instance.SetSearchMap((float)geoPos.lat, (float)geoPos.lan, response.documents);
+
+        //이건 위와 다르게 플레이어 위치를 기준으로 미니맵 배치하는 함수
+        //MiniMapManager.Instance.SetSearchMap(response.documents);
 
         InformationUI.Instance.ClearInfo();
 

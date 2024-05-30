@@ -657,7 +657,7 @@ RectTransform:
   - {fileID: 4478384810787508076}
   - {fileID: 983783349212574169}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -703,8 +703,8 @@ MonoBehaviour:
   defaultUI: {fileID: 8051581132793552671}
   describeText: {fileID: 7053702329199475026}
   initInputReference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  pivotLat: 37.5499115
-  pivotLon: 127.0744985
+  pivotLat: 37.549774
+  pivotLon: 127.07474
   pivotGeoDir: 0
   pivotObj: {fileID: 0}
 --- !u!114 &5468188989255461971

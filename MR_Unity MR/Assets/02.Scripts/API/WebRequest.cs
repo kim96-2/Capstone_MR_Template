@@ -4,18 +4,36 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 
+// URL 요청을 위한 쿼리
+public class Query
+{
+    public string Key;
+    public string Value;
+
+    public Query(string _key, string _value)
+    {
+        Key = _key;
+        Value = _value;
+    }
+
+    public Query()
+    {
+
+    }
+}
+
 public class WebRequest
 {
     // 리퀘스트를 위한 정보
     public string URL;
     private Dictionary<string, string> _headers = new();
-    private Dictionary<string, string> _querys = new();
+    private List<Query> _querys = new();
     
     // 콜백 함수 형식
     public delegate void ResponseCallback(string result);
     public delegate void ResponseImageCallback(Texture2D result);
-    
-    
+
+
     /// <summary>
     /// 헤더 데이터 추가
     /// </summary>
@@ -43,7 +61,7 @@ public class WebRequest
     /// <param name="value">쿼리 값</param>
     public void AddQuery(string query, string value)
     {
-        _querys.Add(query, value);
+        _querys.Add(new Query(query, value));
     }
 
 
@@ -122,7 +140,7 @@ public class WebRequest
                 req.SetRequestHeader(header.Key, header.Value);
             }
 
-            Debug.Log("Start Send");
+            //Debug.Log("Start Send");
             yield return req.SendWebRequest();
 
             // 요청 결과 콜백

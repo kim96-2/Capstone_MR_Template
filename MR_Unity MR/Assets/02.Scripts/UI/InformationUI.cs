@@ -68,7 +68,7 @@ public class InformationUI : Singleton<InformationUI>
         GameObject placepoints = Instantiate(placePointPrefab);
         placePoint.Add(placepoints);
 
-        Debug.Log("생성 위치 : " + place.y + " " + place.x);
+        //Debug.Log("생성 위치 : " + place.y + " " + place.x);
 
         placepoints.GetComponent<GeoTransform>().Init(place.y, place.x);
         placepoints.GetComponent<Contents>().changeContents(place);

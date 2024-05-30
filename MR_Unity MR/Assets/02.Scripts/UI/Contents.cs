@@ -17,14 +17,59 @@ public class Contents : MonoBehaviour
     [SerializeField] private TextMeshProUGUI address_nameText;
     [SerializeField] private TextMeshProUGUI road_address_nameText;
 
+    Transform player;
+
+    [Space(15f)]
+    [SerializeField] Transform showUI;
+
+    Vector3 defaultSize;
+    [Header("Size Setting")]
+    [SerializeField] float minRange = 1f;
+    [SerializeField] float maxRange = 300f;
+
+    [Space(5f)]
+    [SerializeField] float minSizeMultiplier = 1f;
+    [SerializeField] float maxSizeMultiplier = 5f;
+
+    Vector3 defaultHeight;
+    [Space(5f)]
+    [SerializeField] float minHeightAdditioner = 0f;
+    [SerializeField] float maxHeightAdditioner = 50f;
+
+
     void Start()
     {
         // KakaoAPI.Instance.SearchByCategory(getResult<Place>);
+
+        player = Camera.main.transform;//플레이어 위치를 카메라 위치로 세팅
+
+        defaultSize = showUI.localScale;
+        defaultHeight = showUI.localPosition;
+
+        transform.LookAt(transform.position + (transform.position - player.position));//간지나는 회전 구현을 위한 이상한 짓거리
     }
 
     void Update()
     {
-       
+        float range = (player.position - transform.position).magnitude;//플레이어와의 거리 계산
+
+        range = Mathf.Clamp(range, minRange, maxRange);//최소 거리 최대 거리로 Clamp
+
+        Debug.Log(showUI);
+
+        //거리에 선형비례하는 크기증가값 계산
+        float sizeMultiplier = Mathf.Lerp(minSizeMultiplier, maxSizeMultiplier, (range - minRange) / (maxRange - minRange));
+
+        showUI.transform.localScale = defaultSize * sizeMultiplier;
+
+        float heightAdditioner = Mathf.Lerp(minHeightAdditioner, maxHeightAdditioner, (range - minRange) / (maxRange - minRange));
+
+        showUI.transform.localPosition = defaultHeight + Vector3.up * heightAdditioner;
+    }
+
+    private void OnDestroy()
+    {
+        transform.localScale = defaultSize;
     }
 
     public Place getPlace() { return info; }

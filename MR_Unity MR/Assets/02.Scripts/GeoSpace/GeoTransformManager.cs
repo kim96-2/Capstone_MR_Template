@@ -99,7 +99,7 @@ public class GeoTransformManager : MonoBehaviour
         GeoTransformManager instance = Instantiate(Resources.Load<GeoTransformManager>("GeoTransformManager"));
 
         _instance = instance;
-        Debug.Log("매니져 생성");
+        //Debug.Log("매니져 생성");
     }
 
     #endregion Singleton Setting

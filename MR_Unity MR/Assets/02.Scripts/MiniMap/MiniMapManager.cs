@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using RestAPI.KakaoObject;
 
 /// <summary>
 /// 미니맵 UI를 화면에 띄워주는 걸 관리하는 매니져
@@ -27,6 +28,9 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
     Transform player;
 
+
+    Query additionalQuery = null;
+
     protected override void Awake()
     {
         base.Awake();
@@ -44,7 +48,7 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
     /// <param name="texture">지도 이미지 텍스쳐</param>
     public void SetMapImage(Texture texture)
     {
-        Debug.Log("실제 이미지 생성 함수 실행");
+        //Debug.Log("실제 이미지 생성 함수 실행");
         mapMaterial.SetTexture("_MapTex", texture);
     }
 
@@ -67,6 +71,34 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
 
     #endregion Query Setting
+
+
+    #region Map Set
+
+    /// <summary>
+    /// 현 상태에 맞게 미니맵을 업데이트하는 함수
+    /// </summary>
+    /// <param name="lat"></param>
+    /// <param name="lon"></param>
+    void UpdateMap(float lat,float lon)
+    {
+        //초기 쿼리 세팅
+        SetDefaultQuery();
+
+        //특정 경위도 위치에 좌표 찍음 + 중심 좌표 지정
+        Req.AddQuery("center", $"{lat},{lon}");
+        Req.AddQuery("markers", $"color:red%7C{lat},{lon}");
+
+        if (additionalQuery != null)//추가적인 쿼리가 있으면 업데이트
+        {
+            Req.AddQuery(additionalQuery.Key, additionalQuery.Value);
+        }
+
+        StartCoroutine(Req.WebRequestImageGet((Texture2D result) =>
+        {
+            SetMapImage(result);
+        }));
+    }
 
     /// <summary>
     /// 플레이어를 미니맵 중심으로 하여 플레이어 위치만 찍히는 미니맵 생성 함수
@@ -93,21 +125,46 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
     {
         if (!CheckMaxLoadCount()) return;//최대 이미지 로드 횟수 확인
 
-        Debug.Log("이미지 생성");
+        additionalQuery = null;//추가적 쿼리 지우기
 
-        //초기 쿼리 세팅
-        SetDefaultQuery();
+        //Debug.Log("이미지 생성");
 
-        //특정 경위도 위치에 좌표 찍음 + 중심 좌표 지정
-        Req.AddQuery("center", $"{lat},{lon}");
-        Req.AddQuery("markers", $"color:blue%7C{lat},{lon}");
-
-
-        StartCoroutine(Req.WebRequestImageGet((Texture2D result) =>
-        {
-            SetMapImage(result);
-        }));
+        UpdateMap(lat, lon);//현재 상태 맵을 업데이트 하는 함수
+    
     }
+
+    public void SetSearchMap(List<Place> places)
+    {
+        if (!GeoTransformManager.Instance.IsInited)
+        {
+            Debug.LogError("초기화 되지 않은 상태로 미니맵을 생성하려 함");
+            return;
+        }
+
+        Double2Position geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(player);
+
+        SetSearchMap((float)geoPos.x, (float)geoPos.y, places);
+    }
+
+    public void SetSearchMap(float lat, float lon,List<Place> places)
+    {
+        if (!CheckMaxLoadCount()) return;//최대 이미지 로드 횟수 확인
+
+        //Search State를 위한 쿼리 제작
+        additionalQuery = new();
+        additionalQuery.Key = "markers";
+
+        additionalQuery.Value = "color:blue";//컬러 세팅
+
+        foreach(Place place in places)
+        {
+            additionalQuery.Value += $"%7C{place.y},{place.x}";
+        }
+
+        UpdateMap(lat,lon);
+    }
+
+    #endregion Map Set
 
     #region Debug Setting
 
