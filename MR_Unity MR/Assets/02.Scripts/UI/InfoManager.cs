@@ -29,7 +29,7 @@ public class InfoManager : Singleton<InfoManager>
         KakaoAPI.Instance.SearchByCategory(getResult<Place>);
         */
 
-        geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
+       
 
     }
 
@@ -46,14 +46,21 @@ public class InfoManager : Singleton<InfoManager>
 
         recentSearch = clickObject.GetComponent<TextMeshProUGUI>().text;
 
+        geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
+
         // 쿼리 초기화
         KakaoAPI.Instance.Req.ClearQuery();
 
         InformationUI.Instance.setPage(1f);
         InformationUI.Instance.changePlace(true);
 
-        KakaoAPI.Instance.Req.AddQuery("x", geoPos.x.ToString());
-        KakaoAPI.Instance.Req.AddQuery("y", geoPos.y.ToString());
+        Debug.Log(geoPos.x + " " + geoPos.y);
+
+        //geoPos.y가 경도 geoPos.x 가 위도 인것을 꼭 확인하기(나중에 코드에서 확인가능하게 변경할 것)
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.y.ToString());
+        KakaoAPI.Instance.Req.AddQuery("y", geoPos.x.ToString());
+
+
         KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
         KakaoAPI.Instance.Req.AddQuery("page", "1");
 
