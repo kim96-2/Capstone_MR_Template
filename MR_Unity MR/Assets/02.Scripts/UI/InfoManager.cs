@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.TextCore;
 using UnityEngine.UI;
+using RestAPI.KakaoObject;
 
 // UI에 띄울 정보 관리
 public class InfoManager : Singleton<InfoManager>
@@ -41,18 +42,17 @@ public class InfoManager : Singleton<InfoManager>
         recentSearch = clickObject.GetComponent<TextMeshProUGUI>().text;
 
         // 쿼리 초기화
-        KakaoAPI.Instance.ClearQuery();
+        KakaoAPI.Instance.Req.ClearQuery();
 
         InformationUI.Instance.setPage(1f);
         InformationUI.Instance.changePlace(true);
 
-        KakaoAPI.Instance.AddQuery("query", recentSearch);
-        KakaoAPI.Instance.AddQuery("x", TestGPS.Instance.x);
-        KakaoAPI.Instance.AddQuery("y", TestGPS.Instance.y);
-        KakaoAPI.Instance.AddQuery("radius", TestGPS.Instance.radious);
-        KakaoAPI.Instance.AddQuery("page", "1");
+        KakaoAPI.Instance.Req.AddQuery("x", TestGPS.Instance.x);
+        KakaoAPI.Instance.Req.AddQuery("y", TestGPS.Instance.y);
+        KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
+        KakaoAPI.Instance.Req.AddQuery("page", "1");
 
-        KakaoAPI.Instance.SearchByKeyword(getResult<Place>);
+        KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
 
     }
 
@@ -61,18 +61,17 @@ public class InfoManager : Singleton<InfoManager>
 
         Debug.Log(pageNum);
 
-        KakaoAPI.Instance.ClearQuery();
-        KakaoAPI.Instance.AddQuery("query", recentSearch);
-        KakaoAPI.Instance.AddQuery("x", TestGPS.Instance.x);
-        KakaoAPI.Instance.AddQuery("y", TestGPS.Instance.y);
-        KakaoAPI.Instance.AddQuery("radius", TestGPS.Instance.radious);
-        KakaoAPI.Instance.AddQuery("page", pageNum);
+        KakaoAPI.Instance.Req.ClearQuery();
+        KakaoAPI.Instance.Req.AddQuery("x", TestGPS.Instance.x);
+        KakaoAPI.Instance.Req.AddQuery("y", TestGPS.Instance.y);
+        KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
+        KakaoAPI.Instance.Req.AddQuery("page", pageNum);
 
-        KakaoAPI.Instance.SearchByKeyword(getResult<Place>);
+        KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
 
     }
 
-    void getResult<T>(string result)
+    void getResult(string result)
     {
 
         // 주변 정보를 가져옴

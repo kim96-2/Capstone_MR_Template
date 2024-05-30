@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using RestAPI.KakaoObject;
 
 // 주변 정보를 띄우는 UI
 public class InformationUI : Singleton<InformationUI>
