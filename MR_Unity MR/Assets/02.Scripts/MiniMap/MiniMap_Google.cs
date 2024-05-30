@@ -25,6 +25,8 @@ public class MiniMap_Google : MonoBehaviour
     private bool updateMap = true;
     private bool latUpdate = false;
 
+    public WebRequest Req = new();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,5 +82,34 @@ public class MiniMap_Google : MonoBehaviour
             zoomLast = zoom;
             updateMap = true;
         }
+    }
+
+    void NewMapLoader()
+     {
+        // string str = strBaseURL + Minimap_lat + "," + Minimap_lon + "&format=png&zoom=" + zoom + "&size=" + Minimap_width + "x" + Minimap_height + "&scale=2" + "&markers=color:blue%7C" + Minimap_lat + "," + Minimap_lon + "&key=" + Minimap_APIKey;
+        // Debug.Log(str.ToString());
+
+        Req.ClearQuery();
+        Req.URL = strBaseURL;
+        Req.AddQuery("center", $"{Minimap_lat},{Minimap_lon}");
+        Req.AddQuery("format", "png");
+        Req.AddQuery("zoom", zoom.ToString());
+        Req.AddQuery("size", $"{Minimap_width}x{Minimap_height}");
+        Req.AddQuery("scale", "2");
+        Req.AddQuery("markers", $"color:blue%7C{Minimap_lat},{Minimap_lon}");
+
+        Req.AddQuery("key", APIKey.Google_StaticMap);
+
+        Req.WebRequestImageGet((Texture2D result) =>
+        {
+            //미니맵 매니져에서 이미지 적용(나중에 이 클래스에 있는 기능을 매니져에 넣어도 될 듯)
+            if (MiniMapManager.Instance)
+                MiniMapManager.Instance.SetMapImage(result);
+
+            Minimap_latLast = Minimap_lat;
+            Minimap_lonLast = Minimap_lon;
+            zoomLast = zoom;
+            updateMap = true;
+        });
     }
 }

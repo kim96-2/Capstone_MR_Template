@@ -121,7 +121,8 @@ public class WebRequest
             {
                 req.SetRequestHeader(header.Key, header.Value);
             }
-            
+
+            Debug.Log("Start Send");
             yield return req.SendWebRequest();
 
             // 요청 결과 콜백
