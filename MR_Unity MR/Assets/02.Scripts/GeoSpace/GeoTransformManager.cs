@@ -62,6 +62,8 @@ public class GeoTransformManager : MonoBehaviour
     public Double2Position PivotTMPosition { get => pivotTMPosition;}
     public Double2Position PivotUnityPosition {get => pivotUnityPosition;}
 
+    public bool IsInited { get => pivotGeoPosition.x != 0f; }
+
     [Space(5f)]
     [SerializeField] double pivotGeoRotation;//기준 방위각
     [SerializeField] double pivotUnityRotation;//기준 유니티 회전각
@@ -228,7 +230,7 @@ public class GeoTransformManager : MonoBehaviour
     /// <param name="y"></param>
     public Double2Position TransformTMToUnitySpace(double x,double y)
     {
-        if(pivotGeoPosition.y == 0)
+        if(!IsInited)
         {
             Debug.LogError("기준점 초기화가 안되있어서 좌표계 변환이 불가능");
             return null;
