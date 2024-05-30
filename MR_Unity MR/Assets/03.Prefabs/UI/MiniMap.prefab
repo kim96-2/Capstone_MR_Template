@@ -89,8 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae3a72ea6e95d934486d1b48c504fd23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRawImage: {fileID: 0}
-  strBaseURL: https://maps.googleapis.com/maps/api/staticmap?center=
+  strBaseURL: https://maps.googleapis.com/maps/api/staticmap
   Minimap_lat: 37.5518018
   Minimap_lon: 127.0736345
   zoom: 18

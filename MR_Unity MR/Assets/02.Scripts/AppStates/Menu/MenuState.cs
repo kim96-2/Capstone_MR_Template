@@ -12,6 +12,9 @@ public class MenuState : BasicAppState
     {
         if (GeoTransformManager.Instance.IsInited)
         {
+            if (MiniMapManager.Instance)
+                MiniMapManager.Instance.SetDefaultMap();
+
             searchButton.interactable = true;
         }
         else

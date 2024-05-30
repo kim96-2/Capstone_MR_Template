@@ -56,6 +56,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapImage: {fileID: 2782763374377927398}
+  baseURL: https://maps.googleapis.com/maps/api/staticmap
+  zoom: 18
+  miniMapHeight: 800
+  miniMapWidth: 800
+  scale: 2
 --- !u!223 &80686570623226430
 Canvas:
   m_ObjectHideFlags: 0
