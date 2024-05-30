@@ -20,6 +20,12 @@ public class BasicStateButtonMethod : MonoBehaviour
 
     public void ChangeAppState()
     {
-        if (AppStateManager.Instance) AppStateManager.Instance.ChangeState(changeStateType);
+        if (AppStateManager.Instance)
+        {
+
+            if (changeStateType == AppStateType.SEARCH) InformationUI.Instance.changePlace(true);
+            AppStateManager.Instance.ChangeState(changeStateType);
+
+        }
     }
 }
