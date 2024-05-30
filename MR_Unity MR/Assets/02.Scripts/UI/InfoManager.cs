@@ -14,6 +14,8 @@ public class InfoManager : Singleton<InfoManager>
 
     [SerializeField] private string recentSearch;
 
+    private Double2Position geoPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,9 @@ public class InfoManager : Singleton<InfoManager>
 
         KakaoAPI.Instance.SearchByCategory(getResult<Place>);
         */
+
+        geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
+
     }
 
     // Update is called once per frame
@@ -47,8 +52,8 @@ public class InfoManager : Singleton<InfoManager>
         InformationUI.Instance.setPage(1f);
         InformationUI.Instance.changePlace(true);
 
-        KakaoAPI.Instance.Req.AddQuery("x", TestGPS.Instance.x);
-        KakaoAPI.Instance.Req.AddQuery("y", TestGPS.Instance.y);
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.x.ToString());
+        KakaoAPI.Instance.Req.AddQuery("y", geoPos.y.ToString());
         KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
         KakaoAPI.Instance.Req.AddQuery("page", "1");
 
@@ -59,11 +64,9 @@ public class InfoManager : Singleton<InfoManager>
     public void changePage(string pageNum)
     {
 
-        Debug.Log(pageNum);
-
         KakaoAPI.Instance.Req.ClearQuery();
-        KakaoAPI.Instance.Req.AddQuery("x", TestGPS.Instance.x);
-        KakaoAPI.Instance.Req.AddQuery("y", TestGPS.Instance.y);
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.x.ToString());
+        KakaoAPI.Instance.Req.AddQuery("y", geoPos.y.ToString());
         KakaoAPI.Instance.Req.AddQuery("radius", TestGPS.Instance.radious);
         KakaoAPI.Instance.Req.AddQuery("page", pageNum);
 

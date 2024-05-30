@@ -32,6 +32,7 @@ public class Contents : MonoBehaviour
 
     public void changeContents(Place place)
     {
+
         info.place_name = place_nameText.text = place.place_name;
         info.category_name = category_nameText.text = place.category_name;
         info.phone = phoneText.text = place.phone;

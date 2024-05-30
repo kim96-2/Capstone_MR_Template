@@ -15,10 +15,12 @@ public class InformationUI : Singleton<InformationUI>
     [SerializeField] private GameObject moreInfoPlace;
 
     [SerializeField] private RectTransform contentTransform;
-    [SerializeField] private GameObject placeInfo;
+    [SerializeField] private GameObject contentPrefab;
+    [SerializeField] private GameObject placePointPrefab;
     [SerializeField] private Scrollbar scroll;
 
     [SerializeField] private List<GameObject> content = new();
+    [SerializeField] private List<GameObject> placePoint = new();
 
     private bool scrollDown;
     [SerializeField] private float page;
@@ -28,6 +30,7 @@ public class InformationUI : Singleton<InformationUI>
     void Start()
     {
         scrollDown = true;
+        changePlace(true);
         page = 1;
     }
 
@@ -58,11 +61,15 @@ public class InformationUI : Singleton<InformationUI>
     public void AddInfo(Place place)
     {
 
-        GameObject contents = Instantiate(placeInfo, contentTransform);
-
+        GameObject contents = Instantiate(contentPrefab, contentTransform);
         content.Add(contents);
-
         contents.GetComponent<Contents>().changeContents(place);
+
+        GameObject placepoints = Instantiate(placePointPrefab);
+        placePoint.Add(placepoints);
+        placepoints.GetComponent<GeoTransform>().Init(place.y, place.x);
+        placepoints.GetComponent<Contents>().changeContents(place);
+
 
     }
 
@@ -70,8 +77,10 @@ public class InformationUI : Singleton<InformationUI>
     {
         
         for(int i = content.Count - 1; i >= 0; i--) Destroy(content[i]);
+        for(int i = placePoint.Count - 1; i >= 0; i--) Destroy(placePoint[i]);
 
         content.Clear();
+        placePoint.Clear();
 
         // UI관련 초기화
         scroll.value = 1f;
