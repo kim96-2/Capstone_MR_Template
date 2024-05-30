@@ -23,6 +23,16 @@ public class Double2Position
     }
 
     public double x , y;
+
+    /// <summary>
+    /// 위도 (경위도 좌표로 사용시에만)
+    /// </summary>
+    public double lat { get => x; }
+
+    /// <summary>
+    /// 경도 (경위도 좌표로 사용시에만)
+    /// </summary>
+    public double lan { get => y; }
 }
 
 /// <summary>
