@@ -720,7 +720,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8015608132498757513
 CanvasRenderer:
@@ -892,3 +892,10 @@ MonoBehaviour:
   phoneText: {fileID: 5099945963022418092}
   address_nameText: {fileID: 5546474680545608793}
   road_address_nameText: {fileID: 5570520374344995070}
+  showUI: {fileID: 0}
+  minRange: 1
+  maxRange: 300
+  minSizeMultiplier: 1
+  maxSizeMultiplier: 5
+  minHeightAdditioner: 0
+  maxHeightAdditioner: 50
