@@ -57,10 +57,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapImage: {fileID: 2782763374377927398}
   baseURL: https://maps.googleapis.com/maps/api/staticmap
-  zoom: 18
+  zoom: 17
   miniMapHeight: 800
   miniMapWidth: 800
   scale: 2
+  mapUpdateDistance: 2
   maxImageLoadCount: 3
 --- !u!223 &80686570623226430
 Canvas:
@@ -198,7 +199,7 @@ RectTransform:
   m_GameObject: {fileID: 6830733899115312055}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 154672445608473198}

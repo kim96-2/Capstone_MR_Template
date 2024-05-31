@@ -21,13 +21,16 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
     [SerializeField] int miniMapWidth = 800;
     [SerializeField] float scale = 2;
 
+    [Space(15f)]
+    [SerializeField] float mapUpdateDistance = 2f;
+
     [Header("Debug Setting")]
     [SerializeField] int maxImageLoadCount = 1;//플레이 시 최대 이미지 로드 수 지정
 
     public WebRequest Req = new();
 
     Transform player;
-
+    Vector3 lastPlayerPos;
 
     Query additionalQuery = null;
 
@@ -38,8 +41,24 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
         mapMaterial = mapImage.material;
 
         player = Camera.main.transform;//플레이어를 카메라 위치로 잡음
+        lastPlayerPos = player.position;
 
         //SetDefaultMap(37.5518018f, 127.0736345f);
+    }
+
+    private void Update()
+    {
+        UpdateMapWhilePlayerMoving();
+    }
+
+    void UpdateMapWhilePlayerMoving()
+    {
+
+        if (Vector3.Distance(lastPlayerPos, player.position) > mapUpdateDistance)
+        {
+            Debug.Log("업데이트");
+            UpdateMap();
+        }
     }
 
     /// <summary>
@@ -75,6 +94,19 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
     #region Map Set
 
+    void UpdateMap()
+    {
+        if (!GeoTransformManager.Instance.IsInited)
+        {
+            Debug.LogError("초기화 되지 않은 상태로 미니맵을 생성하려 함");
+            return;
+        }
+
+        Double2Position geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(player);
+
+        UpdateMap((float)geoPos.x, (float)geoPos.y);
+    }
+
     /// <summary>
     /// 현 상태에 맞게 미니맵을 업데이트하는 함수
     /// </summary>
@@ -98,6 +130,9 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
         {
             SetMapImage(result);
         }));
+
+        //업데이트 시 플레이어 마지막 위치 업데이트
+        lastPlayerPos = player.position;
     }
 
     /// <summary>
