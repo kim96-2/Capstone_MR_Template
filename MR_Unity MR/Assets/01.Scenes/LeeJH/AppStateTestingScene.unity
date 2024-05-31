@@ -6105,6 +6105,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3692524577507933706, guid: 3e290a3d7a5d27743815ad359fd95175, type: 3}
+      propertyPath: maxImageLoadCount
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5635697689035860024, guid: 3e290a3d7a5d27743815ad359fd95175, type: 3}
       propertyPath: m_Target
       value: 

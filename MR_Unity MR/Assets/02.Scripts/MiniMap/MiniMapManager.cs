@@ -19,13 +19,13 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
     [SerializeField] int zoom = 18;
     [SerializeField] int miniMapHeight = 800;
     [SerializeField] int miniMapWidth = 800;
-    [SerializeField] float scale = 2;
+    [SerializeField] int scale = 2;
 
     [Space(15f)]
     [SerializeField] float mapUpdateDistance = 2f;
 
     [Header("Debug Setting")]
-    [SerializeField] int maxImageLoadCount = 1;//플레이 시 최대 이미지 로드 수 지정
+    [SerializeField] int maxImageLoadCount = 1;//플레이 시 최대 이미지 로드 횟수 지정
 
     public WebRequest Req = new();
 

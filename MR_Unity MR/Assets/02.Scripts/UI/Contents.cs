@@ -43,6 +43,8 @@ public class Contents : MonoBehaviour
 
         player = Camera.main.transform;//플레이어 위치를 카메라 위치로 세팅
 
+        if (!showUI) return;
+
         defaultSize = showUI.localScale;
         defaultHeight = showUI.localPosition;
 
@@ -51,20 +53,22 @@ public class Contents : MonoBehaviour
 
     void Update()
     {
+        if (!showUI) return;
+
         float range = (player.position - transform.position).magnitude;//플레이어와의 거리 계산
 
         range = Mathf.Clamp(range, minRange, maxRange);//최소 거리 최대 거리로 Clamp
 
-        Debug.Log(showUI);
+        //Debug.Log(showUI);
 
         //거리에 선형비례하는 크기증가값 계산
         float sizeMultiplier = Mathf.Lerp(minSizeMultiplier, maxSizeMultiplier, (range - minRange) / (maxRange - minRange));
 
-        showUI.transform.localScale = defaultSize * sizeMultiplier;
+        showUI.localScale = defaultSize * sizeMultiplier;
 
         float heightAdditioner = Mathf.Lerp(minHeightAdditioner, maxHeightAdditioner, (range - minRange) / (maxRange - minRange));
 
-        showUI.transform.localPosition = defaultHeight + Vector3.up * heightAdditioner;
+        showUI.localPosition = defaultHeight + Vector3.up * heightAdditioner;
     }
 
     private void OnDestroy()
