@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -2812,11 +2812,11 @@ RectTransform:
   - {fileID: 995571067940206392}
   - {fileID: 4191163628333158381}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1.45, y: 0.5}
+  m_AnchoredPosition: {x: 1.4500122, y: 0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!223 &3853848284696732884
@@ -3965,10 +3965,13 @@ MonoBehaviour:
   phoneText: {fileID: 2338369990119523490}
   address_nameText: {fileID: 3749776349040533848}
   road_address_nameText: {fileID: 6410981184998755038}
+  showUI: {fileID: 0}
   minRange: 1
   maxRange: 300
   minSizeMultiplier: 1
   maxSizeMultiplier: 5
+  minHeightAdditioner: 0
+  maxHeightAdditioner: 50
 --- !u!1 &7670541644658370269
 GameObject:
   m_ObjectHideFlags: 0
