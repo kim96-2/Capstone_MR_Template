@@ -15,6 +15,7 @@ public class InformationUI : Singleton<InformationUI>
     [SerializeField] private GameObject moreInfoPlace;
 
     [SerializeField] private RectTransform contentTransform;
+
     [SerializeField] private GameObject contentPrefab;
     [SerializeField] private GameObject placePointPrefab;
     [SerializeField] private Scrollbar scroll;
@@ -27,6 +28,8 @@ public class InformationUI : Singleton<InformationUI>
     public float getPage() { return page; }
     public void setPage(float page) { this.page = page;}
 
+    public void setContentTransformSize(float _size) { contentTransform.sizeDelta = new Vector2(0f, _size); }
+
     void Start()
     {
         scrollDown = true;
@@ -38,33 +41,16 @@ public class InformationUI : Singleton<InformationUI>
         
     }
 
-    // 스크롤 맨 아래로 내릴 시 크기 늘려줌
-    public void EndDrag()
-    {
-        if (scroll.value < 0f && scrollDown) {
-
-            scrollDown = false;
-            
-            StartCoroutine("ChangePageUp");
-
-        }
-        else if (scroll.value > 1.1f && scrollDown)
-        {
-
-            scrollDown = false;
-
-            StartCoroutine("ChangePageDown");
-
-        }
-    }
-
+    // 정보 추가
     public void AddInfo(Place place)
     {
 
+        // Search UI 추가
         GameObject contents = Instantiate(contentPrefab, contentTransform);
         content.Add(contents);
         contents.GetComponent<Contents>().changeContents(place);
 
+        // 화면 상의 UI 추가
         GameObject placepoints = Instantiate(placePointPrefab);
         placePoint.Add(placepoints);
 
@@ -73,9 +59,9 @@ public class InformationUI : Singleton<InformationUI>
         placepoints.GetComponent<GeoTransform>().Init(place.y, place.x);
         placepoints.GetComponent<Contents>().changeContents(place);
 
-
     }
 
+    // 정보들 초기화
     public void ClearInfo()
     {
         
@@ -90,6 +76,7 @@ public class InformationUI : Singleton<InformationUI>
 
     }
 
+    // 세부 정보 표시하는 화면으로 변경 
     public void MoreInfo(Place place)
     {
 
@@ -99,6 +86,27 @@ public class InformationUI : Singleton<InformationUI>
 
     }
 
+    // 스크롤 끝으로 갈 시 페이지 변경
+    public void EndDrag()
+    {
+        if (scroll.value < 0f && scrollDown)
+        {
+
+            scrollDown = false;
+
+            StartCoroutine("ChangePageUp");
+
+        }
+        else if (scroll.value > 1.1f && scrollDown)
+        {
+
+            scrollDown = false;
+
+            StartCoroutine("ChangePageDown");
+
+        }
+    }
+
     // 지도 목록하고 상세정보 변환 true는 검색 목록 fasle는 상세정보
     public void changePlace(bool toggle)
     {
@@ -106,6 +114,7 @@ public class InformationUI : Singleton<InformationUI>
         moreInfoPlace.SetActive(!toggle);
     }
 
+    // 스크롤 맨 위로 올릴 때
     IEnumerator ChangePageUp()
     {
 
@@ -119,6 +128,7 @@ public class InformationUI : Singleton<InformationUI>
         yield return null;
     }
 
+    // 스크롤 맨 아래로 내릴 때
     IEnumerator ChangePageDown()
     {
 
