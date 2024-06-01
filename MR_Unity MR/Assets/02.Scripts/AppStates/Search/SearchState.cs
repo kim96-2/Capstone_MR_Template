@@ -16,9 +16,10 @@ public class SearchState : BasicAppState
         base.StartState();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EndState()
     {
-        
+        InformationUI.Instance.ClearInfo();//스테이트 변경되면 카테고리 지우기
+
+        base.EndState();
     }
 }
