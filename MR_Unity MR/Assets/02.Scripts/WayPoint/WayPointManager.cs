@@ -4,8 +4,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using RestAPI.DirectionObject;
+using RestAPI.KakaoObject;
 
-public class WayPointManager : MonoBehaviour
+public class WayPointManager : Singleton<WayPointManager>
 {
 
     [SerializeField] GameObject wayPoint;
@@ -14,19 +16,44 @@ public class WayPointManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 테스트용 좌표
-        SetPoints(new Vector3(0f, 0f, 0f));
+
+    }
+    public void testWayPoint()
+    {
+
+        /*
         SetPoints(new Vector3(0f, 0f, 5f));
         SetPoints(new Vector3(5f, 0f, 5f));
         SetPoints(new Vector3(5f, 0f, 10f));
         SetPoints(new Vector3(5f, 0f, 15f));
         SetPoints(new Vector3(8f, 0f, 12f));
+        */
+
+        Double2Position origin = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
+        Double2Position dest = new Double2Position(InformationUI.Instance.lastMoreInfoPlace.x, InformationUI.Instance.lastMoreInfoPlace.y);
+
+        DirectionAPI.Instance.DirectionTo(origin, dest, getResult);
+
+        points[0].GetComponent<WayPoint>().DrawWay();
+        points[0].GetComponent<WayPoint>().isDrawing = true;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void getResult(string result)
     {
-        
+
+        Response response = JsonUtility.FromJson<Response>(result);
+
+        foreach (Feature p in response.features) {
+
+            Double2Position position_TM = GeoTransformManager.Instance.TransformGeoToTM(p.geometry.coordinates[0][1], p.geometry.coordinates[0][0]);
+
+            Double2Position position_Unity = GeoTransformManager.Instance.TransformTMToUnitySpace(position_TM.x, position_TM.y);
+
+            SetPoints(new Vector3((float)position_Unity.x, this.transform.position.y, (float)position_Unity.y));
+
+        }
+
     }
 
     /// <summary>
@@ -43,9 +70,11 @@ public class WayPointManager : MonoBehaviour
         // Unity 상에서 확인하기 편하게 적어놓은거임
         point.name = points.Count.ToString();
 
-        // 첫 번째 WayPoint 제외하고 다음 WayPoint 설정 및 처음 WayPoint 길 연결
-        if (points.Count != 1) points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
-        if (points.Count == 2) points[points.Count - 2].GetComponent<WayPoint>().DrawWay();
+        if (points.Count != 1)
+        {
+            points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
+            points[points.Count - 1].SetActive(false);
+        }
 
     }
 

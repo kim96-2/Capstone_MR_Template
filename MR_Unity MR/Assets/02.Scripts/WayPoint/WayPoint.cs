@@ -5,32 +5,43 @@ using UnityEngine;
 public class WayPoint : MonoBehaviour
 {
 
-    [SerializeField] private GameObject nextPoint; private WayPoint nextPointWay;
+    [SerializeField] private GameObject nextPoint;
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private LineRenderer line;
 
-    bool isDrawing = false;
+    public bool isDrawing = false;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
 
         targetPoint = GameObject.FindWithTag("MainCamera");
-        nextPointWay = GetComponent<WayPoint>();
+        line = GetComponent<LineRenderer>();
 
     }
 
     public void Update()
     {
 
-        if (!nextPoint) return;
+        DrawWay();
 
         // 현재 WayPoint로 Player가 접근 시 다음 WayPoint까지 Line 생성
-        if (Vector3.Distance(nextPoint.transform.position, targetPoint.transform.position) < 1f && isDrawing)
+        if (Vector3.Distance(this.transform.position, targetPoint.transform.position) < 1f && isDrawing)
         {
 
             line.enabled = false;
-            nextPoint.GetComponent<WayPoint>().DrawWay();
+
+            if (!nextPoint)
+            {
+
+                StartCoroutine("timer");
+                
+                return;
+
+            }
+
+            nextPoint.SetActive(true);
+            nextPoint.GetComponent<WayPoint>().isDrawing = true;
+            gameObject.SetActive(false);
 
         }
 
@@ -52,17 +63,31 @@ public class WayPoint : MonoBehaviour
     public void DrawWay()
     {
 
-        isDrawing = true;
-
-        if (!nextPoint) return;
-
         // Line 크기 조정
         line.SetWidth(0.2f, 0.2f);
 
-        // 다음 WayPoint까지 Line 생성
-        line.SetPosition(0, this.transform.position);
-        line.SetPosition(1, nextPoint.transform.position);
+        // 현재 WayPoint까지 Line 생성
+        line.SetPosition(0, new Vector3(targetPoint.transform.position.x, this.transform.position.y, targetPoint.transform.position.z));
+        line.SetPosition(1, this.transform.position);
 
+    }
+
+    IEnumerator timer() {
+
+        isDrawing = false;
+
+        GameObject.FindWithTag("WayPointState").GetComponent<WayPointState>().setMessage("경로 탐색 완료");
+
+        yield return new WaitForSeconds(1f);
+
+        GameObject.FindWithTag("WayPointState").GetComponent<WayPointState>().setMessage("");
+
+        AppStateManager.Instance.ChangeState(AppStateType.MENU);
+
+        WayPointManager.Instance.clearPoint();
+
+        yield return null;
+    
     }
     
 }

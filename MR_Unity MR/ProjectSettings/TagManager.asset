@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AppUIOffset
+  - WayPointState
   layers:
   - Default
   - TransparentFX
