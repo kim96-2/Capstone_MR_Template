@@ -73,7 +73,6 @@ namespace RestAPI.DirectionObject
         public string facilityName; // 구간 시설물 타입의 명칭
         public int totalDistance; // 경로 총 길이(단위:m)
         public int totalTime; // 경로 총 소요시간(단위: 초)
-
         public int lineIndex; // 구간의 순번
         public int time; // 구간의 소요 시간(단위: 초)
         public int distance; // 구간 거리(단위: m)

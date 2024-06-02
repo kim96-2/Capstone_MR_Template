@@ -1,12 +1,10 @@
 using RestAPI.DirectionObject;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DirectionAPI : Singleton<DirectionAPI>
 {
     private string _url;
-
     // API 요청 인스턴스
     public readonly WebRequest Req = new();
 
@@ -23,7 +21,8 @@ public class DirectionAPI : Singleton<DirectionAPI>
             throw new Exception("Google API KEY not found");
         }
         Req.AddHeader("appKey", APIKey.Direction);
-        Req.AddHeader("Accept", "application/json");
+        Req.AddHeader("accept", "application/json");
+        Req.AddHeader("content-type", "application/json");
         Req.AddQuery("version", "1");
     }
 
@@ -31,9 +30,9 @@ public class DirectionAPI : Singleton<DirectionAPI>
     /// <summary>
     /// 경로 검색
     /// </summary>
-    /// <param name="origin"></param>
-    /// <param name="dest"></param>
-    /// <param name="callback"></param>
+    /// <param name="origin">출발지 위경도</param>
+    /// <param name="dest">목적지 위경도</param>
+    /// <param name="callback">요청 후 실행할 콜백 함수 : Response</param>
     public void DirectionTo(Double2Position origin, Double2Position dest, WebRequest.ResponseCallback callback)
     {
         Req.URL = _url;
@@ -48,6 +47,23 @@ public class DirectionAPI : Singleton<DirectionAPI>
         string data = JsonUtility.ToJson(dataObj);
 
         StartCoroutine(Req.WebRequestPost(data, callback));
+    }
+
+
+    /// <summary>
+    /// Response 파싱
+    /// </summary>
+    /// <param name="data"> 변환할 string</param>
+    /// <returns>경로 탐색 요청 결과 : Response</returns>
+    public Response ParseResponse(string data)
+    {
+        Response obj = JsonUtility.FromJson<Response>(data);
+        if (obj == null)
+        {
+            Debug.LogWarning($"ERROR: JSON Parsing to Direction Response Failed \n{data}");
+        }
+
+        return obj;
     }
     
     

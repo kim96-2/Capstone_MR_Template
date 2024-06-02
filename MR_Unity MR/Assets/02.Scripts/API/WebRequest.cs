@@ -144,9 +144,16 @@ public class WebRequest
     public IEnumerator WebRequestPost(string postData,
         ResponseCallback callback)
     {
+        // json 데이터 전환
+        byte[] sendData = new System.Text.UTF8Encoding().GetBytes(postData);
+        
         //웹 리퀘스트 설정
-        using (var req = UnityWebRequest.PostWwwForm(SetURL(), postData))
+        using (var req = new UnityWebRequest(SetURL(), "POST"))
         {
+            // POST 데이터 로드
+            req.uploadHandler = new UploadHandlerRaw(sendData);
+            req.downloadHandler = new DownloadHandlerBuffer();
+            
             foreach (var header in _headers)
             {
                 req.SetRequestHeader(header.Key, header.Value);
@@ -160,7 +167,7 @@ public class WebRequest
                 callback(req.downloadHandler.text);
             }
             else
-                Debug.LogWarning($"ERROR: API Request Failed  {req.error}");
+                Debug.LogWarning($"ERROR: API Request Failed  {req.error} : {req.downloadHandler.text}");
         }
     }
 }
