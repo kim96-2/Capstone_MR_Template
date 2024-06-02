@@ -3254,6 +3254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8914427855175801990}
+  - component: {fileID: 2506083008593521941}
   - component: {fileID: 3853848284696732884}
   - component: {fileID: 5654051699433500682}
   - component: {fileID: 5875938476746265696}
@@ -3289,6 +3290,18 @@ RectTransform:
   m_AnchoredPosition: {x: 1.4500122, y: 0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &2506083008593521941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286541124316432966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb37a12aed4f7e4eb88dae2755c4868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!223 &3853848284696732884
 Canvas:
   m_ObjectHideFlags: 0
@@ -3429,7 +3442,7 @@ MonoBehaviour:
   contentPrefab: {fileID: 9157557945695241251, guid: b05536d32031852448b53915ffdc9691, type: 3}
   placePointPrefab: {fileID: 3828952185830918818, guid: c8936f2028222394bb741a97ac3b88bd, type: 3}
   scroll: {fileID: 5619241436214626012}
-  content: []
+  contents: []
   placePoint: []
   page: 0
   recentSearch: 
@@ -3447,6 +3460,8 @@ MonoBehaviour:
     x: 0
     y: 0
     distance: 0
+  pointHeigntMaxAngle: 25
+  eachPointHeightMaxAngel: 3
 --- !u!1 &6341159276442553577
 GameObject:
   m_ObjectHideFlags: 0
@@ -4702,13 +4717,6 @@ MonoBehaviour:
   phoneText: {fileID: 2338369990119523490}
   address_nameText: {fileID: 3749776349040533848}
   road_address_nameText: {fileID: 6410981184998755038}
-  showUI: {fileID: 0}
-  minRange: 1
-  maxRange: 300
-  minSizeMultiplier: 1
-  maxSizeMultiplier: 5
-  minHeightAdditioner: 0
-  maxHeightAdditioner: 50
 --- !u!1 &7670541644658370269
 GameObject:
   m_ObjectHideFlags: 0

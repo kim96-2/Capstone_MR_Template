@@ -22,8 +22,10 @@ public class InformationUI : Singleton<InformationUI>
     [SerializeField] private GameObject placePointPrefab;
     [SerializeField] private Scrollbar scroll;
 
-    [SerializeField] private List<GameObject> content = new();
-    [SerializeField] private List<GameObject> placePoint = new();
+    [SerializeField] private List<Contents> contents = new();
+    [SerializeField] private List<Contents_nonUI> placePoint = new();
+
+    List<Contents_nonUI> placePoints_forSwap = new();
 
     [Space(15f)]
     private bool scrollDown;
@@ -41,6 +43,10 @@ public class InformationUI : Singleton<InformationUI>
     //길찾기 상태로 들어갈 때 위 값을 참조하여 길찾기를 진행하면 된다
     public Place lastMoreInfoPlace;
 
+    [Header("Point Swap Setting")]
+    [SerializeField,Range(0f,90f)] float pointHeigntMaxAngle = 30f;
+    [SerializeField, Range(0, 45f)] float eachPointHeightMaxAngel = 5f;
+
     public void setContentTransformSize(float _size) { contentTransform.sizeDelta = new Vector2(0f, _size); }
 
     void Start()
@@ -50,6 +56,65 @@ public class InformationUI : Singleton<InformationUI>
         page = 1;
     }
 
+    private void Update()
+    {
+        SwapPlacePoints();
+    }
+
+    #region Place Swap Setting
+
+    void SwapPlacePoints()
+    {
+        Contents_nonUI temp;
+
+        float hfov = Camera.main.fieldOfView * Camera.main.aspect;
+
+        //화면 안에 있는 지점들을 분류
+        int placeInScreen = 0;
+        for (int i = 0; i < placePoints_forSwap.Count; i++)
+        {
+            if (Mathf.Abs(placePoints_forSwap[i].AngleFromPlayer) < hfov / 2f)
+            {
+                temp = placePoints_forSwap[i];
+                placePoints_forSwap[i] = placePoints_forSwap[placeInScreen];
+                placePoints_forSwap[placeInScreen] = temp;
+
+                placeInScreen++;
+            }
+        }
+
+        //화변 밖에 있는 애들 높이 가중치 0으로 적용
+        for(int i = placeInScreen; i < placePoints_forSwap.Count; i++)
+        {
+            placePoints_forSwap[i].HeightAdditioner = 0f;
+        }
+
+        //화면 안의 특징 지점들을 플레이어 와의 거리 순으로 정렬 시켜줌
+        for (int i = 0; i < placeInScreen; i++)
+        {
+            for (int j = i; j < placeInScreen; j++)
+            {
+                if (placePoints_forSwap[i].RangeToPlayer > placePoints_forSwap[j].RangeToPlayer)
+                {
+                    temp = placePoints_forSwap[i];
+                    placePoints_forSwap[i] = placePoints_forSwap[j];
+                    placePoints_forSwap[j] = temp;
+                }
+            }
+        }
+
+        float angle = pointHeigntMaxAngle / placeInScreen;
+        if(angle > eachPointHeightMaxAngel) angle = eachPointHeightMaxAngel;
+
+        //플레이어와 멀리 있을 만큼 높이 가중치를 크게 부여 (각도로 부여)
+        for (int i = 0; i < placeInScreen; i++)
+        {
+            placePoints_forSwap[i].HeightAdditioner = angle * (i + 1f);
+        }
+    }
+
+    #endregion Place Swap Setting
+
     #region Info Setting
 
     // 정보 추가
@@ -57,29 +122,36 @@ public class InformationUI : Singleton<InformationUI>
     {
 
         // Search UI 추가
-        GameObject contents = Instantiate(contentPrefab, contentTransform);
-        content.Add(contents);
-        contents.GetComponent<Contents>().changeContents(place);
+        Contents content = Instantiate(contentPrefab, contentTransform).GetComponent<Contents>();
+        contents.Add(content);
+        content.changeContents(place);
 
         // 화면 상의 UI 추가
-        GameObject placepoints = Instantiate(placePointPrefab);
+        Contents_nonUI placepoints = Instantiate(placePointPrefab).GetComponent<Contents_nonUI>();
         placePoint.Add(placepoints);
+
+        placePoints_forSwap.Add(placepoints);//스왑용 리스트에도 위치 저장
+
+        placepoints.ChangePointState(PlacePointState.NORMAL);
 
         //Debug.Log("생성 위치 : " + place.y + " " + place.x);
 
         placepoints.GetComponent<GeoTransform>().Init(place.y, place.x);
-        placepoints.GetComponent<Contents>().changeContents(place);
+        placepoints.changeContents(place);
 
     }
 
     // 정보들 초기화
     public void ClearInfo()
     {
-        
-        for(int i = content.Count - 1; i >= 0; i--) Destroy(content[i]);
-        for(int i = placePoint.Count - 1; i >= 0; i--) Destroy(placePoint[i]);
+        lastMoreInfoPlace = null;
 
-        content.Clear();
+        for (int i = contents.Count - 1; i >= 0; i--) Destroy(contents[i].gameObject);
+        for(int i = placePoint.Count - 1; i >= 0; i--) Destroy(placePoint[i].gameObject);
+
+        placePoints_forSwap.Clear();
+
+        contents.Clear();
         placePoint.Clear();
 
         // UI관련 초기화
@@ -95,6 +167,19 @@ public class InformationUI : Singleton<InformationUI>
         changePlace(false);
 
         moreInfoPlace.GetComponent<Contents>().changeContents(place);
+
+        if (MiniMapManager.Instance)
+        {
+            MiniMapManager.Instance.SetSearchMap(new List<Place> { place });
+        }
+
+        //선택된 세부 정보 위치를 강조하고 그 외 위치들은 비활성화
+        foreach (Contents_nonUI points in placePoint)
+        {
+            if(points.getPlace() == place) points.ChangePointState(PlacePointState.HIGHLIGHT);
+            else points.ChangePointState(PlacePointState.IGNORE);
+        }
+
 
     }
 
@@ -121,9 +206,12 @@ public class InformationUI : Singleton<InformationUI>
         }
     }
 
-    
 
-    // 지도 목록하고 상세정보 변환 true는 검색 목록 fasle는 상세정보
+
+    /// <summary>
+    /// 지도 목록하고 상세정보 변환 true는 검색 목록 fasle는 상세정보
+    /// </summary>
+    /// <param name="toggle"></param>
     public void changePlace(bool toggle)
     {
         scrollPlace.SetActive(toggle);
