@@ -50,7 +50,7 @@ public class GoogleAPI : Singleton<GoogleAPI>
     {
         Req.URL = _urls[ReqType.Nearby];
         
-        // 헤더 설정
+        // 쿼리 설정
         Req.AddQuery("location", $"{latitude}%2C{longitude}");
         Req.AddQuery("radius", $"{radius}");
         StartCoroutine(Req.WebRequestGet(callback));
@@ -83,7 +83,7 @@ public class GoogleAPI : Singleton<GoogleAPI>
     {
         Req.URL = _urls[ReqType.Image];
         
-        // 헤더 설정
+        // 쿼리 설정
         Req.AddQuery("photo_reference", reference);
         Req.AddQuery("maxheight", height.ToString());
         Req.AddQuery("maxwidth", width.ToString());
