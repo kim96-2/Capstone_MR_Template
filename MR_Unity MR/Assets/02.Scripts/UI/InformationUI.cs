@@ -41,16 +41,20 @@ public class InformationUI : Singleton<InformationUI>
 
     //가장 최근에 검색한 세부정보
     //길찾기 상태로 들어갈 때 위 값을 참조하여 길찾기를 진행하면 된다
-    public Place lastMoreInfoPlace;
+    private Place _lastMoreInfoPlace = null;
+    public Place lastMoreInfoPlace { get => _lastMoreInfoPlace; }
 
     [Header("Point Swap Setting")]
     [SerializeField,Range(0f,90f)] float pointHeigntMaxAngle = 30f;
     [SerializeField, Range(0, 45f)] float eachPointHeightMaxAngel = 5f;
+    [SerializeField] float areaCount = 10;
 
     public void setContentTransformSize(float _size) { contentTransform.sizeDelta = new Vector2(0f, _size); }
 
     void Start()
     {
+        _lastMoreInfoPlace = null;
+
         scrollDown = true;
         changePlace(true);
         page = 1;
@@ -63,8 +67,64 @@ public class InformationUI : Singleton<InformationUI>
 
     #region Place Swap Setting
 
-    void SwapPlacePoints()
+    List<Contents_nonUI> areaPoints = new();
+    /// <summary>
+    /// 각 특징 좌표들 높이 가중치 계산
+    /// </summary>
+    void SetPlacePointsHeightAdditioner()
     {
+        //float hfov = Camera.main.fieldOfView * Camera.main.aspect;
+
+        float areaAngle = 360 / areaCount;
+
+        //구역 각도 안에 있는 좌표들 분류 후 구역마다 정렬
+        for (int area = 0; area < areaCount; area++)
+        {
+            areaPoints.Clear();
+            for(int i=0;i<placePoints_forSwap.Count;i++)
+            {
+                if (placePoints_forSwap[i].AngleFromPlayer > -180f + areaAngle * area &&
+                    placePoints_forSwap[i].AngleFromPlayer <= -180f + areaAngle * (area + 1))
+                {
+                    areaPoints.Add(placePoints_forSwap[i]);
+                }
+            }
+
+            SwapPointsInArea(areaPoints);
+        }
+    }
+
+    void SwapPointsInArea(List<Contents_nonUI> areaPoints)
+    {
+        Contents_nonUI temp;
+
+        for (int i = 0; i < areaPoints.Count; i++)
+        {
+            for(int j = i; j < areaPoints.Count; j++)
+            {
+                if (areaPoints[i].RangeToPlayer > areaPoints[j].RangeToPlayer)
+                {
+                    temp = areaPoints[i];
+                    areaPoints[i] = areaPoints[j];
+                    areaPoints[j] = temp;
+                }
+            }
+        }
+
+        float angle = pointHeigntMaxAngle / areaPoints.Count;
+        if (angle > eachPointHeightMaxAngel) angle = eachPointHeightMaxAngel;
+
+        //플레이어와 멀리 있을 만큼 높이 가중치를 크게 부여 (각도로 부여)
+        for (int i = 0; i < areaPoints.Count; i++)
+        {
+            areaPoints[i].HeightAdditioner = angle * (i + 1f);
+        }
+    }
+
+    void SwapPlacePoints()//실시간으로 정렬하는 함수
+    {
+        if (lastMoreInfoPlace != null) return;//세부 정보를 확인하고 있다면 실행 X
+
         Contents_nonUI temp;
 
         float hfov = Camera.main.fieldOfView * Camera.main.aspect;
@@ -79,16 +139,20 @@ public class InformationUI : Singleton<InformationUI>
                 placePoints_forSwap[i] = placePoints_forSwap[placeInScreen];
                 placePoints_forSwap[placeInScreen] = temp;
 
+                placePoints_forSwap[i].ChangePointState(PlacePointState.NORMAL);
+
                 placeInScreen++;
             }
         }
 
-        //화변 밖에 있는 애들 높이 가중치 0으로 적용
+        //화변 밖에 있는 애들 높이 가중치 0으로 적용 -> 비활성화 시켜줌
         for(int i = placeInScreen; i < placePoints_forSwap.Count; i++)
         {
-            placePoints_forSwap[i].HeightAdditioner = 0f;
+            //placePoints_forSwap[i].HeightAdditioner = 0f;
+            placePoints_forSwap[i].ChangePointState(PlacePointState.IGNORE);
         }
 
+        /*
         //화면 안의 특징 지점들을 플레이어 와의 거리 순으로 정렬 시켜줌
         for (int i = 0; i < placeInScreen; i++)
         {
@@ -111,6 +175,7 @@ public class InformationUI : Singleton<InformationUI>
         {
             placePoints_forSwap[i].HeightAdditioner = angle * (i + 1f);
         }
+        */
     }
 
     #endregion Place Swap Setting
@@ -144,7 +209,7 @@ public class InformationUI : Singleton<InformationUI>
     // 정보들 초기화
     public void ClearInfo()
     {
-        lastMoreInfoPlace = null;
+        _lastMoreInfoPlace = null;
 
         for (int i = contents.Count - 1; i >= 0; i--) Destroy(contents[i].gameObject);
         for(int i = placePoint.Count - 1; i >= 0; i--) Destroy(placePoint[i].gameObject);
@@ -162,7 +227,7 @@ public class InformationUI : Singleton<InformationUI>
     // 세부 정보 표시하는 화면으로 변경 
     public void MoreInfo(Place place)
     {
-        lastMoreInfoPlace = place;//가장 최근에 검색한 길찾기 용 세부정부 내용 업데이트
+        _lastMoreInfoPlace = place;//가장 최근에 검색한 길찾기 용 세부정부 내용 업데이트
 
         changePlace(false);
 
@@ -278,6 +343,8 @@ public class InformationUI : Singleton<InformationUI>
 
         //받아온 정보들 추가
         foreach (Place place in response.documents) AddInfo(place);
+
+        Invoke("SetPlacePointsHeightAdditioner", 0.1f);//가중치 초기화 함수를 약간 느리게 실행
 
         // 정보 개수에 맞게 스크롤 조정
         setContentTransformSize((response.documents.Count * 100f) + 50f);
