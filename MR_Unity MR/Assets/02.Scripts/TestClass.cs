@@ -5,36 +5,24 @@ using UnityEngine;
 
 public class TestClass : MonoBehaviour
 {
-    public string lat;
-    public string lng;
+    public Double2Position pos1;
+    public Double2Position pos2;
     private string result = "";
-    public string detail = "";
+    public string para = "";
     public bool flag = false;
     public string filePath;
     
     void Start()
     {
-        GoogleAPI.Instance.SearchNearby(Double.Parse(lat), Double.Parse(lng), 500, (s => result = s));
+        DirectionAPI.Instance.DirectionTo(pos1, pos2, s =>
+        {
+            DirectionAPI.Instance.DebugFunc(s);
+        });
     }
 
     private void Update()
     {
-        if (result == "")
-        {
-            Debug.Log("Wait...");
-        }
-        if (result != "" && !flag)
-        {
-            flag = true;
-            NearbyResponse res = GoogleAPI.Instance.ParseNearbyRes(result);
-            
-            GoogleAPI.Instance.PlaceDetail(res.results[4].place_id, s => detail = s);
-        }
-
-        if (detail != "")
-        {
-            Debug.Log(detail);
-        }
+        
 
     }
     
