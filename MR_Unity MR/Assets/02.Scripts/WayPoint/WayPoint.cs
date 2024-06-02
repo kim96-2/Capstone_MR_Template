@@ -50,10 +50,11 @@ public class WayPoint : MonoBehaviour
 
     public void setNextPoint(GameObject _nextPoint) { nextPoint = _nextPoint; }
 
-    public void Init()
+    public void Init(Double2Position pos)
     {
 
         line = GetComponent<LineRenderer>();
+        GetComponent<GeoTransform>().Init(pos.x, pos.y);
 
     }
 

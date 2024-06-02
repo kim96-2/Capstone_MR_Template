@@ -238,7 +238,9 @@ GameObject:
   - component: {fileID: 5583197070906130529}
   - component: {fileID: 7916294942903426344}
   - component: {fileID: 7105119636677841991}
+  - component: {fileID: 915080000608110938}
   - component: {fileID: 9206330202845804395}
+  - component: {fileID: 393898521033646219}
   m_Layer: 0
   m_Name: WayPoint
   m_TagString: Untagged
@@ -287,7 +289,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPoint: {fileID: 0}
+  targetPoint: {fileID: 0}
   line: {fileID: 9206330202845804395}
+  isDrawing: 0
+--- !u!114 &915080000608110938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535119796305697602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d346103d7d9ed564082fa0f60fd9ecc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!120 &9206330202845804395
 LineRenderer:
   serializedVersion: 2
@@ -392,6 +408,33 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &393898521033646219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535119796305697602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_TargetOffset: {x: 0, y: 0, z: 0.5}
+  m_FollowInLocalSpace: 0
+  m_ApplyTargetInLocalSpace: 0
+  m_MovementSpeed: 6
+  m_MovementSpeedVariancePercentage: 0.25
+  m_SnapOnEnable: 1
+  m_PositionFollowMode: 0
+  m_MinDistanceAllowed: 0.01
+  m_MaxDistanceAllowed: 0.3
+  m_TimeUntilThresholdReachesMaxDistance: 3
+  m_RotationFollowMode: 1
+  m_MinAngleAllowed: 0.1
+  m_MaxAngleAllowed: 5
+  m_TimeUntilThresholdReachesMaxAngle: 3
 --- !u!1 &6724808814268845486
 GameObject:
   m_ObjectHideFlags: 0

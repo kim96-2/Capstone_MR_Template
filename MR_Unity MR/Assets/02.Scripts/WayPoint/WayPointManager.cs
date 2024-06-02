@@ -44,15 +44,7 @@ public class WayPointManager : Singleton<WayPointManager>
 
         Response response = JsonUtility.FromJson<Response>(result);
 
-        foreach (Feature p in response.features) {
-
-            Double2Position position_TM = GeoTransformManager.Instance.TransformGeoToTM(p.geometry.coordinates[0][1], p.geometry.coordinates[0][0]);
-
-            Double2Position position_Unity = GeoTransformManager.Instance.TransformTMToUnitySpace(position_TM.x, position_TM.y);
-
-            SetPoints(new Vector3((float)position_Unity.x, this.transform.position.y, (float)position_Unity.y));
-
-        }
+        foreach (Feature p in response.features) { SetPoints(new Double2Position(p.geometry.coordinates[0][1], p.geometry.coordinates[0][0])); }
 
     }
 
@@ -60,12 +52,13 @@ public class WayPointManager : Singleton<WayPointManager>
     /// 해당 위치에 WayPoint 생성하는 함수
     /// <summary>
     /// <param name="pos">Unity 내에서 화면에 띄울 Vector3 좌표</param>
-    public void SetPoints(Vector3 pos)
+    public void SetPoints(Double2Position pos)
     {
 
-        GameObject point = Instantiate(wayPoint, pos, Quaternion.identity);
+        GameObject point = Instantiate(wayPoint);
 
         points.Add(point);
+        point.GetComponent<WayPoint>().Init(pos);
 
         // Unity 상에서 확인하기 편하게 적어놓은거임
         point.name = points.Count.ToString();
