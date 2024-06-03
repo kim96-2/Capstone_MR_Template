@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-public class GPS : MonoBehaviour
+public class GPS : Singleton<GPS>
 {
     public bool locationEnabled { get; private set; } = false;
     public float latitude { get; private set; }
     public float longitude { get; private set; }
     public float altitude { get; private set; }
-    public float accuracy { get; private set; }
+    public float accuracy { get; private set; } = -1;
 
     void Start()
     {
@@ -15,11 +15,12 @@ public class GPS : MonoBehaviour
         if (!Input.location.isEnabledByUser)
         {
             Debug.LogError("Location services are not enabled on the device.");
+            locationEnabled = false;
             return;
         }
 
-        // Request location updates
-        Input.location.Start(5f, 10f);
+        Input.location.Start(5f, 1f);
+        locationEnabled = true;
     }
 
     void Update()
@@ -36,7 +37,11 @@ public class GPS : MonoBehaviour
         else if (Input.location.isEnabledByUser)
         {
             // Request location updates
-            Input.location.Start(5f, 10f);
+            Input.location.Start(5f, 1f);
+        }
+        else
+        {
+            locationEnabled = false;
         }
     }
 }

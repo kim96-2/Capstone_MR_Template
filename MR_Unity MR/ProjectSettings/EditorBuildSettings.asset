@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/01.Scenes/LeeJH/AppStateTestingScene.unity
     guid: e3d61af32dfe4e049a10e23357fa5bc2
   - enabled: 0
@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/01.Scenes/LeeJH/TransformTestingScene.unity
     guid: 2ad1b5e77cb1c8b48a8d2b4d6d4190b3
+  - enabled: 1
+    path: Assets/01.Scenes/MAIN/MAIN.unity
+    guid: 91c66c0c616c058409788c68b455edd1
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}

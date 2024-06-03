@@ -36,12 +36,20 @@ public class InitState : BasicAppState
     public void InitPivot(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, pivotObj);
+        if (GPS.Instance.locationEnabled)
+        {
+            GeoTransformManager.Instance.InitPivot(GPS.Instance.latitude, GPS.Instance.longitude, pivotGeoDir, pivotObj);
+        }
+        else
+        {
+            GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, pivotObj);
+        }
 
         string text = "Initialize finished\n";
 
         text += "Pivot Lat : " + GeoTransformManager.Instance.PivotGeoPosition.x.ToString("F5") + "\n";
-        text += "Pivot lon : " + GeoTransformManager.Instance.PivotGeoPosition.y.ToString("F5");
+        text += "Pivot lon : " + GeoTransformManager.Instance.PivotGeoPosition.y.ToString("F5") + "\n";
+        text += "Accuracy : " + GPS.Instance.accuracy;
 
         describeText.text = text;
 
