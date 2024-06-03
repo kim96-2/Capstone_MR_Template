@@ -16,15 +16,19 @@ public class TestClass : MonoBehaviour
     {
         DirectionAPI.Instance.DirectionTo(pos1, pos2, s =>
         {
+            result = s;
             DirectionAPI.Instance.DebugFunc(s);
         });
     }
 
-    private void Update()
+    void Update()
     {
-        
-
+        if (flag == false && result != "")
+        {
+            SaveStringToFile(result);
+        }
     }
+    
     
     // 문자열을 지정된 경로의 .txt 파일로 저장하는 함수
     public void SaveStringToFile(string content)
