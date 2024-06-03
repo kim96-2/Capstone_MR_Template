@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8026042081675399944}
   - component: {fileID: 3033217087281928504}
+  - component: {fileID: 2790867841309579605}
   m_Layer: 0
   m_Name: AppStateUIOffset
   m_TagString: AppUIOffset
@@ -154,7 +155,7 @@ Transform:
   m_Children:
   - {fileID: 7365815754351531977}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3033217087281928504
 MonoBehaviour:
@@ -163,7 +164,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6838369844300759972}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
   m_Name: 
@@ -179,10 +180,26 @@ MonoBehaviour:
   m_MinDistanceAllowed: 0.01
   m_MaxDistanceAllowed: 0.3
   m_TimeUntilThresholdReachesMaxDistance: 3
-  m_RotationFollowMode: 1
+  m_RotationFollowMode: 2
   m_MinAngleAllowed: 0.1
   m_MaxAngleAllowed: 5
   m_TimeUntilThresholdReachesMaxAngle: 3
+--- !u!114 &2790867841309579605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838369844300759972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960b649a875207a4893ea0f18c55aff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 2.55}
+  followSpeed: 10
+  rotationSpeedThreshold: 80
+  rotationAngleThreshold: 20
 --- !u!1 &8094915405323455600
 GameObject:
   m_ObjectHideFlags: 0
