@@ -6,6 +6,7 @@ using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using RestAPI.DirectionObject;
 using System.Linq.Expressions;
+using System.Diagnostics.Contracts;
 
 public class WayPointManager : Singleton<WayPointManager>
 {
@@ -20,26 +21,21 @@ public class WayPointManager : Singleton<WayPointManager>
     {
 
     }
-    public void testWayPoint()
+    public void getWayPoint()
     {
 
-        /*
-        SetPoints(new Vector3(0f, 0f, 5f));
-        SetPoints(new Vector3(5f, 0f, 5f));
-        SetPoints(new Vector3(5f, 0f, 10f));
-        SetPoints(new Vector3(5f, 0f, 15f));
-        SetPoints(new Vector3(8f, 0f, 12f));
-        */
+        if (points.Count != 0)
+        {
+
+            foreach (GameObject gameObject in points) { Destroy(gameObject); }
+            points.Clear();
+
+        }
 
         Double2Position origin = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
         Double2Position dest = new Double2Position(InformationUI.Instance.lastMoreInfoPlace.y, InformationUI.Instance.lastMoreInfoPlace.x);
 
         DirectionAPI.Instance.DirectionTo(origin, dest, getResult);
-
-        /*
-        points[0].GetComponent<WayPoint>().DrawWay();
-        points[0].GetComponent<WayPoint>().isDrawing = true;
-        */
 
     }
 

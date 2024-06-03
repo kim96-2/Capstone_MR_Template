@@ -16,7 +16,7 @@ public class WayPointState : BasicAppState
     {
         base.StartState();
 
-        WayPointManager.Instance.testWayPoint();
+        WayPointManager.Instance.getWayPoint();
     }
     public override void EndState()
     {
