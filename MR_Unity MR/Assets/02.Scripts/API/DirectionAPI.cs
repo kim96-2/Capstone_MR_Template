@@ -39,10 +39,11 @@ public class DirectionAPI : Singleton<DirectionAPI>
         
         // PostData 설정
         Request dataObj = new();
-        dataObj.startX = origin.x;
-        dataObj.startY = origin.y;
-        dataObj.endX = dest.x;
-        dataObj.endY = dest.y;
+
+        dataObj.startX = origin.lan ;
+        dataObj.startY = origin.lat;
+        dataObj.endX = dest.lan;
+        dataObj.endY = dest.lat;
 
         string data = JsonUtility.ToJson(dataObj);
 

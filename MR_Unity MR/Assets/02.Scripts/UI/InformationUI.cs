@@ -209,7 +209,7 @@ public class InformationUI : Singleton<InformationUI>
     // 정보들 초기화
     public void ClearInfo()
     {
-        _lastMoreInfoPlace = null;
+        
 
         for (int i = contents.Count - 1; i >= 0; i--) Destroy(contents[i].gameObject);
         for(int i = placePoint.Count - 1; i >= 0; i--) Destroy(placePoint[i].gameObject);
@@ -337,6 +337,8 @@ public class InformationUI : Singleton<InformationUI>
 
         //이건 위와 다르게 플레이어 위치를 기준으로 미니맵 배치하는 함수
         //MiniMapManager.Instance.SetSearchMap(response.documents);
+
+        _lastMoreInfoPlace = null;
 
         //기존에 사용하던 정보들 초기화
         ClearInfo();

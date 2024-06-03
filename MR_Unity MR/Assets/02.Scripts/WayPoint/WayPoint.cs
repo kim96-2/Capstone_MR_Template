@@ -22,11 +22,15 @@ public class WayPoint : MonoBehaviour
     public void Update()
     {
 
+        // Debug.Log(Vector3.Distance(this.transform.position, targetPoint.transform.position));
+        
         DrawWay();
 
         // 현재 WayPoint로 Player가 접근 시 다음 WayPoint까지 Line 생성
         if (Vector3.Distance(this.transform.position, targetPoint.transform.position) < 1f && isDrawing)
         {
+
+            Debug.Log("aa");
 
             line.enabled = false;
 
@@ -55,6 +59,7 @@ public class WayPoint : MonoBehaviour
 
         line = GetComponent<LineRenderer>();
         GetComponent<GeoTransform>().Init(pos.x, pos.y);
+        isDrawing = true;
 
     }
 
@@ -68,8 +73,8 @@ public class WayPoint : MonoBehaviour
         line.SetWidth(0.2f, 0.2f);
 
         // 현재 WayPoint까지 Line 생성
-        line.SetPosition(0, new Vector3(targetPoint.transform.position.x, this.transform.position.y, targetPoint.transform.position.z));
-        line.SetPosition(1, this.transform.position);
+        line.SetPosition(0, new Vector3(targetPoint.transform.position.x, 0f, targetPoint.transform.position.z));
+        line.SetPosition(1, new Vector3(this.transform.position.x, 0f, this.transform.position.z));
 
     }
 

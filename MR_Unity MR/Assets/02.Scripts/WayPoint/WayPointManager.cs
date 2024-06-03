@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using RestAPI.DirectionObject;
-using RestAPI.KakaoObject;
+using System.Linq.Expressions;
 
 public class WayPointManager : Singleton<WayPointManager>
 {
 
     [SerializeField] GameObject wayPoint;
     [SerializeField] private List<GameObject> points = new List<GameObject>();
+
+    [SerializeField] Response testapi;
 
     // Start is called before the first frame update
     void Start()
@@ -30,12 +32,14 @@ public class WayPointManager : Singleton<WayPointManager>
         */
 
         Double2Position origin = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
-        Double2Position dest = new Double2Position(InformationUI.Instance.lastMoreInfoPlace.x, InformationUI.Instance.lastMoreInfoPlace.y);
+        Double2Position dest = new Double2Position(InformationUI.Instance.lastMoreInfoPlace.y, InformationUI.Instance.lastMoreInfoPlace.x);
 
         DirectionAPI.Instance.DirectionTo(origin, dest, getResult);
 
+        /*
         points[0].GetComponent<WayPoint>().DrawWay();
         points[0].GetComponent<WayPoint>().isDrawing = true;
+        */
 
     }
 
@@ -44,7 +48,21 @@ public class WayPointManager : Singleton<WayPointManager>
 
         Response response = JsonUtility.FromJson<Response>(result);
 
-        foreach (Feature p in response.features) { SetPoints(new Double2Position(p.geometry.coordinates[0][1], p.geometry.coordinates[0][0])); }
+        testapi = response;
+
+        foreach (Feature p in response.features) {
+            
+            if(p.geometry.type == "Point")
+            {
+
+                double lon = double.Parse(p.geometry.coordinates[0]);
+                double lat = double.Parse(p.geometry.coordinates[1]);
+
+                SetPoints(new Double2Position(lat, lon));
+
+            }
+        
+        }
 
     }
 

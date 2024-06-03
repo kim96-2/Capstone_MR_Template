@@ -51,7 +51,7 @@ namespace RestAPI.DirectionObject
     {
         public string type; // 형상 정보 데이터의 종류 (Point 또는 LineString)
 
-        public List<List<double>> coordinates; // 좌표 정보 (복수 좌표)
+        public List<String> coordinates; // 좌표 정보 (복수 좌표)
     }
 
     
