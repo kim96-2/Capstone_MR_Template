@@ -95,4 +95,6 @@ public class Contents : MonoBehaviour
 
     public void clickThis() { InformationUI.Instance.MoreInfo(info); }        
 
+    //임시
+    public void clickforPath() { MiniMapManager.Instance.SetPathMap(info); }
 }
