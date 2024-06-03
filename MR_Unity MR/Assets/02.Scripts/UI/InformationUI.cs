@@ -97,6 +97,8 @@ public class InformationUI : Singleton<InformationUI>
 
         moreInfoPlace.GetComponent<Contents>().changeContents(place);
 
+        //자세한 정보 위치 미니맵에 띄우기
+        MiniMapManager.Instance.SetPointSearchMap(place);
     }
 
     // 지도 목록하고 상세정보 변환 true는 검색 목록 fasle는 상세정보

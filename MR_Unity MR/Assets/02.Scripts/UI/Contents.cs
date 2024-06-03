@@ -87,8 +87,12 @@ public class Contents : MonoBehaviour
         info.phone = phoneText.text = place.phone;
         info.address_name = address_nameText.text = place.address_name;
         info.road_address_name = road_address_nameText.text = place.road_address_name;
+
+        //미니맵용 좌표
+        info.x = place.x;
+        info.y = place.y;
     }
 
-    public void clickThis() { InformationUI.Instance.MoreInfo(info); }
- 
+    public void clickThis() { InformationUI.Instance.MoreInfo(info); }        
+
 }

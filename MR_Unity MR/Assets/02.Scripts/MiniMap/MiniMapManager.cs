@@ -199,6 +199,40 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
         UpdateMap(lat,lon);
     }
 
+    //한 번 더 누른 위치 따로 표시
+    public void SetPointSearchMap(Place place)
+    {
+        if (!GeoTransformManager.Instance.IsInited)
+        {
+            Debug.LogError("초기화 되지 않은 상태로 미니맵을 생성하려 함");
+            return;
+        }
+
+        Double2Position geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(player);
+
+        SetPointSearchMap((float)geoPos.x, (float)geoPos.y, place);
+    }
+
+
+    public void SetPointSearchMap(float lat, float lon, Place place)
+    {
+        if (!CheckMaxLoadCount()) return;//최대 이미지 로드 횟수 확인
+
+        //Search State를 위한 쿼리 제작
+        additionalQuery = new();
+        additionalQuery.Key = "markers";
+
+        additionalQuery.Value = "color:green";//컬러 세팅
+
+        additionalQuery.Value += $"%7C{place.y},{place.x}";
+
+        Debug.Log(place.y + "   ,   " + place.x);
+        Debug.Log(additionalQuery.Value);
+        
+        UpdateMap(lat,lon);
+    }
+
+
     #endregion Map Set
 
     #region Debug Setting
