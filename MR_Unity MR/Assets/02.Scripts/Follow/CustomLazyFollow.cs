@@ -104,7 +104,7 @@ public class CustomLazyFollow : MonoBehaviour
         foward.y = 0f;//y 값 방향 지워줌
         foward.Normalize();
 
-        Debug.Log(foward);
+        //Debug.Log(foward);
 
         right = target.right;
         right.y = 0f;
