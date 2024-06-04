@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class WayPoint : MonoBehaviour
 {
 
+    [SerializeField] private GameObject prevPoint;
     [SerializeField] private GameObject nextPoint;
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private LineRenderer line;
@@ -48,8 +49,10 @@ public class WayPoint : MonoBehaviour
 
             }
 
+            WayPointManager.Instance.nowPoint(nextPoint);
             nextPoint.SetActive(true);
-            nextPoint.GetComponent<WayPoint>().isDrawing = true;
+            nextPoint.GetComponent<WayPoint>().setPrevPoint(null);
+            // nextPoint.GetComponent<WayPoint>().isDrawing = true;
             gameObject.SetActive(false);
 
         }
@@ -57,6 +60,7 @@ public class WayPoint : MonoBehaviour
 
     }
 
+    public void setPrevPoint(GameObject _prevPoint) { prevPoint = _prevPoint; }
     public void setNextPoint(GameObject _nextPoint) { nextPoint = _nextPoint; }
 
     public void Init(Double2Position pos, string message)
@@ -82,16 +86,19 @@ public class WayPoint : MonoBehaviour
         
         if(WayPointManager.Instance.wayType() == WayType.ONESTEP)
         {
+
             line.SetPosition(0, new Vector3(targetPoint.transform.position.x, targetPoint.transform.position.y - 1f, targetPoint.transform.position.z));
             line.SetPosition(1, new Vector3(this.transform.position.x, targetPoint.transform.position.y - 1f, this.transform.position.z));
+
         }
         else if(WayPointManager.Instance.wayType() == WayType.ALL)
         {
 
-            if (!nextPoint) return;
+            if (!prevPoint) line.SetPosition(0, new Vector3(targetPoint.transform.position.x, targetPoint.transform.position.y - 1f, targetPoint.transform.position.z));
+            else line.SetPosition(0, new Vector3(prevPoint.transform.position.x, targetPoint.transform.position.y - 1f, prevPoint.transform.position.z));
 
-            line.SetPosition(0, new Vector3(this.transform.position.x, targetPoint.transform.position.y - 1f, this.transform.position.z));
-            line.SetPosition(1, new Vector3(nextPoint.transform.position.x, targetPoint.transform.position.y - 1f, nextPoint.transform.position.z));
+            line.SetPosition(1, new Vector3(this.transform.position.x, targetPoint.transform.position.y - 1f, this.transform.position.z));
+
         }
 
     }

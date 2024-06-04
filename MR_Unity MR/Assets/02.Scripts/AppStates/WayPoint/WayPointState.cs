@@ -17,10 +17,12 @@ public class WayPointState : BasicAppState
         base.StartState();
 
         WayPointManager.Instance.getWayPoint();
+        Navigate.Instance.OnOff(true);
     }
     public override void EndState()
     {
         WayPointManager.Instance.clearPoint();
+        Navigate.Instance.OnOff(false);
 
         base.EndState();
     }

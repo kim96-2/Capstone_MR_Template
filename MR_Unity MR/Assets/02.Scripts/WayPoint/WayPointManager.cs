@@ -25,6 +25,11 @@ public class WayPointManager : Singleton<WayPointManager>
 
     public WayType wayType() { return _wayType; }
 
+    [SerializeField] GameObject _nowPoint;
+
+    public void nowPoint(GameObject obj) { _nowPoint = obj; }
+    public GameObject nowPoint() { return _nowPoint; }
+
     [SerializeField] Response testapi;
 
     // Start is called before the first frame update
@@ -98,12 +103,15 @@ public class WayPointManager : Singleton<WayPointManager>
         // Unity 상에서 확인하기 편하게 적어놓은거임
         point.name = points.Count.ToString();
 
+        if (points.Count == 1) _nowPoint = point;
+
         if (_wayType == WayType.ONESTEP)
         {
 
             if (points.Count != 1)
             {
                 points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
+                points[points.Count - 1].GetComponent<WayPoint>().setPrevPoint(points[points.Count - 2]);
                 points[points.Count - 1].SetActive(false);
             }
 
@@ -111,7 +119,11 @@ public class WayPointManager : Singleton<WayPointManager>
         else if(_wayType == WayType.ALL)
         {
 
-            if (points.Count != 1) points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
+            if (points.Count != 1)
+            {
+                points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
+                points[points.Count - 1].GetComponent<WayPoint>().setPrevPoint(points[points.Count - 2]);
+            }
 
         }
 
