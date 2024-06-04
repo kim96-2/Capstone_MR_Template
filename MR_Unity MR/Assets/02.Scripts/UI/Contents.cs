@@ -38,6 +38,9 @@ public class Contents : MonoBehaviour
         phoneText.text = place.phone;
         //address_nameText.text = place.address_name;
         road_address_nameText.text = place.road_address_name;
+
+        if (place.phone == "") phoneText.text = "전화번호가 없습니다.";
+
     }
 
     public void clickThis() { InformationUI.Instance.MoreInfo(info); }        

@@ -9,6 +9,12 @@ using RestAPI.KakaoObject;
 using TMPro;
 using Unity.Collections;
 
+public enum SearchType
+{
+    KeyWord,
+    Category
+}
+
 // 주변 정보를 띄우는 UI
 public class InformationUI : Singleton<InformationUI>
 {
@@ -27,6 +33,8 @@ public class InformationUI : Singleton<InformationUI>
     [SerializeField] private List<Contents> contents = new();
     [SerializeField] private List<Contents_nonUI> placePoint = new();
 
+    [SerializeField] private SearchType searchType;
+
     List<Contents_nonUI> placePoints_forSwap = new();
 
     [Space(15f)]
@@ -36,6 +44,7 @@ public class InformationUI : Singleton<InformationUI>
     public void setPage(float page) { this.page = page;}
 
     [ReadOnly,SerializeField] private string recentSearch;
+    [SerializeField] private string recentKeyWord;
 
     [SerializeField] int radius = 200;
 
@@ -245,6 +254,17 @@ public class InformationUI : Singleton<InformationUI>
             else points.ChangePointState(PlacePointState.IGNORE);
         }
 
+    }
+
+    public void CancleMoreInfo()
+    {
+
+        changePlace(true);
+
+        foreach(Contents_nonUI points in placePoint)
+        {
+            points.ChangePointState(PlacePointState.NORMAL);
+        }
 
     }
 
@@ -271,8 +291,6 @@ public class InformationUI : Singleton<InformationUI>
         }
     }
 
-
-
     /// <summary>
     /// 지도 목록하고 상세정보 변환 true는 검색 목록 fasle는 상세정보
     /// </summary>
@@ -285,6 +303,8 @@ public class InformationUI : Singleton<InformationUI>
 
     public void clickKeyword()
     {
+
+        searchType = SearchType.KeyWord;
 
         geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
 
@@ -309,9 +329,13 @@ public class InformationUI : Singleton<InformationUI>
     public void clickCategory()
     {
 
+        searchType = SearchType.Category;
+
         GameObject clickObject = EventSystem.current.currentSelectedGameObject.GetComponent<Transform>().GetChild(0).gameObject;
 
         recentSearch = clickObject.GetComponent<TextMeshProUGUI>().text;
+
+        setCategory();
 
         geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
 
@@ -324,27 +348,71 @@ public class InformationUI : Singleton<InformationUI>
         //Debug.Log(geoPos.x + " " + geoPos.y);
 
         //geoPos.y가 경도 geoPos.x 가 위도 인것을 꼭 확인하기(나중에 코드에서 확인가능하게 변경할 것) => 수정 완료
+
+        /*
         KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
         KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
-
-
         KakaoAPI.Instance.Req.AddQuery("radius", radius.ToString());
+        */
+
         KakaoAPI.Instance.Req.AddQuery("page", "1");
 
-        KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
+        // KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
+
+        KakaoAPI.Instance.SearchByCategory(recentKeyWord, geoPos.lat, geoPos.lan, radius, getResult);
 
     }
 
     public void changePage(string pageNum)
     {
 
-        KakaoAPI.Instance.Req.ClearQuery();
-        KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
-        KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
-        KakaoAPI.Instance.Req.AddQuery("radius", radius.ToString());
-        KakaoAPI.Instance.Req.AddQuery("page", pageNum);
+        if(searchType == SearchType.KeyWord)
+        {
 
-        KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
+            KakaoAPI.Instance.Req.ClearQuery();
+            KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
+            KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
+            KakaoAPI.Instance.Req.AddQuery("radius", radius.ToString());
+            KakaoAPI.Instance.Req.AddQuery("page", pageNum);
+
+            KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
+
+        }
+        else if(searchType == SearchType.Category)
+        {
+
+            setCategory();
+
+            KakaoAPI.Instance.Req.ClearQuery();
+            KakaoAPI.Instance.Req.AddQuery("page", pageNum);
+
+            KakaoAPI.Instance.SearchByCategory(recentKeyWord, geoPos.lat, geoPos.lan, radius, getResult);
+
+        }
+
+    }
+
+    public void setCategory()
+    {
+
+        if (recentSearch == "대형마트") recentKeyWord = "MT1";
+        else if (recentSearch == "편의점") recentKeyWord = "CS2";
+        else if (recentSearch == "어린이집") recentKeyWord = "PS3";
+        else if (recentSearch == "학교") recentKeyWord = "SC4";
+        else if (recentSearch == "학원") recentKeyWord = "AC5";
+        else if (recentSearch == "주차장") recentKeyWord = "PK6";
+        else if (recentSearch == "주유소") recentKeyWord = "OL7";
+        else if (recentSearch == "지하철역") recentKeyWord = "SW8";
+        else if (recentSearch == "은행") recentKeyWord = "BK9";
+        else if (recentSearch == "문화시설") recentKeyWord = "CT1";
+        else if (recentSearch == "중개업소") recentKeyWord = "AG2";
+        else if (recentSearch == "공공가관") recentKeyWord = "PO3";
+        else if (recentSearch == "관광명소") recentKeyWord = "AT4";
+        else if (recentSearch == "숙박") recentKeyWord = "AD5";
+        else if (recentSearch == "음식점") recentKeyWord = "FD6";
+        else if (recentSearch == "카페") recentKeyWord = "CE7";
+        else if (recentSearch == "병원") recentKeyWord = "HP8";
+        else if (recentSearch == "약국") recentKeyWord = "PM9";
 
     }
 

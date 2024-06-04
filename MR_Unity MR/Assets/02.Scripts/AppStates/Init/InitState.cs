@@ -21,7 +21,7 @@ public class InitState : BasicAppState
     {
         initInputReference.action.started += InitPivot;
 
-        describeText.text = "Click Right A button\nwhile looking north";
+        describeText.text = "북쪽을 바라본 뒤\nA 버튼을 클릭하세요.";
 
         base.StartState();
     }
@@ -45,7 +45,7 @@ public class InitState : BasicAppState
             GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, pivotObj);
         }
 
-        string text = "Initialize finished\n";
+        string text = "초기화 완료\n";
 
         text += "Pivot Lat : " + GeoTransformManager.Instance.PivotGeoPosition.x.ToString("F5") + "\n";
         text += "Pivot lon : " + GeoTransformManager.Instance.PivotGeoPosition.y.ToString("F5") + "\n";
