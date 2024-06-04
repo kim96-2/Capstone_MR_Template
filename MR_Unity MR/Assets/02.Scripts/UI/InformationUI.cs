@@ -22,6 +22,8 @@ public class InformationUI : Singleton<InformationUI>
     [SerializeField] private GameObject placePointPrefab;
     [SerializeField] private Scrollbar scroll;
 
+    [SerializeField] private TextMeshProUGUI searchKeyword;
+
     [SerializeField] private List<Contents> contents = new();
     [SerializeField] private List<Contents_nonUI> placePoint = new();
 
@@ -279,6 +281,29 @@ public class InformationUI : Singleton<InformationUI>
     {
         scrollPlace.SetActive(toggle);
         moreInfoPlace.SetActive(!toggle);
+    }
+
+    public void clickKeyword()
+    {
+
+        geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
+
+        // 쿼리 초기화
+        KakaoAPI.Instance.Req.ClearQuery();
+
+        setPage(1f);
+        changePlace(true);
+
+        //Debug.Log(geoPos.x + " " + geoPos.y);
+
+        //geoPos.y가 경도 geoPos.x 가 위도 인것을 꼭 확인하기(나중에 코드에서 확인가능하게 변경할 것) => 수정 완료
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
+        KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
+
+        KakaoAPI.Instance.Req.AddQuery("page", "1");
+
+        KakaoAPI.Instance.SearchByKeyword(searchKeyword.text, getResult);
+
     }
 
     public void clickCategory()
