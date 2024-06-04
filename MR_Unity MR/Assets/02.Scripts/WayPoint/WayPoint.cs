@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WayPoint : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class WayPoint : MonoBehaviour
     [SerializeField] private GameObject nextPoint;
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private LineRenderer line;
+    [SerializeField] private TextMeshProUGUI description;
 
     public bool isDrawing = false;
 
@@ -26,6 +29,8 @@ public class WayPoint : MonoBehaviour
         
         DrawWay();
 
+        transform.position = new Vector3(transform.position.x, targetPoint.transform.position.y, transform.position.z);
+
         // 현재 WayPoint로 Player가 접근 시 다음 WayPoint까지 Line 생성
         if (Vector3.Distance(this.transform.position, targetPoint.transform.position) < 1f && isDrawing)
         {
@@ -37,7 +42,7 @@ public class WayPoint : MonoBehaviour
             if (!nextPoint)
             {
 
-                StartCoroutine("timer");
+                StartCoroutine("Goal");
                 
                 return;
 
@@ -54,12 +59,13 @@ public class WayPoint : MonoBehaviour
 
     public void setNextPoint(GameObject _nextPoint) { nextPoint = _nextPoint; }
 
-    public void Init(Double2Position pos)
+    public void Init(Double2Position pos, string message)
     {
 
         line = GetComponent<LineRenderer>();
         GetComponent<GeoTransform>().Init(pos.x, pos.y);
         isDrawing = true;
+        description.text = message;
 
     }
 
@@ -73,12 +79,24 @@ public class WayPoint : MonoBehaviour
         line.SetWidth(0.2f, 0.2f);
 
         // 현재 WayPoint까지 Line 생성
-        line.SetPosition(0, new Vector3(targetPoint.transform.position.x, 0f, targetPoint.transform.position.z));
-        line.SetPosition(1, new Vector3(this.transform.position.x, 0f, this.transform.position.z));
+        
+        if(WayPointManager.Instance.wayType() == WayType.ONESTEP)
+        {
+            line.SetPosition(0, new Vector3(targetPoint.transform.position.x, targetPoint.transform.position.y - 1f, targetPoint.transform.position.z));
+            line.SetPosition(1, new Vector3(this.transform.position.x, targetPoint.transform.position.y - 1f, this.transform.position.z));
+        }
+        else if(WayPointManager.Instance.wayType() == WayType.ALL)
+        {
+
+            if (!nextPoint) return;
+
+            line.SetPosition(0, new Vector3(this.transform.position.x, targetPoint.transform.position.y - 1f, this.transform.position.z));
+            line.SetPosition(1, new Vector3(nextPoint.transform.position.x, targetPoint.transform.position.y - 1f, nextPoint.transform.position.z));
+        }
 
     }
 
-    IEnumerator timer() {
+    IEnumerator Goal() {
 
         isDrawing = false;
 

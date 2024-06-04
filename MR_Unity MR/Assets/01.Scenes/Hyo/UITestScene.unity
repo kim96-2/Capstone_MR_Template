@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3138852, g: 0.55180055, b: 0.822406, a: 1}
+  m_IndirectSpecularColor: {r: 0.31258875, g: 0.55022806, b: 0.8222236, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1295,6 +1295,7 @@ GameObject:
   - component: {fileID: 1031267986}
   - component: {fileID: 1031267988}
   - component: {fileID: 1031267989}
+  - component: {fileID: 1031267990}
   m_Layer: 0
   m_Name: TestGPS
   m_TagString: Untagged
@@ -1354,6 +1355,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a40cf2c47d8482fa3c0030ab59890f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1031267990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031267985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc62a1cee71a48cdaa9884bdfcbe22c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1069081909

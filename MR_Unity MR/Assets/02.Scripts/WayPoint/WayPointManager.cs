@@ -8,11 +8,22 @@ using RestAPI.DirectionObject;
 using System.Linq.Expressions;
 using System.Diagnostics.Contracts;
 
+public enum WayType
+{
+
+    ONESTEP,
+    ALL
+
+}
+
 public class WayPointManager : Singleton<WayPointManager>
 {
 
     [SerializeField] GameObject wayPoint;
     [SerializeField] private List<GameObject> points = new List<GameObject>();
+    [SerializeField] private WayType _wayType;
+
+    public WayType wayType() { return _wayType; }
 
     [SerializeField] Response testapi;
 
@@ -54,7 +65,7 @@ public class WayPointManager : Singleton<WayPointManager>
                 double lon = double.Parse(p.geometry.coordinates[0]);
                 double lat = double.Parse(p.geometry.coordinates[1]);
 
-                SetPoints(new Double2Position(lat, lon));
+                SetPoints(new Double2Position(lat, lon), p.properties.description);
 
             }
         
@@ -66,21 +77,32 @@ public class WayPointManager : Singleton<WayPointManager>
     /// 해당 위치에 WayPoint 생성하는 함수
     /// <summary>
     /// <param name="pos">Unity 내에서 화면에 띄울 Vector3 좌표</param>
-    public void SetPoints(Double2Position pos)
+    public void SetPoints(Double2Position pos, string message)
     {
 
         GameObject point = Instantiate(wayPoint);
 
         points.Add(point);
-        point.GetComponent<WayPoint>().Init(pos);
+        point.GetComponent<WayPoint>().Init(pos, message);
 
         // Unity 상에서 확인하기 편하게 적어놓은거임
         point.name = points.Count.ToString();
 
-        if (points.Count != 1)
+        if (_wayType == WayType.ONESTEP)
         {
-            points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
-            points[points.Count - 1].SetActive(false);
+
+            if (points.Count != 1)
+            {
+                points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
+                points[points.Count - 1].SetActive(false);
+            }
+
+        }
+        else if(_wayType == WayType.ALL)
+        {
+
+            if (points.Count != 1) points[points.Count - 2].GetComponent<WayPoint>().setNextPoint(point);
+
         }
 
     }
