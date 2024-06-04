@@ -1,3 +1,4 @@
+using RestAPI.TrafficObject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,5 +29,22 @@ public class TrafficAPI : Singleton<TrafficAPI>
         Req.URL = _url + stnName;
 
         StartCoroutine(Req.WebRequestGet(callback));
+    }
+
+
+    /// <summary>
+    /// 교통 Response 파싱
+    /// </summary>
+    /// <param name="data">변환할 string</param>
+    /// <returns>실시간 교통 정보 요청 결과 : Response</returns>
+    public Response Parse(string data)
+    {
+        Response obj = JsonUtility.FromJson<Response>(data);
+        if (obj == null)
+        {
+            Debug.LogWarning($"ERROR: JSON Parsing to Traffic Response Failed \n{data}");
+        }
+
+        return obj;
     }
 }

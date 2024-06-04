@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+
 namespace RestAPI.TrafficObject
 {
     public class Response
     {
-        
+        public ErrorMessage errormessage;
+        public List<ArrivalData> realtimeArrivalList;
     }
 
 
@@ -31,5 +34,16 @@ namespace RestAPI.TrafficObject
         public string arvlMsg2;
         public string arvlMsg3;
         public int arvlCd;
+    }
+
+
+    public class ErrorMessage
+    {
+        public int status;
+        public string code;
+        public string message;
+        public string link;
+        public string developerMessage;
+        public int total;
     }
 }
