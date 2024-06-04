@@ -18,6 +18,7 @@ public class CustomLazyFollow : MonoBehaviour
     [SerializeField] float rotationAngleThreshold = 20f;
     Vector3 lastTargetFoward_forAngleCheck;
 
+    [SerializeField] Transform followTarget;
     Transform target;
 
     //타겟의 바라보는 방향
@@ -33,7 +34,9 @@ public class CustomLazyFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = Camera.main.transform;
+        if(!target) target = Camera.main.transform;
+
+        if (followTarget == null) followTarget = target;
 
         UpdateLocalDirection();
 
@@ -116,7 +119,7 @@ public class CustomLazyFollow : MonoBehaviour
 
     void UpdatePosition()
     {
-        Vector3 pos = target.position;
+        Vector3 pos = followTarget.position;
 
         pos += targetFoward * offset.z;
         pos += targetRight * offset.x;

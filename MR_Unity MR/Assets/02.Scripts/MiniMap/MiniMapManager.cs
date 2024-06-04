@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RestAPI.KakaoObject;
+using RestAPI.DirectionObject;
 
 /// <summary>
 /// 미니맵 UI를 화면에 띄워주는 걸 관리하는 매니져
@@ -46,7 +47,6 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
             lon = Lon;
         }
     }
-
 
     protected override void Awake()
     {
@@ -245,7 +245,7 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
     }
 
     //경로 표시
-    public void SetPathMap(Place place)
+    public void SetPathMap(Response response)
     {
         if (!GeoTransformManager.Instance.IsInited)
         {
@@ -255,15 +255,25 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
         Double2Position geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(player);
 
-        //임시 값
         List<Pathpoint> pathpoints = new List<Pathpoint>();
-        pathpoints.Add(new Pathpoint(37.5518020f, 127.0736350f));
-        pathpoints.Add(new Pathpoint(37.5518045f, 127.0746375f));        
 
-        SetPathMap((float)geoPos.x, (float)geoPos.y, place, pathpoints);
+        foreach (Feature p in response.features)
+        {
+            if (p.geometry.type == "Point")
+            {
+
+                double lon = double.Parse(p.geometry.coordinates[0]);
+                double lat = double.Parse(p.geometry.coordinates[1]);
+
+                pathpoints.Add(new Pathpoint(lat, lon));
+
+            }
+        }
+
+        SetPathMap((float)geoPos.x, (float)geoPos.y, InformationUI.Instance.lastMoreInfoPlace.y, InformationUI.Instance.lastMoreInfoPlace.x, pathpoints);
     }
 
-    public void SetPathMap(float lat, float lon, Place place, List<Pathpoint> pathpoints)
+    public void SetPathMap(float lat, float lon, double dest_lat, double dest_lon, List<Pathpoint> pathpoints)
     {
         if (!CheckMaxLoadCount()) return;//최대 이미지 로드 횟수 확인
 
@@ -273,7 +283,7 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
         additionalQuery.Value = "color:green";//컬러 세팅
 
-        additionalQuery.Value += $"%7C{place.y},{place.x}";
+        additionalQuery.Value += $"%7C{dest_lat},{dest_lon}";
 
         additionalQuery.Value += "&path=color:0x0000ff|weight:5";
 
@@ -287,9 +297,8 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
             additionalQuery.Value += $"|{pathpoint.lat},{pathpoint.lon}";
         }
 
-        additionalQuery.Value += $"|{place.y},{place.x}";
-
-        Debug.Log(place.y + "     "+place.x);
+        additionalQuery.Value += $"|{dest_lat},{dest_lon}";
+    
         Debug.Log(additionalQuery.Value);
 
         UpdateMap(lat, lon);

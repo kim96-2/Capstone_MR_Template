@@ -36,12 +36,12 @@ public class Contents : MonoBehaviour
         place_nameText.text = place.place_name;
         category_nameText.text = place.category_name;
         phoneText.text = place.phone;
-        address_nameText.text = place.address_name;
+        //address_nameText.text = place.address_name;
         road_address_nameText.text = place.road_address_name;
     }
 
     public void clickThis() { InformationUI.Instance.MoreInfo(info); }        
 
     //임시
-    public void clickforPath() { MiniMapManager.Instance.SetPathMap(info); }
+    //public void clickforPath() { MiniMapManager.Instance.SetPathMap(info); }
 }

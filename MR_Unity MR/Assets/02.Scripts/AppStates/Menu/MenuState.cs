@@ -5,8 +5,14 @@ using UnityEngine.UI;
 
 public class MenuState : BasicAppState
 {
+    //[Space(15f)]
+    //[SerializeField] Button searchButton;
+
+
     [Space(15f)]
-    [SerializeField] Button searchButton;
+    [SerializeField]
+    Michsky.MUIP.ButtonManager searchButton;
+
 
     public override void StartState()
     {
@@ -15,11 +21,11 @@ public class MenuState : BasicAppState
             if (MiniMapManager.Instance)
                 MiniMapManager.Instance.SetDefaultMap();
 
-            searchButton.interactable = true;
+            searchButton.isInteractable = true;
         }
         else
         {
-            searchButton.interactable = false;
+            searchButton.isInteractable = false;
         }
 
         base.StartState();
