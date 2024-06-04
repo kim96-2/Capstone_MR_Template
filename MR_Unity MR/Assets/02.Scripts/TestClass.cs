@@ -14,10 +14,10 @@ public class TestClass : MonoBehaviour
     
     void Start()
     {
-        DirectionAPI.Instance.DirectionTo(pos1, pos2, s =>
+        TrafficAPI.Instance.StationTraffic("건대입구", s =>
         {
             result = s;
-            DirectionAPI.Instance.DebugFunc(s);
+            Debug.Log(s);
         });
     }
 
