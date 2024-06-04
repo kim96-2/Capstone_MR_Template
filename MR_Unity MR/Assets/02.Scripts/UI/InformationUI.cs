@@ -233,10 +233,8 @@ public class InformationUI : Singleton<InformationUI>
 
         moreInfoPlace.GetComponent<Contents>().changeContents(place);
 
-        if (MiniMapManager.Instance)
-        {
-            MiniMapManager.Instance.SetSearchMap(new List<Place> { place });
-        }
+        //자세한 정보 위치 미니맵에 띄우기
+        MiniMapManager.Instance.SetPointSearchMap(place);
 
         //선택된 세부 정보 위치를 강조하고 그 외 위치들은 비활성화
         foreach (Contents_nonUI points in placePoint)

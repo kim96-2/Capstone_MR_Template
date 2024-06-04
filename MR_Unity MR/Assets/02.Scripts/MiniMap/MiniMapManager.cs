@@ -34,6 +34,20 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
     Query additionalQuery = null;
 
+    //임시 길목
+    public class Pathpoint
+    {
+        public double lat { get; set; }
+        public double lon { get; set; }
+
+        public Pathpoint(double Lat, double Lon)
+        {
+            lat = Lat;
+            lon = Lon;
+        }
+    }
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -44,6 +58,7 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
         lastPlayerPos = player.position;
 
         //SetDefaultMap(37.5518018f, 127.0736345f);
+
     }
 
     private void Update()
@@ -198,6 +213,89 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
         UpdateMap(lat,lon);
     }
+
+    //한 번 더 누른 위치 따로 표시
+    public void SetPointSearchMap(Place place)
+    {
+        if (!GeoTransformManager.Instance.IsInited)
+        {
+            Debug.LogError("초기화 되지 않은 상태로 미니맵을 생성하려 함");
+            return;
+        }
+
+        Double2Position geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(player);
+
+        SetPointSearchMap((float)geoPos.x, (float)geoPos.y, place);
+    }
+
+
+    public void SetPointSearchMap(float lat, float lon, Place place)
+    {
+        if (!CheckMaxLoadCount()) return;//최대 이미지 로드 횟수 확인
+
+        //Search State를 위한 쿼리 제작
+        additionalQuery = new();
+        additionalQuery.Key = "markers";
+
+        additionalQuery.Value = "color:green";//컬러 세팅
+
+        additionalQuery.Value += $"%7C{place.y},{place.x}";
+        
+        UpdateMap(lat,lon);
+    }
+
+    //경로 표시
+    public void SetPathMap(Place place)
+    {
+        if (!GeoTransformManager.Instance.IsInited)
+        {
+            Debug.LogError("초기화 되지 않은 상태로 미니맵을 생성하려 함");
+            return;
+        }
+
+        Double2Position geoPos = GeoTransformManager.Instance.TransformUnitySpaceToGeo(player);
+
+        //임시 값
+        List<Pathpoint> pathpoints = new List<Pathpoint>();
+        pathpoints.Add(new Pathpoint(37.5518020f, 127.0736350f));
+        pathpoints.Add(new Pathpoint(37.5518045f, 127.0746375f));        
+
+        SetPathMap((float)geoPos.x, (float)geoPos.y, place, pathpoints);
+    }
+
+    public void SetPathMap(float lat, float lon, Place place, List<Pathpoint> pathpoints)
+    {
+        if (!CheckMaxLoadCount()) return;//최대 이미지 로드 횟수 확인
+
+        //Search State를 위한 쿼리 제작
+        additionalQuery = new();
+        additionalQuery.Key = "markers";
+
+        additionalQuery.Value = "color:green";//컬러 세팅
+
+        additionalQuery.Value += $"%7C{place.y},{place.x}";
+
+        additionalQuery.Value += "&path=color:0x0000ff|weight:5";
+
+        additionalQuery.Value += $"|{lat},{lon}";
+
+
+        Debug.Log(additionalQuery.Value + "이제 중간 위치 추가");
+
+        foreach (Pathpoint pathpoint in pathpoints)
+        {
+            additionalQuery.Value += $"|{pathpoint.lat},{pathpoint.lon}";
+        }
+
+        additionalQuery.Value += $"|{place.y},{place.x}";
+
+        Debug.Log(place.y + "     "+place.x);
+        Debug.Log(additionalQuery.Value);
+
+        UpdateMap(lat, lon);
+
+    }
+
 
     #endregion Map Set
 

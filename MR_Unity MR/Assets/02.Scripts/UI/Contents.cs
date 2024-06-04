@@ -40,6 +40,8 @@ public class Contents : MonoBehaviour
         road_address_nameText.text = place.road_address_name;
     }
 
-    public void clickThis() { InformationUI.Instance.MoreInfo(info); }
- 
+    public void clickThis() { InformationUI.Instance.MoreInfo(info); }        
+
+    //임시
+    public void clickforPath() { MiniMapManager.Instance.SetPathMap(info); }
 }
