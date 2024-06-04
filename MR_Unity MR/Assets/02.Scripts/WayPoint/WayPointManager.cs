@@ -35,18 +35,28 @@ public class WayPointManager : Singleton<WayPointManager>
     public void getWayPoint()
     {
 
-        if (points.Count != 0)
-        {
-
-            foreach (GameObject gameObject in points) { Destroy(gameObject); }
-            points.Clear();
-
-        }
+        if (points.Count != 0) { clearWayPoint(); }
 
         Double2Position origin = GeoTransformManager.Instance.TransformUnitySpaceToGeo(Camera.main.transform);
         Double2Position dest = new Double2Position(InformationUI.Instance.lastMoreInfoPlace.y, InformationUI.Instance.lastMoreInfoPlace.x);
 
         DirectionAPI.Instance.DirectionTo(origin, dest, getResult);
+
+    }
+
+    public void resetWayPoint()
+    {
+
+        clearWayPoint();
+        getWayPoint();
+
+    }
+
+    public void clearWayPoint()
+    {
+
+        foreach (GameObject gameObject in points) { Destroy(gameObject); }
+        points.Clear();
 
     }
 
