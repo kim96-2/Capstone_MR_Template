@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using RestAPI.DirectionObject;
 using System.Linq.Expressions;
 using System.Diagnostics.Contracts;
+using static MiniMapManager;
 
 public enum WayType
 {
@@ -74,13 +75,13 @@ public class WayPointManager : Singleton<WayPointManager>
 
                 double lon = double.Parse(p.geometry.coordinates[0]);
                 double lat = double.Parse(p.geometry.coordinates[1]);
-
-                SetPoints(new Double2Position(lat, lon), p.properties.description);
-
+                
+                Debug.Log(lon + "  , " + lat);
+                SetPoints(new Double2Position(lat, lon), p.properties.description);   
             }
         
         }
-
+        MiniMapManager.Instance.SetPathMap(response);
     }
 
     /// <summary>
