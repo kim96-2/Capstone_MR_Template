@@ -17,20 +17,25 @@ public class Navigate : Singleton<Navigate>
     void FixedUpdate()
     {
 
-        Vector3 target = WayPointManager.Instance.nowPoint().transform.position;
+        if (WayPointManager.Instance.nowPoint())
+        {
 
-        Vector3 dir = target - transform.position;
+            Vector3 target = WayPointManager.Instance.nowPoint().transform.position;
 
-        dir.y = 0f; foward.y = 0f;
+            Vector3 dir = target - transform.position;
 
-        Debug.Log(foward + "  " + dir);
+            dir.y = 0f; foward.y = 0f;
 
-        Quaternion rotate = Quaternion.FromToRotation(foward, dir);
+            Debug.Log(foward + "  " + dir);
 
-        Vector3 eulerAngles = rotate.eulerAngles;
+            Quaternion rotate = Quaternion.FromToRotation(foward, dir);
 
-        transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 0.8f, Camera.main.transform.position.z);
-        transform.rotation = rotate;
+            Vector3 eulerAngles = rotate.eulerAngles;
+
+            transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 0.8f, Camera.main.transform.position.z);
+            transform.rotation = rotate;
+
+        }
     }
 
     public void OnOff(bool togle)
