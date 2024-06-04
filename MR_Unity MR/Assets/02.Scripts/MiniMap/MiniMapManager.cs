@@ -56,7 +56,7 @@ public class MiniMapManager : Singleton<MiniMapManager>//싱글톤으로 제작�
 
         if (Vector3.Distance(lastPlayerPos, player.position) > mapUpdateDistance)
         {
-            Debug.Log("업데이트");
+            //Debug.Log("업데이트");
             UpdateMap();
         }
     }

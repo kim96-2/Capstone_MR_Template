@@ -677,7 +677,7 @@ MonoBehaviour:
   road_address_nameText: {fileID: 2490950754883091617}
   showUI: {fileID: 3027168577991325631}
   minRange: 1
-  maxRange: 300
+  maxRange: 400
   minSizeMultiplier: 1
   maxSizeMultiplier: 40
   heightMoveSpeed: 4
