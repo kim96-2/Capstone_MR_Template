@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 8026042081675399944}
   - component: {fileID: 3033217087281928504}
   - component: {fileID: 2790867841309579605}
+  - component: {fileID: 96787539857684069}
+  - component: {fileID: 7797451632001421202}
   m_Layer: 0
   m_Name: AppStateUIOffset
   m_TagString: AppUIOffset
@@ -150,12 +152,12 @@ Transform:
   m_GameObject: {fileID: 6838369844300759972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1, y: 1.61, z: 1.75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7365815754351531977}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3033217087281928504
 MonoBehaviour:
@@ -196,10 +198,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 960b649a875207a4893ea0f18c55aff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 0, z: 2.55}
-  followSpeed: 10
-  rotationSpeedThreshold: 80
-  rotationAngleThreshold: 20
+  offset: {x: 0.1, y: 0.05, z: 0.2}
+  followSpeed: 5
+  rotationSpeedThreshold: 0
+  rotationAngleThreshold: 0
+  followTarget: {fileID: 0}
+--- !u!225 &96787539857684069
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838369844300759972}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &7797451632001421202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838369844300759972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5ed87452b352f4ca1afc81ba0346d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 96787539857684069}
+  onOffReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  _UILocalSize: 0.4
 --- !u!1 &8094915405323455600
 GameObject:
   m_ObjectHideFlags: 0
