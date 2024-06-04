@@ -54,6 +54,7 @@ public class UIAlphaChanger : MonoBehaviour
             //켜주기
             canvasGroup.alpha = 1f;
             canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
 
         }
         else
@@ -62,8 +63,8 @@ public class UIAlphaChanger : MonoBehaviour
             //꺼주기
             canvasGroup.alpha = 0f;
             canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
 
-            on = false;
         }
     }
 }

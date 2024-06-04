@@ -11,6 +11,17 @@ public class WayPoint : MonoBehaviour
     [SerializeField] private GameObject nextPoint;
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private LineRenderer line;
+
+    [Space(15f)]
+    [SerializeField] Transform placeUI;//배치 되는 UI
+
+    [Space(15f)]
+    [SerializeField] float minRange = 1f;
+    [SerializeField] float maxRange = 100f;
+    [Space(5f)]
+    [SerializeField] float _UIMinSize = 1f;
+    [SerializeField] float _UIMaxSize = 40f;
+    [Space(5f)]
     [SerializeField] private TextMeshProUGUI description;
 
     public bool isDrawing = false;
@@ -25,6 +36,16 @@ public class WayPoint : MonoBehaviour
 
     public void Update()
     {
+
+        Vector3 dir = transform.position - Camera.main.transform.position;
+        dir.y = 0f;
+
+        float dis = dir.magnitude;
+
+        float value = Mathf.Clamp(dis, minRange, maxRange);
+        value = (dis - minRange) / (maxRange - minRange);
+
+        placeUI.transform.localScale = Vector3.one * Mathf.Lerp(_UIMinSize, _UIMaxSize, value);
 
         // Debug.Log(Vector3.Distance(this.transform.position, targetPoint.transform.position));
         
@@ -80,7 +101,7 @@ public class WayPoint : MonoBehaviour
     {
 
         // Line 크기 조정
-        line.SetWidth(0.2f, 0.2f);
+        //line.SetWidth(0.2f, 0.2f);
 
         // 현재 WayPoint까지 Line 생성
         

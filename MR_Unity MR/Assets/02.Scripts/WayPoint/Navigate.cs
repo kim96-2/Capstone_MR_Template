@@ -4,35 +4,48 @@ using UnityEngine;
 
 public class Navigate : Singleton<Navigate>
 {
+    [SerializeField] Vector3 offset;
+    Transform center;
 
-    [SerializeField] Vector3 foward;
+    //[SerializeField] Vector3 foward;
 
     private void Start()
     {
-        foward = transform.forward;
+        //foward = transform.forward;
         this.gameObject.SetActive(false);
+
+        center = Camera.main.transform;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
 
         if (WayPointManager.Instance.nowPoint())
         {
+            Vector3 foward = center.forward;
+            foward.y = 0f;
+
+            Debug.DrawRay(transform.position, foward, Color.red);
+
+            Vector3 right = center.right;
+            right.y = 0f;
+
+            Debug.DrawRay(transform.position, right, Color.red);
+
+            Vector3 calCenter = center.position + foward * offset.z + right * offset.x + Vector3.up * offset.y;
 
             Vector3 target = WayPointManager.Instance.nowPoint().transform.position;
 
-            Vector3 dir = target - transform.position;
+            Vector3 dir = target - calCenter;
 
-            dir.y = 0f; foward.y = 0f;
+            dir.y = 0f;
 
-            Debug.Log(foward + "  " + dir);
+            //Debug.Log(dir);
 
-            Quaternion rotate = Quaternion.FromToRotation(foward, dir);
+            Quaternion rotate = Quaternion.FromToRotation(Vector3.forward, dir);
 
-            Vector3 eulerAngles = rotate.eulerAngles;
-
-            transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y - 0.8f, Camera.main.transform.position.z);
+            transform.position = calCenter;
             transform.rotation = rotate;
 
         }
