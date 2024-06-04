@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1330578564569464374}
   - component: {fileID: 4061767973917004286}
   - component: {fileID: 5635697689035860024}
+  - component: {fileID: 4930849996510815463}
   m_Layer: 5
   m_Name: MiniMapManager
   m_TagString: Untagged
@@ -31,7 +32,7 @@ RectTransform:
   m_GameObject: {fileID: 6063217589639162800}
   m_LocalRotation: {x: 0, y: -0.34841657, z: 0, w: 0.93733984}
   m_LocalPosition: {x: 0, y: 0, z: 0.6}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
+  m_LocalScale: {x: 0.0008, y: 0.0008, z: 0.0008}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5553860747408652218}
@@ -172,6 +173,23 @@ MonoBehaviour:
   m_MinAngleAllowed: 0.1
   m_MaxAngleAllowed: 5
   m_TimeUntilThresholdReachesMaxAngle: 3
+--- !u!114 &4930849996510815463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063217589639162800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960b649a875207a4893ea0f18c55aff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0.4, y: -0.4, z: 0.4}
+  followSpeed: 8
+  rotationSpeedThreshold: 80
+  rotationAngleThreshold: 20
+  followTarget: {fileID: 0}
 --- !u!1 &6830733899115312055
 GameObject:
   m_ObjectHideFlags: 0
