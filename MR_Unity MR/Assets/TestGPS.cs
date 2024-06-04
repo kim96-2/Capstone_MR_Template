@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestGPS : Singleton<TestGPS>
+//사용 안하는 함수
+public class TestGPS : MonoBehaviour//Singleton<TestGPS>
 {
     public string x;
     public string y;

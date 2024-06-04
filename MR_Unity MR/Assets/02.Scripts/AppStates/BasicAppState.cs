@@ -48,8 +48,10 @@ public class BasicAppState : MonoBehaviour, IAppState
     
     public virtual void StartState()
     {
+
         //기본 UI 켜주기
         defaultUI.SetActive(true);
+
     }
 
     public virtual void EndState()
