@@ -71,6 +71,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc62a1cee71a48cdaa9884bdfcbe22c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateDelay: 5
+  OnGPSUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6004764916065578161
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +8,7 @@ public class GPS : Singleton<GPS>
     public bool locationEnabled { get; private set; } = false;
     public float updateDelay;
     private double lastUpdateTime = 0;
+    public GameObject updateText;
     public float latitude { get; private set; }
     public float longitude { get; private set; }
     public float altitude { get; private set; }
@@ -34,11 +36,15 @@ public class GPS : Singleton<GPS>
         {
             return;
         }
+        
+        OnLocationUpdate();
+        
         // Check if we have a new location update
         if (Input.location.lastData.timestamp != lastUpdateTime && Input.location.status == LocationServiceStatus.Running)
         {
-            OnLocationUpdate();
             OnGPSUpdate?.Invoke();//업데이트 시 함수들 실행
+            lastUpdateTime = Input.location.lastData.timestamp;
+            StartCoroutine(ShowText());
         }
         // 위치 서비스 다시 시도
         else if (Input.location.status == LocationServiceStatus.Failed)
@@ -58,7 +64,12 @@ public class GPS : Singleton<GPS>
         longitude = Input.location.lastData.longitude;
         altitude = Input.location.lastData.altitude;
         accuracy = Input.location.lastData.horizontalAccuracy;
+    }
 
-        lastUpdateTime = Input.location.lastData.timestamp;
+    IEnumerator ShowText()
+    {
+        updateText.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        updateText.SetActive(false);
     }
 }

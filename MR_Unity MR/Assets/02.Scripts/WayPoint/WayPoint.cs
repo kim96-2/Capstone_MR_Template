@@ -12,6 +12,8 @@ public class WayPoint : MonoBehaviour
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private LineRenderer line;
 
+    [SerializeField] float checkRange = 3f;
+    
     [Space(15f)]
     [SerializeField] Transform placeUI;//배치 되는 UI
 
@@ -54,7 +56,7 @@ public class WayPoint : MonoBehaviour
         transform.position = new Vector3(transform.position.x, targetPoint.transform.position.y, transform.position.z);
 
         // 현재 WayPoint로 Player가 접근 시 다음 WayPoint까지 Line 생성
-        if (Vector3.Distance(this.transform.position, targetPoint.transform.position) < 1f && isDrawing)
+        if (Vector3.Distance(this.transform.position, targetPoint.transform.position) < checkRange && isDrawing)
         {
 
             Debug.Log("aa");
