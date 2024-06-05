@@ -70,10 +70,17 @@ public class WayPoint : MonoBehaviour
 
             }
 
+            // 다음 경로 설정
+
             WayPointManager.Instance.nowPoint(nextPoint);
+
             nextPoint.SetActive(true);
             nextPoint.GetComponent<WayPoint>().setPrevPoint(null);
+
+            GameObject.FindWithTag("WayPointState").GetComponent<WayPointState>().setMessage(nextPoint.GetComponentInChildren<TextMeshProUGUI>().text);
+
             // nextPoint.GetComponent<WayPoint>().isDrawing = true;
+
             gameObject.SetActive(false);
 
         }

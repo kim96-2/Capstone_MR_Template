@@ -594,6 +594,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3338781285149681482, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3782805488621212532, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -678,6 +682,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4887418405686535652, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5196958372442255668, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: _effectGradient.m_ColorSpace
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5314961274551060209, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -722,6 +734,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6825912388140377650, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7692427719825712518, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -741,6 +757,18 @@ PrefabInstance:
     - target: {fileID: 7692427719825712518, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7880610240198713376, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7918315225020730954, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474264637124542359, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8914427855175801990, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
       propertyPath: m_Pivot.x

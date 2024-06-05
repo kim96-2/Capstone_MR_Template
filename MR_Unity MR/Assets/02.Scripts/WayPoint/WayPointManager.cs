@@ -8,6 +8,7 @@ using RestAPI.DirectionObject;
 using System.Linq.Expressions;
 using System.Diagnostics.Contracts;
 using static MiniMapManager;
+using TMPro;
 
 public enum WayType
 {
@@ -104,9 +105,15 @@ public class WayPointManager : Singleton<WayPointManager>
         // Unity 상에서 확인하기 편하게 적어놓은거임
         point.name = points.Count.ToString();
 
-        if (points.Count == 1) _nowPoint = point;
+        if (points.Count == 1)
+        {
 
-        if (_wayType == WayType.ONESTEP)
+            _nowPoint = point;
+            GameObject.FindWithTag("WayPointState").GetComponent<WayPointState>().setMessage(point.GetComponentInChildren<TextMeshProUGUI>().text);
+
+        }
+
+            if (_wayType == WayType.ONESTEP)
         {
 
             if (points.Count != 1)
