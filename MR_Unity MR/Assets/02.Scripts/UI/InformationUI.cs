@@ -331,9 +331,13 @@ public class InformationUI : Singleton<InformationUI>
 
         searchType = SearchType.Category;
 
-        GameObject clickObject = EventSystem.current.currentSelectedGameObject.GetComponent<Transform>().GetChild(0).gameObject;
+        /*
+        GameObject clickObject = EventSystem.current.currentSelectedGameObject.GetComponent<Transform>().GetChild(2).gameObject;
 
         recentSearch = clickObject.GetComponent<TextMeshProUGUI>().text;
+        */
+
+        recentSearch = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<TextMeshProUGUI>().text;
 
         setCategory();
 
