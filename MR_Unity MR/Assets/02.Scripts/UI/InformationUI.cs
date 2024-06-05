@@ -317,7 +317,7 @@ public class InformationUI : Singleton<InformationUI>
         //Debug.Log(geoPos.x + " " + geoPos.y);
 
         //geoPos.y가 경도 geoPos.x 가 위도 인것을 꼭 확인하기(나중에 코드에서 확인가능하게 변경할 것) => 수정 완료
-        KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
+        KakaoAPI.Instance.Req.AddQuery("x", geoPos.lon.ToString());
         KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
 
         KakaoAPI.Instance.Req.AddQuery("page", "1");
@@ -363,7 +363,7 @@ public class InformationUI : Singleton<InformationUI>
 
         // KakaoAPI.Instance.SearchByKeyword(recentSearch, getResult);
 
-        KakaoAPI.Instance.SearchByCategory(recentKeyWord, geoPos.lat, geoPos.lan, radius, getResult);
+        KakaoAPI.Instance.SearchByCategory(recentKeyWord, geoPos.lat, geoPos.lon, radius, getResult);
 
     }
 
@@ -374,7 +374,7 @@ public class InformationUI : Singleton<InformationUI>
         {
 
             KakaoAPI.Instance.Req.ClearQuery();
-            KakaoAPI.Instance.Req.AddQuery("x", geoPos.lan.ToString());
+            KakaoAPI.Instance.Req.AddQuery("x", geoPos.lon.ToString());
             KakaoAPI.Instance.Req.AddQuery("y", geoPos.lat.ToString());
             KakaoAPI.Instance.Req.AddQuery("radius", radius.ToString());
             KakaoAPI.Instance.Req.AddQuery("page", pageNum);
@@ -390,7 +390,7 @@ public class InformationUI : Singleton<InformationUI>
             KakaoAPI.Instance.Req.ClearQuery();
             KakaoAPI.Instance.Req.AddQuery("page", pageNum);
 
-            KakaoAPI.Instance.SearchByCategory(recentKeyWord, geoPos.lat, geoPos.lan, radius, getResult);
+            KakaoAPI.Instance.SearchByCategory(recentKeyWord, geoPos.lat, geoPos.lon, radius, getResult);
 
         }
 
@@ -428,7 +428,7 @@ public class InformationUI : Singleton<InformationUI>
 
         //주변 정보를 토대로 미니맵에 배치
         //탐색 시 실제 플레이어 위치로 할 수 있지만 조금 더 정확한 위치를 위해 Request 받았을 때의 플레이어 위치를 기준으로 미니맵 배치
-        MiniMapManager.Instance.SetSearchMap((float)geoPos.lat, (float)geoPos.lan, response.documents);
+        MiniMapManager.Instance.SetSearchMap((float)geoPos.lat, (float)geoPos.lon, response.documents);
 
         //이건 위와 다르게 플레이어 위치를 기준으로 미니맵 배치하는 함수
         //MiniMapManager.Instance.SetSearchMap(response.documents);

@@ -1,13 +1,18 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GPS : Singleton<GPS>
 {
     public bool locationEnabled { get; private set; } = false;
+    public float updateDelay;
+    private double lastUpdateTime = 0;
     public float latitude { get; private set; }
     public float longitude { get; private set; }
     public float altitude { get; private set; }
     public float accuracy { get; private set; } = -1;
+
+    public UnityEvent OnGPSUpdate;
 
     void Start()
     {
@@ -19,29 +24,42 @@ public class GPS : Singleton<GPS>
             return;
         }
 
-        Input.location.Start(5f, 1f);
+        Input.location.Start(5f, updateDelay);
         locationEnabled = true;
     }
 
     void Update()
     {
-        // Check if we have a new location update
-        if (Input.location.status == LocationServiceStatus.Running)
+        if (!Input.location.isEnabledByUser)
         {
-            latitude = Input.location.lastData.latitude;
-            longitude = Input.location.lastData.longitude;
-            altitude = Input.location.lastData.altitude;
-            accuracy = Input.location.lastData.horizontalAccuracy;
+            return;
+        }
+        // Check if we have a new location update
+        if (Input.location.lastData.timestamp != lastUpdateTime && Input.location.status == LocationServiceStatus.Running)
+        {
+            OnLocationUpdate();
         }
         // 위치 서비스 다시 시도
-        else if (Input.location.isEnabledByUser)
-        {
-            // Request location updates
-            Input.location.Start(5f, 1f);
-        }
         else
         {
-            locationEnabled = false;
+            // Request location updates
+            Input.location.Start(5f, updateDelay);
         }
+    }
+
+
+    /// <summary>
+    /// 위치 정보 갱신
+    /// </summary>
+    public void OnLocationUpdate()
+    {
+        latitude = Input.location.lastData.latitude;
+        longitude = Input.location.lastData.longitude;
+        altitude = Input.location.lastData.altitude;
+        accuracy = Input.location.lastData.horizontalAccuracy;
+
+        lastUpdateTime = Input.location.lastData.timestamp;
+
+        OnGPSUpdate?.Invoke();//업데이트 시 함수들 실행
     }
 }
