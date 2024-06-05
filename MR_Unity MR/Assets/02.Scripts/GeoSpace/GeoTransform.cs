@@ -32,7 +32,7 @@ public class Double2Position
     /// <summary>
     /// 경도 (경위도 좌표로 사용시에만)
     /// </summary>
-    public double lan { get => y; }
+    public double lon { get => y; }
 }
 
 /// <summary>
@@ -49,6 +49,11 @@ public class GeoTransform : MonoBehaviour
 
     Double2Position position_Unity;//유니티 좌표계
     public Double2Position Position_Unity { get => position_Unity;}
+
+    private void OnDestroy()
+    {
+        
+    }
 
     /// <summary>
     /// 지리 Trasform 초기화 함수 (Transform의 경도 위도 입력)
@@ -67,5 +72,13 @@ public class GeoTransform : MonoBehaviour
 
         //자동으로 계산된 위치로 Transform 포지션 변경
         this.transform.position = new Vector3((float)position_Unity.x, this.transform.position.y, (float)position_Unity.y);
+    }
+
+    /// <summary>
+    /// 실시간으로 기준점이 변경될 때 실행되는 함수
+    /// </summary>
+    public void UpdateInitPos()
+    {
+        Init(position_Geo.lat, position_Geo.lon);//자기 경위도와 새로운 경위도 기준점을 가지고 위치 업데이트
     }
 }
