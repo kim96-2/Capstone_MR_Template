@@ -30,6 +30,8 @@ public class GPS : Singleton<GPS>
 
     void Update()
     {
+        OnLocationUpdate();
+
         if (!Input.location.isEnabledByUser)
         {
             return;
@@ -37,7 +39,7 @@ public class GPS : Singleton<GPS>
         // Check if we have a new location update
         if (Input.location.lastData.timestamp != lastUpdateTime && Input.location.status == LocationServiceStatus.Running)
         {
-            OnLocationUpdate();
+            OnGPSUpdate?.Invoke();//업데이트 시 함수들 실행
         }
         // 위치 서비스 다시 시도
         else
@@ -59,7 +61,5 @@ public class GPS : Singleton<GPS>
         accuracy = Input.location.lastData.horizontalAccuracy;
 
         lastUpdateTime = Input.location.lastData.timestamp;
-
-        OnGPSUpdate?.Invoke();//업데이트 시 함수들 실행
     }
 }
