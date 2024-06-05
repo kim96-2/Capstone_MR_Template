@@ -502,6 +502,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1001831661211358694, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001831661211358694, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001831661211358694, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001831661211358694, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001831661211358694, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 1082079519734128650, guid: f8dc5d9a5ba39424b9d7992cefac1ace, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2060,6 +2080,14 @@ PrefabInstance:
     - target: {fileID: 677440939510592012, guid: 9cc819d8aae4cab45b7fe1744234d558, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 885890876996709195, guid: 9cc819d8aae4cab45b7fe1744234d558, type: 3}
+      propertyPath: pivotLat
+      value: 37.550239
+      objectReference: {fileID: 0}
+    - target: {fileID: 885890876996709195, guid: 9cc819d8aae4cab45b7fe1744234d558, type: 3}
+      propertyPath: pivotLon
+      value: 127.074274
       objectReference: {fileID: 0}
     - target: {fileID: 885890876996709195, guid: 9cc819d8aae4cab45b7fe1744234d558, type: 3}
       propertyPath: pivotObj

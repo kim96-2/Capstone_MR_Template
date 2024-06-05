@@ -14,7 +14,7 @@ public class GPS : Singleton<GPS>
     public float altitude { get; private set; }
     public float accuracy { get; private set; } = -1;
 
-    public UnityEvent OnGPSUpdate;
+    //public UnityEvent OnGPSUpdate;
 
     void Start()
     {
@@ -26,10 +26,11 @@ public class GPS : Singleton<GPS>
             return;
         }
 
-        Input.location.Start(5f, updateDelay);
+        //Input.location.Start(5f, updateDelay);
         locationEnabled = true;
     }
 
+    /*
     void Update()
     {
         if (!Input.location.isEnabledByUser)
@@ -42,9 +43,8 @@ public class GPS : Singleton<GPS>
         // Check if we have a new location update
         if (Input.location.lastData.timestamp != lastUpdateTime && Input.location.status == LocationServiceStatus.Running)
         {
-            OnGPSUpdate?.Invoke();//업데이트 시 함수들 실행
-            lastUpdateTime = Input.location.lastData.timestamp;
-            StartCoroutine(ShowText());
+            OnLocationUpdate();
+            //OnGPSUpdate?.Invoke();//업데이트 시 함수들 실행
         }
         // 위치 서비스 다시 시도
         else if (Input.location.status == LocationServiceStatus.Failed)
@@ -53,7 +53,7 @@ public class GPS : Singleton<GPS>
             Input.location.Start(5f, updateDelay);
         }
     }
-
+    */
 
     /// <summary>
     /// 위치 정보 갱신

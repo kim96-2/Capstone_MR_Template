@@ -12,8 +12,8 @@ public class WayPoint : MonoBehaviour
     [SerializeField] private GameObject targetPoint;
     [SerializeField] private LineRenderer line;
 
-    [SerializeField] float checkRange = 3f;
-    
+    [SerializeField, Space(10f)] float checkRange = 5f;
+
     [Space(15f)]
     [SerializeField] Transform placeUI;//배치 되는 UI
 

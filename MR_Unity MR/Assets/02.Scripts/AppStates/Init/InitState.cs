@@ -48,6 +48,7 @@ public class InitState : BasicAppState
             GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, pivotObj);
         }
         */
+        
         string text = "초기화 완료\n";
 
         text += "Pivot Lat : " + GeoTransformManager.Instance.PivotGeoPosition.x.ToString("F5") + "\n";
