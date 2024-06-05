@@ -78,6 +78,8 @@ public class GeoTransformManager : MonoBehaviour
     [SerializeField]
     TMSpaceSetting EPSG5186_Setting;
 
+    private List<GeoTransform> transformObservers = new();
+
     void Awake()
     {
         //싱글톤 세팅
@@ -91,6 +93,13 @@ public class GeoTransformManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(_instance.gameObject);
         }
+
+
+    }
+
+    void Start()
+    {
+        GPS.Instance.OnGPSUpdate.AddListener(UpdateInitPivot);//피벗 업데이트 함수를 GPS 업데이트에 할당
     }
 
     #region Singleton Setting
@@ -102,7 +111,33 @@ public class GeoTransformManager : MonoBehaviour
         //Debug.Log("매니져 생성");
     }
 
+
+
     #endregion Singleton Setting
+
+    #region Transform Observer Setting
+
+    public void AddTransformObserver(GeoTransform transform)
+    {
+        if (transformObservers.Contains(transform)) return;
+
+        transformObservers.Add(transform);
+    }
+
+    public void RemoveTransformObserver(GeoTransform transform)
+    {
+        transformObservers.Remove(transform);
+    }
+
+    void UpdateAllTransformObservers()
+    {
+        foreach(GeoTransform transform in transformObservers)
+        {
+            transform.UpdateInitPos();//옵저버들 위치 모두 업데이트
+        }
+    }
+
+    #endregion Transform Observer Setting
 
     #region Initialize Setting
     /// <summary>
@@ -129,6 +164,26 @@ public class GeoTransformManager : MonoBehaviour
 
         pivotUnityRotation =  Quaternion.FromToRotation(Vector3.right, rot).eulerAngles.y;
     }
+
+    /// <summary>
+    /// 기존에 있는 피벗 위치 실시간 업데이트 함수
+    /// </summary>
+    void UpdateInitPivot()
+    {
+        if (!IsInited) return;//초기화 되지 않았다면 돌아가기
+
+        if (GPS.Instance.accuracy > 20) return;//정확도가 20m 이상이면 돌아가기
+
+        Transform pivotTarget = Camera.main.transform;//기준 오브젝트는 카메라 위치로 잡아줌
+
+        pivotGeoPosition.SetPosition(GPS.Instance.latitude, GPS.Instance.longitude);//GPS위치로 위경도 기준 잡아주기
+
+        pivotTMPosition = TransformGeoToTM(pivotGeoPosition.lat, pivotGeoPosition.lon);//TM좌표도 업데이트
+
+        UpdateAllTransformObservers();//옵저버들 위치 새로운 기준점으로 업데이트 (다시 초기화)
+    }
+
+
     #endregion Initialize Setting
 
 
