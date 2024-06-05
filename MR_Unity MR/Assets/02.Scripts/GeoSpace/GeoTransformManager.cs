@@ -99,7 +99,7 @@ public class GeoTransformManager : MonoBehaviour
 
     void Start()
     {
-        GPS.Instance.OnGPSUpdate.AddListener(UpdateInitPivot);//피벗 업데이트 함수를 GPS 업데이트에 할당
+        //GPS.Instance.OnGPSUpdate.AddListener(UpdateInitPivot);//피벗 업데이트 함수를 GPS 업데이트에 할당
     }
 
     #region Singleton Setting

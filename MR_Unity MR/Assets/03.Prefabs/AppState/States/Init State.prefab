@@ -918,8 +918,8 @@ MonoBehaviour:
   defaultUI: {fileID: 8051581132793552671}
   describeText: {fileID: 7053702329199475026}
   initInputReference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  pivotLat: 37.547737
-  pivotLon: 127.074285
+  pivotLat: 37.550267
+  pivotLon: 127.07428
   pivotGeoDir: 0
   pivotObj: {fileID: 0}
 --- !u!114 &5468188989255461971

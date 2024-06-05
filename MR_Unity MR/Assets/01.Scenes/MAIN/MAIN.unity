@@ -3014,6 +3014,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4930849996510815463, guid: 3e290a3d7a5d27743815ad359fd95175, type: 3}
+      propertyPath: offset.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930849996510815463, guid: 3e290a3d7a5d27743815ad359fd95175, type: 3}
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 5185513987081115042}
