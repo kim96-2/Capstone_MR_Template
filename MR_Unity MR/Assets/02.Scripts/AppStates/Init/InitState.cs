@@ -36,6 +36,9 @@ public class InitState : BasicAppState
     public void InitPivot(InputAction.CallbackContext context)
     {
         if (!context.started) return;
+        GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, pivotObj);
+
+        /*
         if (GPS.Instance.locationEnabled)
         {
             GeoTransformManager.Instance.InitPivot(GPS.Instance.latitude, GPS.Instance.longitude, pivotGeoDir, pivotObj);
@@ -44,7 +47,7 @@ public class InitState : BasicAppState
         {
             GeoTransformManager.Instance.InitPivot(pivotLat, pivotLon, pivotGeoDir, pivotObj);
         }
-
+        */
         string text = "초기화 완료\n";
 
         text += "Pivot Lat : " + GeoTransformManager.Instance.PivotGeoPosition.x.ToString("F5") + "\n";
